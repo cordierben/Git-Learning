@@ -48,7 +48,7 @@ router.get('/', async ctx => {
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
 		const data = {}
 		if(ctx.query.msg) data.msg = ctx.query.msg
-		await ctx.render('index')
+		await ctx.render('Menu')
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
 	}
@@ -107,6 +107,10 @@ router.post('/login', async ctx => {
 router.get('/logout', async ctx => {
 	ctx.session.authorised = null
 	ctx.redirect('/?msg=you are now logged out')
+})
+
+router.get('/Lecture1', async ctx =>{
+	await ctx.render('Lecture1')
 })
 
 app.use(router.routes())
