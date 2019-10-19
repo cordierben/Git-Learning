@@ -80,20 +80,10 @@ article.side{
     border-right: 1px solid black;
 }
 
-h1.side{
-    text-align: center;
-}
 
 article.links{
     float: right;
     width : 400px;
-}
-
-img.gitlogo{
-    height : 90px;
-    width : 90 px;
-    margin-left : 700px;
-    margin-top : -40px
 }
 
 
@@ -103,9 +93,8 @@ img.gitlogo{
 /*Footer*/
 
 footer{
-    position : absolute;
-    top: 960px;
-    width: 1430px;
+    top:680px;
+    width:100%;
     background-image:linear-gradient(to bottom,rgb(18,18,18),rgb(21,22,21)) ;
     padding-bottom : 30px;
     padding-top: 30px;
@@ -126,7 +115,3 @@ p.cr{
 }
 
 
-
-body{
-    
-}

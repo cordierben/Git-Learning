@@ -12,22 +12,13 @@ p.header{
 }
 
 img.logo{
-    position: absolute;
+    position:absolute;
     margin-left: 50px;
     margin-top : -28px;
     height: 150px;
     width : 180px;
 }
 
-img.header1{
-    position : absolute;
-    height:80px;
-    width : 330px;
-    margin-left:450px;
-    margin-top: -25px;
-    opacity: 0.3;
-    border-radius: 10px;
-}
 
 a.header2{
     text-decoration: none;
@@ -68,34 +59,43 @@ a.nav2, a.nav3, a.nav4{
 
 
 
-
-
 /* Left Side*/
 
 article.side{
-    float: left;
-    position : absolute;
+    float:left;
     margin-top: -15px;
-    width: 1000px;
+    width:70%;
     border-right: 1px solid black;
 }
 
-
-article.links{
-    float: right;
-    width : 400px;
+h1.side{
+    text-align: center;
 }
 
 
 
+img.gitlogo{
+    height : 90px;
+    width : 90 px;
+    margin-left : 700px;
+    margin-top : -40px
+}
+
+
+/*Right Side*/
+
+article.links{
+    float:right;
+    width:20%;
+}
 
 
 /*Footer*/
 
-footer{
-    clear: left;
-    top: 680px;
-    width: 1430px;
+article.footer{
+    float:left;
+    bottom: 0;
+    width: 100%;
     background-image:linear-gradient(to bottom,rgb(18,18,18),rgb(21,22,21)) ;
     padding-bottom : 30px;
     padding-top: 30px;
@@ -113,10 +113,4 @@ p.cr{
     color : gray;
     font-size:12px;
     margin-left:1250px;
-}
-
-
-
-body{
-    
 }
