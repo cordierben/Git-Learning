@@ -1,61 +1,66 @@
 
 /*header*/
 
-p.header{
+header{
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 25px;
+    font-size: 180%;
     background-image: linear-gradient(to right, rgb(52,250,22),rgb(49,190,31));
     color : white;
-    Padding : 30px;
-    border-top-left-radius : 20px; 
-    border-top-right-radius : 20px; 
+    Padding : 2%;
+    height:8%;
+    border-top-left-radius : 3%; 
+    border-top-right-radius : 3%; 
 }
 
 img.logo{
     position:absolute;
-    margin-left: 50px;
+    margin-left: 4.5%;
     margin-top : -28px;
-    height: 150px;
-    width : 180px;
+    height: 18%;
+    width : 14%;
 }
 
 
 a.header2{
     text-decoration: none;
-    margin-left: 1100px; 
+    margin-left: 80%; 
     color : white;
 }
 
 a.header3{
     text-decoration: none;
-    margin-left: 50px; 
+    margin-left: 4%; 
     color : white;
 }
 
 
 
+
+
 /*Navigation*/
 
-p.navigation{
+nav{
     margin-top: -25px;
     background-image: linear-gradient(to top, rgb(0,0,0),rgb(90,90,90));
-    font-size : 18px;
-    padding : 8px;
+    font-size : 120%;
+    padding : 0.5%;
 }
 
 a.nav1{
     text-decoration: none;
-    margin-left: 80px;
+    margin-left: 6%;
     color : white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 a.nav2, a.nav3, a.nav4{
     text-decoration: none;
-    margin-left: 60px;
+    margin-left: 4%;
     color :white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+
 
 
 
@@ -75,11 +80,17 @@ h1.side{
 
 
 img.gitlogo{
-    height : 90px;
-    width : 90 px;
-    margin-left : 700px;
+    height : 10%;
+    width : 13%;
+    margin-left : 70%;
     margin-top : -40px
 }
+
+a.Test:hover{
+    color: blueviolet;
+}
+
+
 
 
 /*Right Side*/
@@ -90,27 +101,29 @@ article.links{
 }
 
 
+
+
 /*Footer*/
 
-article.footer{
+footer{
     float:left;
     bottom: 0;
     width: 100%;
     background-image:linear-gradient(to bottom,rgb(18,18,18),rgb(21,22,21)) ;
-    padding-bottom : 30px;
-    padding-top: 30px;
+    padding-bottom : 1%;
+    padding-top: 1.5%;
 }
 
 a.f1, a.f2, a.f3{
     text-decoration: none;
     font-family: Arial, Helvetica, sans-serif;
     color : white;
-    padding-top : 30px;
-    margin-left : 30px;
+    padding-top : 1%;
+    margin-left : 2%;
 }
 
 p.cr{
     color : gray;
-    font-size:12px;
-    margin-left:1250px;
+    font-size:80%;
+    margin-left:85%;
 }

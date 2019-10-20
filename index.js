@@ -109,8 +109,19 @@ router.get('/logout', async ctx => {
 	ctx.redirect('/?msg=you are now logged out')
 })
 
+
+/* Lecture 1 & Quiz : why using GIT? */
+
 router.get('/Lecture1', async ctx =>{
 	await ctx.render('Lecture1')
+})
+
+router.get('/Quiz1', async ctx=>{
+	const sql='SELECT * FROM Quiz WHERE id=1 AND idLecture=1;'
+	const db=await sqlite.open(dbName)
+	const data= await db.get(sql)
+	await ctx.render('Quiz1', {Question: data})
+
 })
 
 app.use(router.routes())
