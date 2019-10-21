@@ -124,5 +124,14 @@ router.get('/Quiz1', async ctx=>{
 
 })
 
+/* Lecture 2 & Quiz : how to install git? */
+
+router.get('/Lecture2', async ctx =>{
+	await ctx.render('Lecture2')
+})
+
+
 app.use(router.routes())
 module.exports = app.listen(port, async() => console.log(`listening on port ${port}`))
+
+
