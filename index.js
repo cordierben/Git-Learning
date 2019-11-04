@@ -116,7 +116,7 @@ router.get('/Lecture1', async ctx =>{
 	const sql='SELECT * FROM Lecture WHERE id=1'
 	const db=await sqlite.open(dbName)
 	const data=await db.get(sql)
-	await ctx.render('Lecture1', {Lecture: data})
+	await ctx.render('Lecture', {Lecture: data})
 })
 
 router.get('/Quiz1', async ctx=>{
@@ -130,7 +130,7 @@ router.get('/Quiz1', async ctx=>{
 /* Lecture 2 & Quiz : how to install git? */
 
 router.get('/Lecture2', async ctx =>{
-	await ctx.render('Lecture2')
+	await ctx.render('Lecture')
 })
 
 
