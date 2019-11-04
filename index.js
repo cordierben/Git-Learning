@@ -113,7 +113,10 @@ router.get('/logout', async ctx => {
 /* Lecture 1 & Quiz : why using GIT? */
 
 router.get('/Lecture1', async ctx =>{
-	await ctx.render('Lecture1')
+	const sql='SELECT * FROM Lecture WHERE id=1'
+	const db=await sqlite.open(dbName)
+	const data=await db.get(sql)
+	await ctx.render('Lecture1', {Lecture: data})
 })
 
 router.get('/Quiz1', async ctx=>{
