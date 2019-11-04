@@ -121,8 +121,15 @@ a.f1, a.f2, a.f3{
     margin-left : 2%;
 }
 
+/*Lecture 1 */
+
 p.cr{
     color : gray;
     font-size:80%;
     margin-left:85%;
+}
+
+
+table.CVS td{
+    border:solid 1px black;
 }

@@ -116,6 +116,7 @@ router.get('/Lecture1', async ctx =>{
 	const sql='SELECT * FROM Lecture WHERE id=1'
 	const db=await sqlite.open(dbName)
 	const data=await db.get(sql)
+	
 	await ctx.render('Lecture', {Lecture: data})
 })
 
