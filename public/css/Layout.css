@@ -61,8 +61,6 @@ a.nav2, a.nav3, a.nav4{
 
 
 
-
-
 /* Left Side*/
 
 article.side{
@@ -78,17 +76,9 @@ h1.side{
 
 
 
-img.gitlogo{
-    height : 10%;
-    width : 13%;
-    margin-left : 70%;
-    margin-top : -40px
-}
-
 a.Test:hover{
     color: blueviolet;
 }
-
 
 
 
@@ -98,7 +88,6 @@ article.links{
     float:right;
     width:20%;
 }
-
 
 
 
@@ -121,6 +110,9 @@ a.f1, a.f2, a.f3{
     margin-left : 2%;
 }
 
+
+
+
 /*Lecture 1 */
 
 p.cr{
@@ -132,4 +124,12 @@ p.cr{
 
 table.CVS td{
     border:solid 1px black;
+}
+
+
+img.gitlogo{
+    height : 10%;
+    width : 13%;
+    margin-left : 70%;
+    margin-top : -40px
 }
