@@ -1,4 +1,4 @@
-INSERT into Lecture (Id, Text) VALUES(1, "<h1>Why using GIT?</h1><img class='gitlogo' src='images/gitlogo.jpg'>
+INSERT into Lecture (Id, Title, Text) VALUES(1, "<h1>Why using GIT?</h1>","<img class='gitlogo' src='images/gitlogo.jpg'>
 
                     <p>If you have already worked on a programming project in group, you probably have encountered problems such as modifications by someone,
                     but you don’t know who, or the impossibility to work on the same code at the same time. All these problems can be solved 
