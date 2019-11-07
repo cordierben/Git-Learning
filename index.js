@@ -110,20 +110,33 @@ router.get('/logout', async ctx => {
 })
 
 
-/* Lecture 1 & Quiz : why using GIT? */
+/* Lecture 1 & Quiz : why using GIT? 
 
 router.get('/Lecture1', async ctx =>{
-	const sql='SELECT * FROM Lecture WHERE id=1'
+	const sql='SELECT * FROM Lecture WHERE Id=1'
 	const db=await sqlite.open(dbName)
 	const data=await db.get(sql)
 	
-	await ctx.render('Lecture', {Lecture: data})
-})
+	await ctx.render('Lecture',  {Lecture:data})
+})*/
 
-/* Lecture 2 & Quiz : how to install git? */
+/* Lecture 2 & Quiz : how to install git? 
 
 router.get('/Lecture2', async ctx =>{
 	await ctx.render('Lecture')
+})*/
+
+router.get('/Lecture/:id', async ctx =>{
+	try{
+		console.log(ctx.params.id)
+		const sql = `SELECT * FROM Lecture WHERE id = ${ctx.params.id}`
+		const db=await sqlite.open(dbName)
+		const data=await db.get(sql)
+		await ctx.render('Lecture', {Lecture: data})
+	} catch(err) {
+		ctx.body = err.message
+	}
+	//await ctx.render('Lecture', {Lecture: data})
 })
 
 
