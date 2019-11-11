@@ -110,21 +110,9 @@ router.get('/logout', async ctx => {
 })
 
 
-/* Lecture 1 & Quiz : why using GIT? 
+/* Lecture */
 
-router.get('/Lecture1', async ctx =>{
-	const sql='SELECT * FROM Lecture WHERE Id=1'
-	const db=await sqlite.open(dbName)
-	const data=await db.get(sql)
-	
-	await ctx.render('Lecture',  {Lecture:data})
-})*/
 
-/* Lecture 2 & Quiz : how to install git? 
-
-router.get('/Lecture2', async ctx =>{
-	await ctx.render('Lecture')
-})*/
 
 router.get('/Lecture/:id', async ctx =>{
 	try{
@@ -136,8 +124,10 @@ router.get('/Lecture/:id', async ctx =>{
 	} catch(err) {
 		ctx.body = err.message
 	}
-	//await ctx.render('Lecture', {Lecture: data})
 })
+
+/* Quizz */
+
 
 
 app.use(router.routes())
