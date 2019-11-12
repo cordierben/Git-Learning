@@ -74,10 +74,3 @@ describe('login()', () => {
 	})
 
 })
-
-describe('lecture()', () =>{
-	test('Select a lecture', async done =>{
-		expect.assertions(1)
-		
-	})
-})
