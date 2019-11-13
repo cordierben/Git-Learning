@@ -92,9 +92,8 @@ router.get('/register', async ctx =>  {
  * @name Register Script
  * @route {POST} /register
  */
-
-	/*eslint max-statements: [100, 200 ]*/
- router.post('/register', koaBody, async ctx => {
+/*eslint max-lines-per-function: ["error", 200]*/
+router.post('/register', koaBody, async ctx => {
 	try {
 		const body = ctx.request.body
 		console.log(body)
