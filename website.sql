@@ -1,5 +1,5 @@
 
-INSERT into Lecture (Id, Title, Text) VALUES(1, "<h1>Why using GIT?</h1>","<img class='gitlogo' src='images/gitlogo.jpg'>
+INSERT into Lecture (Id, Title, Text, links) VALUES(1, "<h1>Why using GIT?</h1>","<img class='gitlogo' src='images/gitlogo.jpg'>
 
                     <p>If you have already worked on a programming project in group, you probably have encountered problems such as modifications by someone,
                     but you don’t know who, or the impossibility to work on the same code at the same time. All these problems can be solved 
@@ -81,7 +81,10 @@ INSERT into Lecture (Id, Title, Text) VALUES(1, "<h1>Why using GIT?</h1>","<img 
 
                     <p>Git is a must-have tool in a programming project, it has a lot of game-changing functionalities. A particularity of Git is the 
                     existence of collaborative website such as GitHub. This is a social media for developers, with a huge community. This is an excellent way
-                    to participate in projects and ask for help.</p>");
+                    to participate in projects and ask for help.</p>",
+                    "<a href=https://biz30.timedoctor.com/git-mecurial-and-cvs-comparison-of-svn-software>Version-Control system Comparison</a><br>
+                     <a href=https://www.youtube.com/watch?v=SWYqp7iY_Tc>Getting started with Git</iframe><br>
+                     <a href=https://www.atlassian.com/git/tutorials/why-git>Technical description of Git</a>");
 
 INSERT INTO Lecture(Id, Title, Text) 
     VALUES(
