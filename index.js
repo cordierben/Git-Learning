@@ -126,18 +126,20 @@ router.get('/Lecture2', async ctx =>{
 	await ctx.render('Lecture')
 })*/
 
-router.get('/Lecture/:id', async ctx =>{
+
+router.get('/lecture/:id', async ctx =>{
 	try{
 		console.log(ctx.params.id)
-		const sql = `SELECT * FROM Lecture WHERE id = ${ctx.params.id}`
+		const sql = `SELECT * FROM lecture WHERE id = ${ctx.params.id};`
 		const db=await sqlite.open(dbName)
 		const data=await db.get(sql)
-		await ctx.render('Lecture', {Lecture: data})
+		await ctx.render('lecture', {lecture: data})
 	} catch(err) {
 		ctx.body = err.message
 	}
-	//await ctx.render('Lecture', {Lecture: data})
+	
 })
+
 
 
 app.use(router.routes())
