@@ -18,6 +18,7 @@ const fs = require('fs-extra')
 const mime = require('mime-types')
 //const jimp = require('jimp')
 
+
 /* IMPORT CUSTOM MODULES */
 const User = require('./modules/user')
 
@@ -91,6 +92,8 @@ router.get('/register', async ctx =>  {
  * @name Register Script
  * @route {POST} /register
  */
+
+	/*eslint max-statements: [100, 200 ]*/
  router.post('/register', koaBody, async ctx => {
 	try {
 		const body = ctx.request.body
@@ -103,17 +106,15 @@ router.get('/register', async ctx =>  {
 		console.log(`fileExtension: ${fileExtension}`)
 		await fs.copy(path, 'public/avatars/avatar11.png')
 		// USERNAME AND PASSWORD BLANK CHECKER
-		var x = body.user;
-		var y = body.pass;
-		var letters = /^[A-Za-z]+$/;
+		const x = body.user;
+		const y = body.pass;
+		const letters = /^[A-Za-z]+$/;
 		// CHECKS IF USERNAME AND PASSWORD BOX CONTAINS ONLY LETTERS
-		if (x.match(letters) && y.match(letters))
-		{
+		if (x.match(letters) && y.match(letters)) {
 			// DOES THE USERNAME EXIST IN DATABASE
 			const db = await sqlite.open('./website.db')
 			const userChecker = await db.get(`SELECT user FROM users WHERE user="${body.user}";`)
-			if (!userChecker)
-			{
+			if (!userChecker) {
 				// ENCRYPTING PASSWORD AND BUILDING SQL
 				body.pass = await bcrypt.hash(body.pass, saltRounds)
 				const sql = `INSERT INTO users(user, pass) VALUES("${body.user}", "${body.pass}")`
@@ -123,12 +124,10 @@ router.get('/register', async ctx =>  {
 				await db.close()
 				// REDIRECTING USER TO HOME PAGE
 				ctx.redirect(`/login`)
-			} else
-			{
+			} else {
 				return ctx.redirect('/register?msg=The username has been taken.')
 			}
-		} else
-		{
+		} else {
 			return ctx.redirect('/register?msg=The username and password box has to contain a value.')
 		}
 	} catch(err) {
@@ -142,7 +141,7 @@ router.get('/register', async ctx =>  {
 	if(ctx.query.user) data.user = ctx.query.user
 	await ctx.render('login', data)
  })
-  
+  /*eslint max-statements: [2, 100]*/
  router.post('/login', async ctx => {
 	try {
 		const body = ctx.request.body
@@ -154,7 +153,7 @@ router.get('/register', async ctx =>  {
 		await db.close()
 		// DOES THE PASSWORD MATCH?
 		const valid = await bcrypt.compare(body.pass, record.pass)
-		if(valid == false) return ctx.redirect(`/login?user=${body.user}&msg=invalid%20password`)
+		if(valid === false) return ctx.redirect(`/login?user=${body.user}&msg=invalid%20password`)
 		// WE HAVE A VALID USERNAME AND PASSWORD
 		ctx.session.authorised = true
 		return ctx.redirect('/')
