@@ -134,7 +134,7 @@ router.post('/register', koaBody, async ctx => {
 		await db.close()
 		// DOES THE PASSWORD MATCH?
 		const valid = await bcrypt.compare(body.pass, record.pass)
-		if(valid === false) return ctx.redirect(`/login?user=${body.user}&msg=invalid%20password`)
+		if(valid == false) return ctx.redirect(`/login?user=${body.user}&msg=invalid%20password`)
 		// WE HAVE A VALID USERNAME AND PASSWORD
 		ctx.session.authorised = true
 		return ctx.redirect('/')
