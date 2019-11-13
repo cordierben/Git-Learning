@@ -53,26 +53,8 @@ router.get('/', async ctx => {
 		await ctx.render('error', {message: err.message})
 	}
 })
-router.get('/Lecture/1', async ctx => {
-	try {
-		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
-		const data = {}
-		if(ctx.query.msg) data.msg = ctx.query.msg
-		await ctx.render('Menu')
-	} catch(err) {
-		await ctx.render('error', {message: err.message})
-	}
-})
-router.get('/Lecture/2', async ctx => {
-	try {
-		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
-		const data = {}
-		if(ctx.query.msg) data.msg = ctx.query.msg
-		await ctx.render('Menu')
-	} catch(err) {
-		await ctx.render('error', {message: err.message})
-	}
-})
+
+
 /**
  * The user registration page.
  *
@@ -183,6 +165,7 @@ router.get('/register', async ctx =>  {
 
 router.get('/Lecture/:id', async ctx =>{
 	try{
+		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
 		console.log(ctx.params.id)
 		const sql = `SELECT * FROM Lecture WHERE id = ${ctx.params.id}`
 		const db=await sqlite.open(dbName)

@@ -103,5 +103,9 @@ INSERT INTO Lecture(Id, Title, Text)
         book’s data modeling, query, and code examples, you’ll quickly be able to implement 
         your own solution."
     );
+INSERT into Lecture (Id, Title, Text, links) VALUES(3, "<h1>test</h1>","<img class='gitlogo' src='images/gitlogo.jpg'>
 
+                    <p>Test.</p>
+
+                    ");
 
