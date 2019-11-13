@@ -176,9 +176,15 @@ router.get('/register', async ctx =>  {
 		await ctx.render('error', {message: err.message})
 	}
  })
+
+ 
+
+
+
+
+
  
 /* Lecture */
-
 
 
 router.get('/Lecture/:id', async ctx =>{
