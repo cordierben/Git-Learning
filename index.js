@@ -94,11 +94,11 @@ router.post('/register', koaBody, async ctx => {
 		if (x.match(letters) && y.match(letters)) {
 			// DOES THE USERNAME EXIST IN DATABASE
 			const db = await sqlite.open('./website.db')
-			const userChecker = await db.get(`SELECT user FROM users WHERE user="${body.user}";`)
+			const userChecker = await db.get(`SELECT user FROM user WHERE user="${body.user}";`)
 			if (!userChecker) {
 				// ENCRYPTING PASSWORD AND BUILDING SQL
 				body.pass = await bcrypt.hash(body.pass, saltRounds)
-				const sql = `INSERT INTO users(user, pass) VALUES("${body.user}", "${body.pass}")`
+				const sql = `INSERT INTO user(user, pass) VALUES("${body.user}", "${body.pass}")`
 				console.log(sql)
 				// DATABASE COMMANDS
 				await db.run(sql)
@@ -128,9 +128,9 @@ router.post('/register', koaBody, async ctx => {
 		const body = ctx.request.body
 		const db = await sqlite.open('./website.db')
 		// DOES THE USERNAME EXIST?
-		const records = await db.get(`SELECT user FROM users WHERE user="${body.user}";`)
+		const records = await db.get(`SELECT user FROM user WHERE user="${body.user}";`)
 		if(!records) return ctx.redirect('/login?msg=invalid%20username')
-		const record = await db.get(`SELECT pass FROM users WHERE user = "${body.user}";`)
+		const record = await db.get(`SELECT pass FROM user WHERE user = "${body.user}";`)
 		await db.close()
 		// DOES THE PASSWORD MATCH?
 		const valid = await bcrypt.compare(body.pass, record.pass)
@@ -172,7 +172,7 @@ router.get('/lecture/:id', async ctx =>{
 	try{
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
 		console.log(ctx.params.id)
-		const sql = `SELECT * FROM lecture WHERE id = ${ctx.params.id};`
+		const sql = `SELECT id, title,text,module_id FROM lecture WHERE id = ${ctx.params.id};`
 		const db=await sqlite.open(dbName)
 		const data=await db.get(sql)
 		await ctx.render('lecture', {lecture: data})
@@ -180,8 +180,25 @@ router.get('/lecture/:id', async ctx =>{
 		ctx.body = err.message
 	}
 })
+router.get('/lecture/:id1/quiz/:id2', async ctx =>{
+	try{
+		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
+		console.log(ctx.params.id)
+		const sql = `SELECT lecture.id, lecture.title,question.question ,question.id, question.lecture_id,option.option, option.answer, option.question_id  FROM lecture,question , option 
+									WHERE lecture.id = ${ctx.params.id1}
+									AND question.id = ${ctx.params.id2}
+									AND question.lecture_id=${ctx.params.id1}
+									AND  option.question_id= ${ctx.params.id2};`
+		const db=await sqlite.open(dbName)
+		const data=await db.get(sql)
+		await ctx.render('quiz', {question: data, lecture: data, option: data})
+	} catch(err) {
+		ctx.body = err.message
+	}
+})
 
-/* Quizz */
+
+
 
 
 
