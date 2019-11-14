@@ -132,9 +132,5 @@ INSERT INTO lecture (id, title, text, module_id)
                    <p>You created and switched to a branch, did some work on it, and then switched back to your main branch and did other work. Both of those changes are isolated in separate branches: you can switch back and forth between the branches and merge (explained in the next lesson) them together when you’re ready. And you did all that with simple <code>branch</code> and <code>checkout</code> commands.</p>",
          "1"
     );
-INSERT into lecture (id, title, text, module_id) VALUES(3, "<h1>test</h1>","<img class='gitlogo' src='images/gitlogo.jpg'>
 
-                    <p>Test.</p>
-
-                    ");
 

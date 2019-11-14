@@ -1,15 +1,15 @@
- <DOCTYPE! html>
+<DOCTYPE! html>
     <html>
         <head>
             <meta charset="utf-8"/>
             <title>Git-Learning</title>
             
-            <link href="../css/Layout.css" type="text/css" rel="stylesheet"  />
+            <link href="http://localhost:8080/css/Layout.css" type="text/css" rel="stylesheet"  />
         </head>
         <body>
             
 
-            <img class="logo" src='../images/logo3.png' alt="logo">
+            <img class="logo" src='http://localhost:8080/images/logo3.png' alt="logo">
             
             <header>
                 <a class="header2" href="/Profile">Profile</a>
@@ -28,15 +28,24 @@
             <article class="side">
                     <br>
                     <h1>{{{lecture.title}}}</h1>
-                    <h5>{{{lecture.text}}}</h5>
-                    <a class="Test" href="/">Test your understanding</a><br><br>
+                    <h3>{{{question.question}}}</h3>
+                    <!--{{#each option}}
+                    {{#if }}
+
+    			    <h2> {{option.option}} =={{{option.option}}</h2>-->
+                    <form>
+                        <input type="radio" name="option" value="option.option" > {{{option.option}}}<br>
+                        <input type="radio" name="option" value="option.option"> {{{option.option}}}<br>
+                        <input type="radio" name="option" value="option.option"> {{{option.option}}}
+                    </form>
+                    <a class="Test" href="/lecture/{{{question.lecture_id}}}/quiz/{{{question.id}}}">Test your understanding</a><br><br>
 
             </article>
-            <article class="links">
+            <!--<article class="links">
                 <h1>Useful links</h1>
                 <br>
                 {{{Lecture.links}}}
-            </article>
+            </article>-->
 
 
             <footer>
