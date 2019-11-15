@@ -196,14 +196,13 @@ router.get('/lecture/:id1/quiz/:id2', async ctx =>{
 		const db=await sqlite.open(dbName)
 		console.log('ok')
 		console.log(ctx.session.id)
-		console.log(typeof(ctx.session.id))
 		console.log('ok2')
 		const sql2 =await db.get(`SELECT score FROM score WHERE user_id=${ctx.session.id} AND lecture_id=${ctx.params.id1};`)
 		console.log(sql2)
-		if(body===data.answer){
+		/*if(body===data.answer) {
 			sql2++
 			const sql3=await db.get(`UPDATE score SET score=${sql2} user_id=${ctx.params.id};`)
-		}
+		}*/
 		console.log('okok')
 	} catch(err) {
 		ctx.body =err.message
