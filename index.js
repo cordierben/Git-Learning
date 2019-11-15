@@ -94,11 +94,11 @@ router.post('/register', koaBody, async ctx => {
 		if (x.match(letters) && y.match(letters)) {
 			// DOES THE USERNAME EXIST IN DATABASE
 			const db = await sqlite.open('./website.db')
-			const userChecker = await db.get(`SELECT user FROM users WHERE user="${body.user}";`)
+			const userChecker = await db.get(`SELECT user FROM user WHERE user="${body.user}";`)
 			if (!userChecker) {
 				// ENCRYPTING PASSWORD AND BUILDING SQL
 				body.pass = await bcrypt.hash(body.pass, saltRounds)
-				const sql = `INSERT INTO users(user, pass) VALUES("${body.user}", "${body.pass}")`
+				const sql = `INSERT INTO user(user, pass) VALUES("${body.user}", "${body.pass}")`
 				console.log(sql)
 				// DATABASE COMMANDS
 				await db.run(sql)
@@ -128,15 +128,17 @@ router.post('/register', koaBody, async ctx => {
 		const body = ctx.request.body
 		const db = await sqlite.open('./website.db')
 		// DOES THE USERNAME EXIST?
-		const records = await db.get(`SELECT user FROM users WHERE user="${body.user}";`)
+		const records = await db.get(`SELECT user FROM user WHERE user="${body.user}";`)
 		if(!records) return ctx.redirect('/login?msg=invalid%20username')
-		const record = await db.get(`SELECT pass FROM users WHERE user = "${body.user}";`)
+		const record = await db.get(`SELECT pass FROM user WHERE user = "${body.user}";`)
+		const user = await db.get(`SELECT id FROM user WHERE user = "${body.user}";`)
 		await db.close()
 		// DOES THE PASSWORD MATCH?
 		const valid = await bcrypt.compare(body.pass, record.pass)
 		if(valid === false) return ctx.redirect(`/login?user=${body.user}&msg=invalid%20password`)
 		// WE HAVE A VALID USERNAME AND PASSWORD
 		ctx.session.authorised = true
+		ctx.session.id=user.id
 		return ctx.redirect('/')
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
@@ -185,6 +187,28 @@ router.get('/lecture/:id', async ctx =>{
 
 
 
+/* Score */
+
+router.get('/lecture/:id1/quiz/:id2', async ctx =>{
+	try{
+		//const body= ctx.request.body
+		//const sql = `SELECT answer, lecture_id FROM option WHERE id = ${ctx.params.id2} AND lecture_id= ${ctx.params.id1};`
+		const db=await sqlite.open(dbName)
+		console.log('ok')
+		console.log(ctx.session.id)
+		console.log(typeof(ctx.session.id))
+		console.log('ok2')
+		const sql2 =await db.get(`SELECT score FROM score WHERE user_id=${ctx.session.id} AND lecture_id=${ctx.params.id1};`)
+		console.log(sql2)
+		if(body===data.answer){
+			sql2++
+			const sql3=await db.get(`UPDATE score SET score=${sql2} user_id=${ctx.params.id};`)
+		}
+		console.log('okok')
+	} catch(err) {
+		ctx.body =err.message
+	}
+})
 
 app.use(router.routes())
 module.exports = app.listen(port, async() => console.log(`listening on port ${port}`))
