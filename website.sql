@@ -133,10 +133,4 @@ INSERT INTO lecture (id, title, text, module_id)
          "1"
     );
 
-<<<<<<< HEAD
-                    <p>Test.</p>
-
-                    ",1);
-=======
->>>>>>> e61965ec84bb55a8d8c1526190bbe2cf1999f405
 

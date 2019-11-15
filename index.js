@@ -186,7 +186,7 @@ router.get('/lecture/:id1/quiz/:id2', async ctx =>{
 	try{
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
 		console.log(ctx.params.id)
-		const sql = `SELECT lecture.id, lecture.title,question.question ,question.id, question.lecture_id,option.option, option.answer, option.question_id  FROM lecture,question , option 
+		const sql = `SELECT lecture.id, lecture.title, question.question, question.id, question.lecture_id, option.option, option.answer, option.question_id FROM lecture, question , option 
 									WHERE lecture.id = ${ctx.params.id1}
 									AND question.id = ${ctx.params.id2}
 									AND question.lecture_id=${ctx.params.id1}
@@ -206,21 +206,28 @@ router.get('/lecture/:id1/quiz/:id2', async ctx =>{
 
 /* Score */
 
-router.get('/lecture/:id1/quiz/:id2', async ctx =>{
+router.post('/lecture/:id1/quiz/:id2', async ctx =>{
 	try{
-		//const body= ctx.request.body
-		//const sql = `SELECT answer, lecture_id FROM option WHERE id = ${ctx.params.id2} AND lecture_id= ${ctx.params.id1};`
+		const body= ctx.request.body
+		//Get the answer of the question
+		const sql = `SELECT answer FROM option WHERE question_id = ${ctx.params.id2};`
 		const db=await sqlite.open(dbName)
-		console.log('ok')
-		console.log(ctx.session.id)
-		console.log('ok2')
-		const sql2 =await db.get(`SELECT score FROM score WHERE user_id=${ctx.session.id} AND lecture_id=${ctx.params.id1};`)
-		console.log(sql2)
-		/*if(body===data.answer) {
-			sql2++
-			const sql3=await db.get(`UPDATE score SET score=${sql2} user_id=${ctx.params.id};`)
-		}*/
+		const data=await db.get(sql)
+		console.log(data.answer)
+		console.log(body.option)
+		//Get the score of the user
+		const sql2 = `SELECT score FROM score WHERE user_id=${ctx.session.id} AND lecture_id=${ctx.params.id1};`
+		const data2=await db.get(sql2)
+		console.log(data2)
+		//If the answer == the option selected by the user, we increment the score
+		if(body.option===data.answer) { 
+			data2.score++
+			await db.get(`UPDATE score SET score=${data2.score} user_id=${ctx.params.id};`)
+			console.log(data2.score)
+		}
 		console.log('okok')
+		//Go to next question
+		return ctx.redirect('/')
 	} catch(err) {
 		ctx.body =err.message
 	}
