@@ -174,7 +174,7 @@ router.get('/lecture/:id', async ctx =>{
 	try{
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
 		console.log(ctx.params.id)
-		const sql = `SELECT * FROM lecture WHERE id = ${ctx.params.id};`
+		const sql = `SELECT id, title,text,module_id FROM lecture WHERE id = ${ctx.params.id};`
 		const db=await sqlite.open(dbName)
 		const data=await db.get(sql)
 		await ctx.render('lecture', {lecture: data})
@@ -182,8 +182,25 @@ router.get('/lecture/:id', async ctx =>{
 		ctx.body = err.message
 	}
 })
+router.get('/lecture/:id1/quiz/:id2', async ctx =>{
+	try{
+		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
+		console.log(ctx.params.id)
+		const sql = `SELECT lecture.id, lecture.title,question.question ,question.id, question.lecture_id,option.option, option.answer, option.question_id  FROM lecture,question , option 
+									WHERE lecture.id = ${ctx.params.id1}
+									AND question.id = ${ctx.params.id2}
+									AND question.lecture_id=${ctx.params.id1}
+									AND  option.question_id= ${ctx.params.id2};`
+		const db=await sqlite.open(dbName)
+		const data=await db.get(sql)
+		await ctx.render('quiz', {question: data, lecture: data, option: data})
+	} catch(err) {
+		ctx.body = err.message
+	}
+})
 
-/* Quizz */
+
+
 
 
 

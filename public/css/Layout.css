@@ -58,6 +58,29 @@ a.nav2, a.nav3, a.nav4{
     color :white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+nav ul {
+    list-style: none;
+    
+}
+nav ul li {
+    float: left;
+    width: 35%;
+    height:80px;
+    text-align: center;
+    font-size:25px;
+    background-image: linear-gradient(to top, rgb(0,0,0),rgb(90,90,90));
+    border: 1px solid white;
+    padding-top: 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 20px;
+    margin-bottom: 70px;
+    margin-left:10px;
+    margin-right: 70px;
+}
+a.lessons{
+    color: aliceblue;
+    text-decoration: none;
+}
 
 
 
@@ -83,6 +106,14 @@ a.Test:hover{
 
 
 /*Right Side*/
+.side{
+    float: left;
+    
+    margin-top: -15px;
+    width: 1200px;
+    background-image: none;
+    border-right: 1px solid black;
+}
 
 article.links{
     float:right;
@@ -95,7 +126,7 @@ article.links{
 
 footer{
     float:left;
-    bottom: 0;
+    bottom: 0%;
     width: 100%;
     background-image:linear-gradient(to bottom,rgb(18,18,18),rgb(21,22,21)) ;
     padding-bottom : 1%;
@@ -108,13 +139,19 @@ a.f1, a.f2, a.f3{
     color : white;
     padding-top : 1%;
     margin-left : 2%;
+    
 }
 
 
 
 
-/*Lecture 1 */
+/*Lecture  */
 
+p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: normal;;
+}
 p.cr{
     color : gray;
     font-size:80%;
@@ -127,9 +164,32 @@ table.CVS td{
 }
 
 
-img.gitlogo{
+/*img.gitlogo{
     height : 10%;
     width : 13%;
     margin-left : 70%;
     margin-top : -40px
+}*/
+
+/* image  and code in lecture*/
+figure{
+    float: right;
+    margin: 0.5%;
+    margin-bottom: 1%;
+    
+}
+figcaption {
+    
+    width: 300px;
+    
+    
+}
+img{ 
+    float: right;
+    width: 300px;
+    height: 180px;
+}
+code {
+    border: 1px solid grey;
+    
 }
