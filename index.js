@@ -131,12 +131,14 @@ router.post('/register', koaBody, async ctx => {
 		const records = await db.get(`SELECT user FROM user WHERE user="${body.user}";`)
 		if(!records) return ctx.redirect('/login?msg=invalid%20username')
 		const record = await db.get(`SELECT pass FROM user WHERE user = "${body.user}";`)
+		const user = await db.get(`SELECT id FROM user WHERE user = "${body.user}";`)
 		await db.close()
 		// DOES THE PASSWORD MATCH?
 		const valid = await bcrypt.compare(body.pass, record.pass)
 		if(valid === false) return ctx.redirect(`/login?user=${body.user}&msg=invalid%20password`)
 		// WE HAVE A VALID USERNAME AND PASSWORD
 		ctx.session.authorised = true
+		ctx.session.id=user.id
 		return ctx.redirect('/')
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
@@ -208,6 +210,34 @@ router.get('/lecture/:id1/quiz/:id2', async ctx => {
 
 
 
+/* Score */
+
+router.post('/lecture/:id1/quiz/:id2', async ctx =>{
+	try{
+		const body= ctx.request.body
+		//Get the answer of the question
+		const sql = `SELECT answer FROM option WHERE question_id = ${ctx.params.id2};`
+		const db=await sqlite.open(dbName)
+		const data=await db.get(sql)
+		console.log(data.answer)
+		console.log(body.option)
+		//Get the score of the user
+		const sql2 = `SELECT score FROM score WHERE user_id=${ctx.session.id} AND lecture_id=${ctx.params.id1};`
+		const data2=await db.get(sql2)
+		console.log(data2)
+		//If the answer == the option selected by the user, we increment the score
+		if(body.option===data.answer) { 
+			data2.score++
+			await db.get(`UPDATE score SET score=${data2.score} user_id=${ctx.params.id};`)
+			console.log(data2.score)
+		}
+		console.log('okok')
+		//Go to next question
+		return ctx.redirect('/')
+	} catch(err) {
+		ctx.body =err.message
+	}
+})
 
 app.use(router.routes())
 module.exports = app.listen(port, async() => console.log(`listening on port ${port}`))

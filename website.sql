@@ -81,8 +81,8 @@ INSERT INTO lecture (id, title, text, module_id) VALUES(1, "<h1>Why using GIT?</
 
                     <p>Git is a must-have tool in a programming project, it has a lot of game-changing functionalities. A particularity of Git is the 
                     existence of collaborative website such as GitHub. This is a social media for developers, with a huge community. This is an excellent way
-                    to participate in projects and ask for help.</p>",
-                      1);
+                    to participate in projects and ask for help.</p>", 
+                    1);
 
 INSERT INTO lecture (id, title, text, module_id)
     VALUES(
