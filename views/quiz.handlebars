@@ -28,7 +28,7 @@
                     <h1>{{{lecture.title}}}</h1>
                     <h3>{{{question.question}}}</h3>
                     
-                    <form action="/lecture/1/quiz/1" method="post">
+                    <form action="/lecture/{{question.lecture_id}}/quiz/{{question.id}}" method="post">
                         <input type="radio" name="option" value="{{option.option}}" >True<br>
                         <input type="radio" name="option" value="{{option.answer}}">False<br>
                         <!--<input type="radio" name="option" value="option.option"> {{option.option}}<br>-->
