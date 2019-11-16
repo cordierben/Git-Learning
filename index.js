@@ -182,6 +182,8 @@ router.get('/lecture/:id', async ctx =>{
 		ctx.body = err.message
 	}
 })
+
+/*eslint complexity: ["error", 10]*/
 router.get('/lecture/:id1/quiz/:id2', async ctx => {
 	try{
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
@@ -212,28 +214,43 @@ router.get('/lecture/:id1/quiz/:id2', async ctx => {
 
 /* Score */
 
+
+
+
+/*eslint-disable no-var*/
+/*eslint-disable prefer-template*/
+/*eslint-disable eqeqeq*/
 router.post('/lecture/:id1/quiz/:id2', async ctx =>{
 	try{
-		const body= ctx.request.body
-		//Get the answer of the question
-		const sql = `SELECT answer FROM option WHERE question_id = ${ctx.params.id2};`
 		const db=await sqlite.open(dbName)
+		const body= ctx.request.body
+		//IF IT'S THE 1st QUESTION OF THE QUIZ, INSERT A NEW RECORD
+		if(ctx.params.id2==1) {
+			var today=new Date()
+			var dd = String(today.getDate()).padStart(2, '0');
+			var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0
+			var yyyy = today.getFullYear();
+			var date = mm + '/' + dd + '/' + yyyy;
+			console.log(date)
+			await db.get(`INSERT INTO score(user_id, lecture_id, score, date) VALUES (${ctx.session.id},${ctx.params.id1},0,"${date}");`)
+		}
+		//GET THE ANSWER OF THE QUESTION
+		const sql = `SELECT answer FROM option WHERE question_id = ${ctx.params.id2};`
 		const data=await db.get(sql)
-
-		console.log(data.answer)
-		console.log(body.option)
-		//Get the score of the user
-		const sql2 = `SELECT score FROM score WHERE user_id=${ctx.session.id} AND lecture_id=${ctx.params.id1};`
+		//GET THE SCORE OF THE USER
+		const sql2 = `SELECT score FROM score WHERE user_id=${ctx.session.id}  
+											  AND lecture_id=${ctx.params.id1}
+											  AND date="${date}";`
 		const data2=await db.get(sql2)
-		console.log(data2.score)
-		//If the answer == the option selected by the user, we increment the score
+		//IF THE ANSWER === THE OPTION SELECTED, INCREMENT THE SCORE
 		if(body.option===data.answer) { 
 			data2.score++
-			await db.get(`UPDATE score SET score=${data2.score} user_id=${ctx.params.id};`)
-			console.log(data2.score)
+			await db.get(`UPDATE score SET score=${data2.score} WHERE user_id=${ctx.session.id} 
+																AND lecture_id=${ctx.params.id1}
+																AND date="${date}";`)
 		}
-		console.log('okok')
-		//Go to next question
+		//GO TO NEXT QUESTION
+		await db.close()
 		return ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${ctx.params.id2}+1`)
 	} catch(err) {
 		ctx.body =err.message
