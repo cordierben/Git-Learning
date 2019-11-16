@@ -183,15 +183,22 @@ router.get('/lecture/:id', async ctx =>{
 router.get('/lecture/:id1/quiz/:id2', async ctx =>{
 	try{
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
-		console.log(ctx.params.id)
-		const sql = `SELECT lecture.id, lecture.title,question.question ,question.id, question.lecture_id,option.option, option.answer, option.question_id  FROM lecture,question , option 
-									WHERE lecture.id = ${ctx.params.id1}
-									AND question.id = ${ctx.params.id2}
-									AND question.lecture_id=${ctx.params.id1}
-									AND  option.question_id= ${ctx.params.id2};`
+		const sqlLecture = `SELECT id, title FROM lecture 
+									WHERE id = ${ctx.params.id1};`
+	    const sqlQuiz = `SELECT id, question,lecture_id  FROM question 
+									WHERE id =${ctx.params.id2}
+									AND lecture_id= ${ctx.params.id1};`
+		const sqlOption = `SELECT option1, option2,answer,question_id  FROM option 
+									WHERE question_id= ${ctx.params.id2};`											
 		const db=await sqlite.open(dbName)
-		const data=await db.get(sql)
-		await ctx.render('quiz', {question: data, lecture: data, option: data})
+		const dataLecture=await db.get(sqlLecture)
+		const dataQuiz=await db.get(sqlQuiz)
+		const dataOption=await db.get(sqlOption)
+		//const pageData = {question: dataQuiz, lecture: dataLecture, option: dataOption} //commented out to solve complexity error
+		//console.log(pageData) //commented out to solve complexity error
+		if(dataQuiz !== undefined && dataLecture !== undefined && dataOption !== undefined ) {
+			await ctx.render('quiz', {question: dataQuiz, lecture: dataLecture, option: dataOption})
+		}
 	} catch(err) {
 		ctx.body = err.message
 	}
