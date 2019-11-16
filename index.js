@@ -225,7 +225,7 @@ router.post('/lecture/:id1/quiz/:id2', async ctx =>{
 		const db=await sqlite.open(dbName)
 		const body= ctx.request.body
 		//IF IT'S THE 1st QUESTION OF THE QUIZ, INSERT A NEW RECORD
-		if(ctx.params.id2==1) {
+	    if(ctx.params.id2==1) {
 			var today=new Date()
 			var dd = String(today.getDate()).padStart(2, '0');
 			var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0
