@@ -28,9 +28,11 @@
                     
                     <h3>{{{question.question}}}</h3>
                     
-                    <form>
+                    <form action="/lecture/{{question.lecture_id}}/quiz/{{question.id}}" method="post">
                         <input type="radio" name="option" value="{{option.option1}}" > {{{option.option1}}}<br>
                         <input type="radio" name="option" value="{{option.option2}}" > {{{option.option2}}}<br>
+                        <!--<input type="radio" name="option" value="option.option"> {{option.option}}<br>
+                        <p><input type="submit" value="submit"></p>-->
                     </form>
                     <a class="Test" href="/lecture/{{question.lecture_id}}/quiz/{{question.id}}+1">Next</a><br><br>
                     

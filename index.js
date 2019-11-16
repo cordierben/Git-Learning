@@ -20,7 +20,7 @@ const mime = require('mime-types')
 
 
 /* IMPORT CUSTOM MODULES */
-const User = require('./modules/user')
+require('./modules/user')
 
 const app = new Koa()
 const router = new Router()
@@ -219,12 +219,13 @@ router.post('/lecture/:id1/quiz/:id2', async ctx =>{
 		const sql = `SELECT answer FROM option WHERE question_id = ${ctx.params.id2};`
 		const db=await sqlite.open(dbName)
 		const data=await db.get(sql)
+
 		console.log(data.answer)
 		console.log(body.option)
 		//Get the score of the user
 		const sql2 = `SELECT score FROM score WHERE user_id=${ctx.session.id} AND lecture_id=${ctx.params.id1};`
 		const data2=await db.get(sql2)
-		console.log(data2)
+		console.log(data2.score)
 		//If the answer == the option selected by the user, we increment the score
 		if(body.option===data.answer) { 
 			data2.score++
@@ -233,7 +234,7 @@ router.post('/lecture/:id1/quiz/:id2', async ctx =>{
 		}
 		console.log('okok')
 		//Go to next question
-		return ctx.redirect('/')
+		return ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${ctx.params.id2}+1`)
 	} catch(err) {
 		ctx.body =err.message
 	}
