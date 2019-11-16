@@ -24,22 +24,18 @@
                 <a class="nav4" href="/AboutUs">About Us</a>
             </nav>
 
-
             <article class="side">
                     <br>
                     <h1>{{{lecture.title}}}</h1>
+                    
                     <h3>{{{question.question}}}</h3>
-                    <!--{{#each option}}
-                    {{#if }}
-
-    			    <h2> {{option.option}} =={{{option.option}}</h2>-->
+                    
                     <form>
-                        <input type="radio" name="option" value="option.option" > {{{option.option}}}<br>
-                        <input type="radio" name="option" value="option.option"> {{{option.option}}}<br>
-                        <input type="radio" name="option" value="option.option"> {{{option.option}}}
+                        <input type="radio" name="option" value="{{option.option1}}" > {{{option.option1}}}<br>
+                        <input type="radio" name="option" value="{{option.option2}}" > {{{option.option2}}}<br>
                     </form>
-                    <a class="Test" href="/lecture/{{{question.lecture_id}}}/quiz/{{{question.id}}}">Test your understanding</a><br><br>
-
+                    <a class="Test" href="/lecture/{{question.lecture_id}}/quiz/{{question.id}}+1">Next</a><br><br>
+                    
             </article>
             <!--<article class="links">
                 <h1>Useful links</h1>

@@ -180,7 +180,7 @@ router.get('/lecture/:id', async ctx =>{
 		ctx.body = err.message
 	}
 })
-router.get('/lecture/:id1/quiz/:id2', async ctx =>{
+router.get('/lecture/:id1/quiz/:id2', async ctx => {
 	try{
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
 		const sqlLecture = `SELECT id, title FROM lecture 
@@ -194,16 +194,15 @@ router.get('/lecture/:id1/quiz/:id2', async ctx =>{
 		const dataLecture=await db.get(sqlLecture)
 		const dataQuiz=await db.get(sqlQuiz)
 		const dataOption=await db.get(sqlOption)
-		//const pageData = {question: dataQuiz, lecture: dataLecture, option: dataOption} //commented out to solve complexity error
-		//console.log(pageData) //commented out to solve complexity error
-		if(dataQuiz !== undefined && dataLecture !== undefined && dataOption !== undefined ) {
-			await ctx.render('quiz', {question: dataQuiz, lecture: dataLecture, option: dataOption})
+		if(dataQuiz !== undefined || dataLecture !== undefined || dataOption !== undefined ) {
+			await ctx.render('quiz', {question: dataQuiz, lecture: dataLecture, option: dataOption} )
 		}
 	} catch(err) {
 		ctx.body = err.message
 	}
 })
-
+//const pageData = {question: dataQuiz, lecture: dataLecture, option: dataOption} 
+//console.log(pageData) 
 
 
 
