@@ -174,10 +174,14 @@ router.get('/lecture/:id', async ctx =>{
 	try{
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
 		console.log(ctx.params.id)
-		const sql = `SELECT id, title,text,module_id FROM lecture WHERE id = ${ctx.params.id};`
 		const db=await sqlite.open(dbName)
+		const sql = `SELECT id, title,text,module_id FROM lecture WHERE id = ${ctx.params.id};`
 		const data=await db.get(sql)
-		await ctx.render('lecture', {lecture: data})
+		const sql2=`SELECT MAX(score) as best, date FROM score WHERE user_id=${ctx.session.id}
+											AND lecture_id=${ctx.params.id};`
+		const data2=await db.get(sql2)
+		console.log(data2)
+		await ctx.render('lecture', {lecture: data, score: data2})
 	} catch(err) {
 		ctx.body = err.message
 	}
@@ -193,7 +197,8 @@ router.get('/lecture/:id1/quiz/:id2', async ctx => {
 									WHERE id =${ctx.params.id2}
 									AND lecture_id= ${ctx.params.id1};`
 		const sqlOption = `SELECT option1, option2,answer,question_id  FROM option 
-									WHERE question_id= ${ctx.params.id2};`											
+									WHERE question_id= ${ctx.params.id2}
+									AND lecture_id=${ctx.params.id1};`											
 		const db=await sqlite.open(dbName)
 		const dataLecture=await db.get(sqlLecture)
 		const dataQuiz=await db.get(sqlQuiz)
@@ -224,7 +229,7 @@ router.post('/lecture/:id1/quiz/:id2', async ctx =>{
 	try{
 		const db=await sqlite.open(dbName)
 		const body= ctx.request.body
-		//IF IT'S THE 1st QUESTION OF THE QUIZ, INSERT A NEW RECORD
+		//IF IT'S THE 1st QUESTION OF THE QUIZ, INSERT A NEW RECORD WITH THE DATE
 	    if(ctx.params.id2==1) {
 			var today=new Date()
 			var dd = String(today.getDate()).padStart(2, '0');
@@ -235,22 +240,27 @@ router.post('/lecture/:id1/quiz/:id2', async ctx =>{
 			await db.get(`INSERT INTO score(user_id, lecture_id, score, date) VALUES (${ctx.session.id},${ctx.params.id1},0,"${date}");`)
 		}
 		//GET THE ANSWER OF THE QUESTION
-		const sql = `SELECT answer FROM option WHERE question_id = ${ctx.params.id2};`
+		const sql = `SELECT answer FROM option WHERE question_id = ${ctx.params.id2}
+		                                       AND lecture_id=${ctx.params.id1};`
 		const data=await db.get(sql)
-		//GET THE SCORE OF THE USER
-		const sql2 = `SELECT score FROM score WHERE user_id=${ctx.session.id}  
-											  AND lecture_id=${ctx.params.id1}
-											  AND date="${date}";`
+		console.log(data)
+		//GET THE SCORE OF THE USER, BY SELECTING LAST ATTEMPT (CURRENT ATTEMPT)
+		const sql2 = `SELECT MAX(attempt_id) as last, score FROM score WHERE user_id=${ctx.session.id}  
+											                           AND lecture_id=${ctx.params.id1};`
 		const data2=await db.get(sql2)
+		console.log(data2)
 		//IF THE ANSWER === THE OPTION SELECTED, INCREMENT THE SCORE
 		if(body.option===data.answer) { 
 			data2.score++
 			await db.get(`UPDATE score SET score=${data2.score} WHERE user_id=${ctx.session.id} 
 																AND lecture_id=${ctx.params.id1}
-																AND date="${date}";`)
+																AND attempt_id=${data2.last};`)
 		}
 		//GO TO NEXT QUESTION
 		await db.close()
+		if(ctx.params.id2==10) {
+			return ctx.redirect('/')
+		}
 		return ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${ctx.params.id2}+1`)
 	} catch(err) {
 		ctx.body =err.message
