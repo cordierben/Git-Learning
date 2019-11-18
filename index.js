@@ -139,6 +139,8 @@ router.post('/register', koaBody, async ctx => {
 		// WE HAVE A VALID USERNAME AND PASSWORD
 		ctx.session.authorised = true
 		ctx.session.id=user.id
+		//VAR FOR THE QUIZ, TO KNOW HOW MANY QUESTIONS THE USER HAS DONE
+		ctx.session.quiz=0;
 		return ctx.redirect('/')
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
@@ -221,7 +223,6 @@ router.get('/lecture/:id1/quiz/:id2', async ctx => {
 
 
 
-
 /*eslint-disable no-var*/
 /*eslint-disable prefer-template*/
 /*eslint-disable eqeqeq*/
@@ -230,7 +231,7 @@ router.post('/lecture/:id1/quiz/:id2', async ctx =>{
 		const db=await sqlite.open(dbName)
 		const body= ctx.request.body
 		//IF IT'S THE 1st QUESTION OF THE QUIZ, INSERT A NEW RECORD WITH THE DATE
-	    if(ctx.params.id2==1) {
+	    if(ctx.session.quiz==0) {
 			var today=new Date()
 			var dd = String(today.getDate()).padStart(2, '0');
 			var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0
@@ -258,10 +259,14 @@ router.post('/lecture/:id1/quiz/:id2', async ctx =>{
 		}
 		//GO TO NEXT QUESTION
 		await db.close()
-		if(ctx.params.id2==10) {
+		if(ctx.session.quiz===9) {
+			ctx.session.quiz=0
 			return ctx.redirect('/')
+		} else{
+			ctx.session.quiz++
+			return ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${ctx.params.id2}+1`)
 		}
-		return ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${ctx.params.id2}+1`)
+		
 	} catch(err) {
 		ctx.body =err.message
 	}
