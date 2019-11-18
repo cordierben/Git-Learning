@@ -29,13 +29,14 @@
                     <br>
                     <h1>{{{lecture.title}}}</h1>
                     <h5>{{{lecture.text}}}</h5>
-                    <a class="Test" href="/Quiz1">Test your understanding</a><br><br>
+                    <a class="Test" href="/lecture/{{lecture.id}}/quiz/1">Test your understanding</a><br>
+                    <p>Best score : {{score.best}}/10  ({{score.date}})</p><br>
 
             </article>
             <article class="links">
                 <h1>Useful links</h1>
                 <br>
-                {{{Lecture.links}}}
+                {{{lecture.links}}}
             </article>
 
 

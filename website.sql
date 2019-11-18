@@ -1,5 +1,5 @@
 
-INSERT INTO lecture (id, title, text, module_id) VALUES(1, "<h1>Why using GIT?</h1>","<img class='gitlogo' src='images/gitlogo.jpg'>
+INSERT INTO lecture (id, title, text, module_id) VALUES(1, "<h1>Why using GIT?</h1>","<img class='gitlogo' src='../images/gitlogo.jpg'>
 
                     <p>If you have already worked on a programming project in group, you probably have encountered problems such as modifications by someone,
                     but you don’t know who, or the impossibility to work on the same code at the same time. All these problems can be solved 
@@ -81,8 +81,8 @@ INSERT INTO lecture (id, title, text, module_id) VALUES(1, "<h1>Why using GIT?</
 
                     <p>Git is a must-have tool in a programming project, it has a lot of game-changing functionalities. A particularity of Git is the 
                     existence of collaborative website such as GitHub. This is a social media for developers, with a huge community. This is an excellent way
-                    to participate in projects and ask for help.</p>",
-                      1);
+                    to participate in projects and ask for help.</p>", 
+                    1);
 
 INSERT INTO lecture (id, title, text, module_id)
     VALUES(
@@ -132,9 +132,5 @@ INSERT INTO lecture (id, title, text, module_id)
                    <p>You created and switched to a branch, did some work on it, and then switched back to your main branch and did other work. Both of those changes are isolated in separate branches: you can switch back and forth between the branches and merge (explained in the next lesson) them together when you’re ready. And you did all that with simple <code>branch</code> and <code>checkout</code> commands.</p>",
          "1"
     );
-INSERT into lecture (id, title, text, module_id) VALUES(3, "<h1>test</h1>","<img class='gitlogo' src='images/gitlogo.jpg'>
 
-                    <p>Test.</p>
-
-                    ");
 

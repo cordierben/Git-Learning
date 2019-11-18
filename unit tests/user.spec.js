@@ -74,3 +74,18 @@ describe('login()', () => {
 	})
 
 })
+
+describe('quiz()', () => {
+	test('increment score', async done => {
+		expect.assertions(1)
+		try{
+			let score=0
+		    score++
+		    expect(score).toEqual(1)
+		} catch(err) {
+			done.fail('test failed')
+		} finally {
+			done()
+		}
+	})
+})
