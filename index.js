@@ -94,11 +94,12 @@ router.post('/register', koaBody, async ctx => {
 		if (x.match(letters) && y.match(letters)) {
 			// DOES THE USERNAME EXIST IN DATABASE
 			const db = await sqlite.open('./website.db')
-			const userChecker = await db.get(`SELECT user FROM users WHERE user="${body.user}";`)
+			const userChecker = await db.get(`SELECT user FROM user WHERE user="${body.user}";`)
 			if (!userChecker) {
 				// ENCRYPTING PASSWORD AND BUILDING SQL
 				body.pass = await bcrypt.hash(body.pass, saltRounds)
-				const sql = `INSERT INTO users(user, pass) VALUES("${body.user}", "${body.pass}")`
+				/*Adds username, password and email into the database */
+				const sql = `INSERT INTO user(user, pass, email) VALUES("${body.user}", "${body.pass}","${body.mail}")`
 				console.log(sql)
 				// DATABASE COMMANDS
 				await db.run(sql)
@@ -128,9 +129,9 @@ router.post('/register', koaBody, async ctx => {
 		const body = ctx.request.body
 		const db = await sqlite.open('./website.db')
 		// DOES THE USERNAME EXIST?
-		const records = await db.get(`SELECT user FROM users WHERE user="${body.user}";`)
+		const records = await db.get(`SELECT user FROM user WHERE user="${body.user}";`)
 		if(!records) return ctx.redirect('/login?msg=invalid%20username')
-		const record = await db.get(`SELECT pass FROM users WHERE user = "${body.user}";`)
+		const record = await db.get(`SELECT pass FROM user WHERE user = "${body.user}";`)
 		await db.close()
 		// DOES THE PASSWORD MATCH?
 		const valid = await bcrypt.compare(body.pass, record.pass)
