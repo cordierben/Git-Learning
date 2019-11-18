@@ -98,7 +98,8 @@ router.post('/register', koaBody, async ctx => {
 			if (!userChecker) {
 				// ENCRYPTING PASSWORD AND BUILDING SQL
 				body.pass = await bcrypt.hash(body.pass, saltRounds)
-				const sql = `INSERT INTO user(user, pass) VALUES("${body.user}", "${body.pass}")`
+				/*Adds username, password and email into the database */
+				const sql = `INSERT INTO user(user, pass, email) VALUES("${body.user}", "${body.pass}","${body.mail}")`
 				console.log(sql)
 				// DATABASE COMMANDS
 				await db.run(sql)
