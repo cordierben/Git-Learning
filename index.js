@@ -277,3 +277,12 @@ app.use(router.routes())
 module.exports = app.listen(port, async() => console.log(`listening on port ${port}`))
 
 
+module.exports.AddDate= () => {
+	var today=new Date()
+	console.log('ok')
+	var dd = String(today.getDate()).padStart(2, '0');
+	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0
+	var yyyy = today.getFullYear();
+	var date = mm + '/' + dd + '/' + yyyy;
+	return date
+}

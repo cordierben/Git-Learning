@@ -2,6 +2,7 @@
 'use strict'
 
 const Accounts = require('../modules/user.js')
+const index=require('../index.js')
 
 describe('register()', () => {
 
@@ -88,4 +89,15 @@ describe('quiz()', () => {
 			done()
 		}
 	})
+	test('Getting current date', async done => {
+		try{
+			const date= index.AddDate()
+			expect(date).toEqual('11/19/2019')
+		} catch(err) {
+			done.fail('test failed')
+		} finally {
+			done()
+		}
+	})
+
 })
