@@ -21,7 +21,7 @@ const mime = require('mime-types')
 
 /* IMPORT CUSTOM MODULES */
 require('./modules/user')
-const Score=require('./modules/score.js')
+const Score=require('./modules/score')
 
 const app = new Koa()
 const router = new Router()
@@ -68,7 +68,7 @@ router.get('/register', async ctx => {
 	if(ctx.query.msg) data.msg = ctx.query.msg
 	await ctx.render('register', data)
 })
-  
+
 /**
 * The script to process new user registrations.
 *
@@ -117,7 +117,7 @@ router.post('/register', koaBody, async ctx => {
 		await ctx.render('error', {message: err.message})
 	}
 })
- 
+
 router.get('/login', async ctx => {
 	const data = {}
 	if(ctx.query.msg) data.msg = ctx.query.msg
@@ -193,7 +193,7 @@ router.get('/lecture/:id1/quiz/:id2', async ctx => {
 									AND lecture_id= ${ctx.params.id1};`
 		const sqlOption = `SELECT option1, option2,answer,question_id  FROM option 
 									WHERE question_id= ${ctx.params.id2}
-								    AND lecture_id=${ctx.params.id1};`											
+								    AND lecture_id=${ctx.params.id1};`
 		const db=await sqlite.open(dbName)
 		const dataLecture=await db.get(sqlLecture)
 		const dataQuiz=await db.get(sqlQuiz)
@@ -205,58 +205,47 @@ router.get('/lecture/:id1/quiz/:id2', async ctx => {
 		ctx.body = err.message
 	}
 })
-//const pageData = {question: dataQuiz, lecture: dataLecture, option: dataOption} 
-//console.log(pageData) 
+
+router.get('/result', async ctx => {
+	try {
+		const db=await sqlite.open(dbName)
+		const data = await db.get(`SELECT MAX(attempt_id) as last, score, fail FROM score 
+		                                                WHERE user_id=${ctx.session.id};`)
+		console.log(data)
+		await ctx.render('result', { score: data} )
+	} catch(err) {
+		ctx.body = err.message
+	}
+})
 
 /* Score */
 
-/*eslint-disable no-var*/
-/*eslint-disable prefer-template*/
-/*eslint-disable eqeqeq*/
 router.post('/lecture/:id1/quiz/:id2', async ctx => {
 	try{
 		const db=await sqlite.open(dbName)
 		const body= ctx.request.body
-		//IF IT'S THE 1st QUESTION OF THE QUIZ, INSERT A NEW RECORD WITH THE DATE
-	    if(ctx.session.quiz==0) {
-			var score= await new Score(dbName)
-			score.newscore(ctx.session.id, ctx.params.id2)
-		}
-		//GET THE ANSWER OF THE QUESTION
-		const sql = `SELECT answer FROM option WHERE question_id = ${ctx.params.id2}
-		                                       AND lecture_id=${ctx.params.id1};`
-		const data=await db.get(sql)
-		console.log(data)
-		//GET THE SCORE OF THE USER, BY SELECTING LAST ATTEMPT (CURRENT ATTEMPT)
-		const sql2 = `SELECT MAX(attempt_id) as last, score FROM score WHERE user_id=${ctx.session.id}  
-											                           AND lecture_id=${ctx.params.id1};`
-		const data2=await db.get(sql2)
-		console.log(data2)
-		//IF THE ANSWER === THE OPTION SELECTED, INCREMENT THE SCORE
-		if(body.option===data.answer) { 
+		const score= await new Score(dbName)
+	    if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id2)
+		const data=await db.get(`SELECT answer FROM option WHERE question_id = ${ctx.params.id2}
+		                                                    AND lecture_id=${ctx.params.id1};`)
+		const data2=await db.get(`SELECT MAX(attempt_id) as last, score FROM score WHERE user_id=${ctx.session.id}  
+		                                                                       AND lecture_id=${ctx.params.id1};`)
+		if(body.option===data.answer) {
 			data2.score++
-			await db.get(`UPDATE score SET score=${data2.score} WHERE user_id=${ctx.session.id} 
-																AND lecture_id=${ctx.params.id1}
-																AND attempt_id=${data2.last};`)
+			score.updatescore(ctx.session.id,ctx.params.id1,data2.score,data2.last)
 		}
-		//GO TO NEXT QUESTION
-		if(ctx.session.quiz===9) {
-			if(data2.score<4) {
-				await db.get(`UPDATE score SET fail='Failed' WHERE user_id=${ctx.session.id} 
-																    AND lecture_id=${ctx.params.id1}
-																    AND attempt_id=${data2.last};`)
-			} else {
-				await db.get(`UPDATE score SET fail='Passed' WHERE user_id=${ctx.session.id} 
-																    AND lecture_id=${ctx.params.id1}
-																    AND attempt_id=${data2.last};`)
-			}
+		const end=9
+		if(ctx.session.quiz===end) { //IF END OF THE QUIZ? GOES TO RESULT PAGE AND MARKED FAILED OR PASSED IN DB
+			const minimum=4
+			if(data2.score<minimum) score.updatefail(ctx.session.id,ctx.params.id1,'failed',data2.last)
+			else score.updatefail(ctx.session.id,ctx.params.id1,'passed',data2.last)
 			ctx.session.quiz=0
 			await db.close()
-			return ctx.redirect('/')
-		} else{
+			return ctx.redirect('/result')
+		} else {
 			ctx.session.quiz++
 			return ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${ctx.params.id2}+1`)
-		}		
+		}
 	} catch(err) {
 		ctx.body = err.message
 	}
