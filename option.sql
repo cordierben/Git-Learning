@@ -149,4 +149,68 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                     "You run a git switch command",
                                     "You run a git checkout command",
                                      10,
-                                     2);                                      
+                                     2);                    
+                                     
+
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "At the start of a project",
+                                    "At the end of a project",
+                                    "At the start of a project",
+                                     1,
+                                     3);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "git add",
+                                    "git init",
+                                    "git init",
+                                     2,
+                                     3);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "git status",
+                                    "git add",
+                                    "git add",
+                                     3,
+                                     3);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "git commit -am 'Commit message'",
+                                    "git commit 'Commit message'",
+                                    "git commit -am 'Commit message'",
+                                     4,
+                                     3);
+                                                                                                                                                    
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     5,
+                                     3);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     6,
+                                     3);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     7,
+                                     3); 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     8,
+                                     3);                                                                   
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "git add, git status, git commit",
+                                    "git status, git add, git commit",
+                                    "git add, git status, git commit",
+                                     9,
+                                     3); 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "The pre-existing repository will be re-initialised",
+                                    "An error will occur",
+                                    "The pre-existing repository will be re-initialised",
+                                     10,
+                                     3);   
