@@ -2,7 +2,7 @@
 'use strict'
 
 const Accounts = require('../modules/user.js')
-const index=require('../index.js')
+const Score = require('../modules/score.js')
 
 describe('register()', () => {
 
@@ -89,15 +89,17 @@ describe('quiz()', () => {
 			done()
 		}
 	})
-	test('Getting current date', async done => {
-		try{
-			const date= index.AddDate()
-			expect(date).toEqual('11/19/2019')
+	test('create a new score', async done => {
+		expect.assertions(1)
+		try {
+			const score= await new Score()
+			await score.newscore(0,0)
+			const result= await score.getscore(0,0)
+			expect(result.score).toEqual(0)
 		} catch(err) {
 			done.fail('test failed')
 		} finally {
 			done()
 		}
 	})
-
 })
