@@ -2,6 +2,7 @@
 'use strict'
 
 const Accounts = require('../modules/user.js')
+const Score = require('../modules/score.js')
 
 describe('register()', () => {
 
@@ -73,4 +74,32 @@ describe('login()', () => {
 		done()
 	})
 
+})
+
+describe('quiz()', () => {
+	test('increment score', async done => {
+		expect.assertions(1)
+		try{
+			let score=0
+		    score++
+		    expect(score).toEqual(1)
+		} catch(err) {
+			done.fail('test failed')
+		} finally {
+			done()
+		}
+	})
+	test('create a new score', async done => {
+		expect.assertions(1)
+		try {
+			const score= await new Score()
+			await score.newscore(0,0)
+			const result= await score.getscore(0,0)
+			expect(result.score).toEqual(0)
+		} catch(err) {
+			done.fail('test failed')
+		} finally {
+			done()
+		}
+	})
 })

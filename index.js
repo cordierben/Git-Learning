@@ -18,8 +18,10 @@ const fs = require('fs-extra')
 const mime = require('mime-types')
 //const jimp = require('jimp')
 
+
 /* IMPORT CUSTOM MODULES */
-const User = require('./modules/user')
+require('./modules/user')
+const Score=require('./modules/score.js')
 
 const app = new Koa()
 const router = new Router()
@@ -54,51 +56,94 @@ router.get('/', async ctx => {
 	}
 })
 
+
 /**
  * The user registration page.
  *
  * @name Register Page
  * @route {GET} /register
  */
-router.get('/register', async ctx => await ctx.render('register'))
-
+router.get('/register', async ctx => {
+	const data = {}
+	if(ctx.query.msg) data.msg = ctx.query.msg
+	await ctx.render('register', data)
+})
+  
 /**
- * The script to process new user registrations.
- *
- * @name Register Script
- * @route {POST} /register
- */
+* The script to process new user registrations.
+*
+* @name Register Script
+* @route {POST} /register
+*/
+/*eslint max-lines-per-function: ["error", 200]*/
 router.post('/register', koaBody, async ctx => {
 	try {
-		// extract the data from the request
 		const body = ctx.request.body
 		console.log(body)
+		// PROCESSING FILE
 		const {path, type} = ctx.request.files.avatar
-		// call the functions in the module
-		const user = await new User(dbName)
-		await user.register(body.user, body.pass)
-		// await user.uploadPicture(path, type)
-		// redirect to the home page
-		ctx.redirect(`/?msg=new user "${body.name}" added`)
+		const fileExtension = mime.extension(type)
+		console.log(`path: ${path}`)
+		console.log(`type: ${type}`)
+		console.log(`fileExtension: ${fileExtension}`)
+		await fs.copy(path, 'public/avatars/avatar11.png')
+		// USERNAME AND PASSWORD BLANK CHECKER
+		const x = body.user
+		const y = body.pass
+		const letters = /^[A-Za-z]+$/
+		// CHECKS IF USERNAME AND PASSWORD BOX CONTAINS ONLY LETTERS
+		if (x.match(letters) && y.match(letters)) {
+			// DOES THE USERNAME EXIST IN DATABASE
+			const db = await sqlite.open('./website.db')
+			const userChecker = await db.get(`SELECT user FROM user WHERE user="${body.user}";`)
+			if (!userChecker) {
+				// ENCRYPTING PASSWORD AND BUILDING SQL
+				body.pass = await bcrypt.hash(body.pass, saltRounds)
+				/*Adds username, password and email into the database */
+				const sql = `INSERT INTO user(user, pass, email) VALUES("${body.user}", "${body.pass}","${body.mail}")`
+				console.log(sql)
+				// DATABASE COMMANDS
+				await db.run(sql)
+				await db.close()
+				// REDIRECTING USER TO HOME PAGE
+				ctx.redirect('/login')
+			} else {
+				return ctx.redirect('/register?msg=The username has been taken.')
+			}
+		} else {
+			return ctx.redirect('/register?msg=The username and password box has to contain a value.')
+		}
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
 	}
 })
-
+ 
 router.get('/login', async ctx => {
 	const data = {}
 	if(ctx.query.msg) data.msg = ctx.query.msg
 	if(ctx.query.user) data.user = ctx.query.user
 	await ctx.render('login', data)
 })
-
+/*eslint max-statements: [2, 100]*/
 router.post('/login', async ctx => {
 	try {
 		const body = ctx.request.body
-		const user = await new User(dbName)
-		await user.login(body.user, body.pass)
+		const db = await sqlite.open('./website.db')
+		// DOES THE USERNAME EXIST?
+		const records = await db.get(`SELECT user FROM user WHERE user="${body.user}";`)
+		if(!records) return ctx.redirect('/login?msg=invalid%20username')
+		const record = await db.get(`SELECT pass FROM user WHERE user = "${body.user}";`)
+		const user = await db.get(`SELECT id FROM user WHERE user = "${body.user}";`)
+		await db.close()
+		// DOES THE PASSWORD MATCH?
+		const valid = await bcrypt.compare(body.pass, record.pass)
+		if(valid === false) return ctx.redirect(`/login?user=${body.user}&msg=invalid%20password`)
+		// WE HAVE A VALID USERNAME AND PASSWORD
 		ctx.session.authorised = true
-		return ctx.redirect('/?msg=you are now logged in...')
+		ctx.session.id=user.id
+		//VAR FOR THE QUIZ, TO KNOW HOW MANY QUESTIONS THE USER HAS DONE
+		ctx.session.quiz=0
+		return ctx.redirect('/')
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
 	}
@@ -106,32 +151,116 @@ router.post('/login', async ctx => {
 
 router.get('/logout', async ctx => {
 	ctx.session.authorised = null
-	ctx.redirect('/?msg=you are now logged out')
+	ctx.redirect('/?msg=you have logged out successfully')
 })
 
-
-/* Lecture 1 & Quiz : why using GIT? */
-
-router.get('/Lecture1', async ctx =>{
-	await ctx.render('Lecture1')
+router.post('/logout', async ctx => {
+	try {
+		ctx.session.authorised = null
+		return ctx.redirect('/login?msg=you have logged out successfully')
+	} catch(err) {
+		await ctx.render('error', {message: err.message})
+	}
 })
 
-router.get('/Quiz1', async ctx=>{
-	const sql='SELECT * FROM Quiz WHERE id=1 AND idLecture=1;'
-	const db=await sqlite.open(dbName)
-	const data= await db.get(sql)
-	await ctx.render('Quiz1', {Question: data})
+/* Lecture */
 
+router.get('/lecture/:id', async ctx => {
+	try{
+		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
+		console.log(ctx.params.id)
+		const db=await sqlite.open(dbName)
+		const sql = `SELECT id, title,text,module_id FROM lecture WHERE id = ${ctx.params.id};`
+		const data=await db.get(sql)
+		const sql2=`SELECT MAX(score) as best, date FROM score WHERE user_id=${ctx.session.id}
+											AND lecture_id=${ctx.params.id};`
+		const data2=await db.get(sql2)
+		console.log(data2)
+		await ctx.render('lecture', {lecture: data, score: data2})
+	} catch(err) {
+		ctx.body = err.message
+	}
 })
 
-/* Lecture 2 & Quiz : how to install git? */
-
-router.get('/Lecture2', async ctx =>{
-	await ctx.render('Lecture2')
+/*eslint complexity: ["error", 10]*/
+router.get('/lecture/:id1/quiz/:id2', async ctx => {
+	try{
+		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
+		const sqlLecture = `SELECT id, title FROM lecture 
+									WHERE id = ${ctx.params.id1};`
+	    const sqlQuiz = `SELECT id, question,lecture_id  FROM question 
+									WHERE id =${ctx.params.id2}
+									AND lecture_id= ${ctx.params.id1};`
+		const sqlOption = `SELECT option1, option2,answer,question_id  FROM option 
+									WHERE question_id= ${ctx.params.id2}
+								    AND lecture_id=${ctx.params.id1};`											
+		const db=await sqlite.open(dbName)
+		const dataLecture=await db.get(sqlLecture)
+		const dataQuiz=await db.get(sqlQuiz)
+		const dataOption=await db.get(sqlOption)
+		if(dataQuiz !== undefined || dataLecture !== undefined || dataOption !== undefined ) {
+			await ctx.render('quiz', {question: dataQuiz, lecture: dataLecture, option: dataOption} )
+		}
+	} catch(err) {
+		ctx.body = err.message
+	}
 })
+//const pageData = {question: dataQuiz, lecture: dataLecture, option: dataOption} 
+//console.log(pageData) 
 
+/* Score */
+
+/*eslint-disable no-var*/
+/*eslint-disable prefer-template*/
+/*eslint-disable eqeqeq*/
+router.post('/lecture/:id1/quiz/:id2', async ctx => {
+	try{
+		const db=await sqlite.open(dbName)
+		const body= ctx.request.body
+		//IF IT'S THE 1st QUESTION OF THE QUIZ, INSERT A NEW RECORD WITH THE DATE
+	    if(ctx.session.quiz==0) {
+			var score= await new Score(dbName)
+			score.newscore(ctx.session.id, ctx.params.id2)
+		}
+		//GET THE ANSWER OF THE QUESTION
+		const sql = `SELECT answer FROM option WHERE question_id = ${ctx.params.id2}
+		                                       AND lecture_id=${ctx.params.id1};`
+		const data=await db.get(sql)
+		console.log(data)
+		//GET THE SCORE OF THE USER, BY SELECTING LAST ATTEMPT (CURRENT ATTEMPT)
+		const sql2 = `SELECT MAX(attempt_id) as last, score FROM score WHERE user_id=${ctx.session.id}  
+											                           AND lecture_id=${ctx.params.id1};`
+		const data2=await db.get(sql2)
+		console.log(data2)
+		//IF THE ANSWER === THE OPTION SELECTED, INCREMENT THE SCORE
+		if(body.option===data.answer) { 
+			data2.score++
+			await db.get(`UPDATE score SET score=${data2.score} WHERE user_id=${ctx.session.id} 
+																AND lecture_id=${ctx.params.id1}
+																AND attempt_id=${data2.last};`)
+		}
+		//GO TO NEXT QUESTION
+		if(ctx.session.quiz===9) {
+			if(data2.score<4) {
+				await db.get(`UPDATE score SET fail='Failed' WHERE user_id=${ctx.session.id} 
+																    AND lecture_id=${ctx.params.id1}
+																    AND attempt_id=${data2.last};`)
+			} else {
+				await db.get(`UPDATE score SET fail='Passed' WHERE user_id=${ctx.session.id} 
+																    AND lecture_id=${ctx.params.id1}
+																    AND attempt_id=${data2.last};`)
+			}
+			ctx.session.quiz=0
+			await db.close()
+			return ctx.redirect('/')
+		} else{
+			ctx.session.quiz++
+			return ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${ctx.params.id2}+1`)
+		}		
+	} catch(err) {
+		ctx.body = err.message
+	}
+})
 
 app.use(router.routes())
 module.exports = app.listen(port, async() => console.log(`listening on port ${port}`))
-
-

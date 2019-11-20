@@ -1,55 +1,43 @@
-<DOCTYPE! html>
+ <DOCTYPE! html>
     <html>
         <head>
             <meta charset="utf-8"/>
             <title>Git-Learning</title>
-            <link href="css/Layout.css" type="text/css" rel="stylesheet"  />
+            
+            <link href="../css/Layout.css" type="text/css" rel="stylesheet"  />
         </head>
         <body>
             
 
-
-            <img class="logo" src='images/logo3.png' alt="logo">
+            <img class="logo" src='../images/logo3.png' alt="logo">
+            
             <header>
                 <a class="header2" href="/Profile">Profile</a>
                 <form action="/logout" method="post">
                 <p><input type="submit" value="Log Out"></p>
                 </form>
-               
             </header>
             <nav>
                 <a class="nav1" href="/">Home</a>
                 <a class="nav2" href="/">Lectures list</a>
                 <a class="nav3" href="/Profile">Profile</a>
                 <a class="nav4" href="/AboutUs">About Us</a>
-                </p>
             </nav>
 
 
+            <article class="side">
+                    <br>
+                    <h1>{{{lecture.title}}}</h1>
+                    <h5>{{{lecture.text}}}</h5>
+                    <a class="Test" href="/lecture/{{lecture.id}}/quiz/1">Test your understanding</a><br>
+                    <p>Best score : {{score.best}}/10  ({{score.date}})</p><br>
 
-             <h1>Lectures</h1>
-        
-        <nav class="side" >
-                  
-                <br>
-                <br>
-                <br>
-            <ul>
-                <li><a class="lessons" href="/lecture/1">Why use Git</a></li>
-                <li><a class="lessons" href="/lecture/2">Installing Git</a></li>
-                <li><a class="lessons" href="/lecture/3">Create a repository</a></li>
-                <li><a class="lessons" href="/lecture/4"> Making commits</a> </li>
-                <li><a class="lessons" href="/lecture/5">Branches</a></li>
-                <li><a class="lessons" href="/lecture/6"> Merging</a></li>
-                
-            </ul>   
-        </nav> 
-                    
-            
+            </article>
             <article class="links">
                 <h1>Useful links</h1>
+                <br>
+                {{{lecture.links}}}
             </article>
-
 
 
             <footer>
@@ -59,5 +47,6 @@
                 <p class="cr"> © Copyright E-learner 2019</p>
             </footer>
         </body>
+        
     </html>
 </DOCTYPE>
