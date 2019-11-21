@@ -154,4 +154,88 @@ INSERT INTO lecture (id, title, text, module_id) VALUES(3, "<h1>How Do We Create
 <li>It is recommended to create a repository at the start of a project</li>
 </ul>",1);
 
+INSERT INTO lecture (id, title, text, module_id) VALUES(2,  "<h1>How to install git?</h1>","
+<h3>Installing Git</h3> 
 
+<p>Before you start using Git, you have to make it available on your computer. Even if it’s already installed, it’s probably a good idea to update to the latest version.</p>
+
+<h4>Installing on Windows</h4>
+
+<p>There are also a few ways to install Git on Windows. The most official build is available for download on the Git website. Just go to <a href='https://git-scm.com/download/win'>https://git-scm.com/download/win</a> and the download will start automatically. Note that this is a project called Git for Windows, which is separate from Git itself; for more information on it, go to <a href='https://gitforwindows.org'>https://gitforwindows.org</a>. 
+<p>To get an automated installation you can use the <a href='https://chocolatey.org/packages/git'>Git Chocolatey package.</a> Note that the Chocolatey package is community maintained.</p>
+<p>Another easy way to get Git installed is by installing GitHub Desktop. The installer includes a command line version of Git as well as the GUI. It also works well with PowerShell, and sets up solid credential caching and sane CRLF settings. We’ll learn more about those things a little later, but suffice it to say they’re things you want. You can download this from the <a href='https://desktop.github.com/'>GitHub Desktop website</a>.</p>
+
+<h4>Installing on Linux</h4>
+
+<p>If you want to install the basic Git tools on Linux via a binary installer, you can generally do so through the package management tool that comes with your distribution. If you’re on Fedora (or any closely-related RPM-based distribution, such as RHEL or CentOS), you can use dnf:</p>
+
+<p style= 'background-color:lightgray;'>$ sudo dnf install git-all</p>
+
+<p>If you’re on a Debian-based distribution, such as Ubuntu, try apt:</p>
+
+<p style='background-color:lightgray'>$ sudo apt install git-all</p>
+
+<p>For more options, there are instructions for installing on several different Unix distributions on the Git website, at <a href='https://git-scm.com/download/linux'>https://git-scm.com/download/linux</a>.</p>
+
+<h4>Installing on macOS</h4>
+
+<p>There are several ways to install Git on a Mac. The easiest is probably to install the Xcode Command Line Tools. On Mavericks (10.9) or above you can do this simply by trying to run git from the Terminal the very first time.</p>
+
+<p style='background-color:lightgray'>$ git --version</p>
+
+<p>If you don’t have it installed already, it will prompt you to install it.</p>
+
+<p>If you want a more up to date version, you can also install it via a binary installer. A macOS Git installer is maintained and available for download at the Git website, at <a href='https://git-scm.com/download/mac'>https://git-scm.com/download/mac</a>.
+You can also install it as part of the GitHub for macOS install. Their GUI Git tool has an option to install command line tools as well. You can download that tool from the GitHub for macOS website, at <a href='https://desktop.github.com'>https://desktop.github.com</a>.</p>
+
+<h4>Installing from Source</h4>
+
+<p>Some people may instead find it useful to install Git from source, because you’ll get the most recent version. The binary installers tend to be a bit behind, though as Git has matured in recent years, this has made less of a difference.</p>
+<p>If you do want to install Git from source, you need to have the following libraries that Git depends on: autotools, curl, zlib, openssl, expat, and libiconv. For example, if you’re on a system that has <code style='background-color: lightgray;'>dnf</code> (such as Fedora) or <code style='background-color: lightgray;'>apt-get</code> (such as a Debian-based system), you can use one of these commands to install the minimal dependencies for compiling and installing the Git binaries:</p>
+<p style='background-color:lightgray'>$ sudo dnf install dh-autoreconf curl-devel expat-devel gettext-devel \
+  openssl-devel perl-devel zlib-devel
+<br>$ sudo apt-get install dh-autoreconf libcurl4-gnutls-dev libexpat1-dev \
+  gettext libz-dev libssl-dev</p>
+
+  <p>In order to be able to add the documentation in various formats (doc, html, info), these additional dependencies are required (Note: users of RHEL and RHEL-derivatives like CentOS and Scientific Linux will have to enable the EPEL repository to download the <code style='background-color: lightgray;'>docbook2X</code> package):</p>
+
+  <p style='background-color:lightgray'>$ sudo dnf install asciidoc xmlto docbook2X
+<br>$ sudo apt-get install asciidoc xmlto docbook2x</p>
+
+<p>If you’re using a Debian-based distribution (Debian/Ubuntu/Ubuntu-derivatives), you also need the <code style='background-color: lightgray;'>install-info</code> package:</p>
+
+<p style='background-color:lightgray'>$ sudo apt-get install install-info</p>
+
+
+
+<p>If you’re using a RPM-based distribution (Fedora/RHEL/RHEL-derivatives), you also need the <code style='background-color: lightgray;'>getopt</code> package (which is already installed on a Debian-based distro):</p>
+
+
+<p style='background-color:lightgray'>$ sudo dnf install getopt
+<br>$ sudo apt-get install getopt</p>
+
+
+<p>Additionally, if you’re using Fedora/RHEL/RHEL-derivatives, you need to do this</p>
+
+
+<p style='background-color:lightgray'>$ sudo ln -s /usr/bin/db2x_docbook2texi /usr/bin/docbook2x-texi</p>
+
+<p>due to binary name differences.</p>
+
+<p>When you have all the necessary dependencies, you can go ahead and grab the latest tagged release tarball from several places. You can get it via the kernel.org site, at <a href='https://www.kernel.org/pub/software/scm/git'>https://www.kernel.org/pub/software/scm/git</a>, or the mirror on the GitHub website, at <a href='https://github.com/git/git/releases'>https://github.com/git/git/releases</a>. It’s generally a little clearer what the latest version is on the GitHub page, but the kernel.org page also has release signatures if you want to verify your download.</p>
+
+<p>Then, compile and install:</p>
+
+
+<p style='background-color:lightgray'>$ tar -zxf git-2.0.0.tar.gz
+<br>$ cd git-2.0.0
+<br>$ make configure
+<br>$ ./configure --prefix=/usr
+<br>$ make all doc info
+<br>$ sudo make install install-doc install-html install-info</p>
+
+<p>After this is done, you can also get Git via Git itself for updates:</p>
+
+
+<p style='background-color:lightgray'>$ git clone git://git.kernel.org/pub/scm/git/git.git</p></p>
+",1)
