@@ -1,5 +1,4 @@
-
-INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+INSERT INTO option (option1, option2, answer, question_id, lecture_id) VALUES ( 
                                     "A version-control system",
                                     "A Backup software",
                                     "A version-control system",

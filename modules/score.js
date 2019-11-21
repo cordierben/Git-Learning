@@ -33,6 +33,7 @@ module.exports = class Score {
 
 	async getscore(user, lecture) {
 		try {
+			console.log('ok')
 			const data=await this.db.get(`SELECT MAX(attempt_id) as last, score FROM score WHERE user_id=${user} 
 			                                                                               AND lecture_id=${lecture};`)
 			return data

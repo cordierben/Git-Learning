@@ -89,6 +89,18 @@ describe('quiz()', () => {
 			done()
 		}
 	})
+	test('get last score', async done => {
+		expect.assertions(1)
+		try{
+			const score=await new Score()
+			const data=await score.getscore(0,0)//Test record
+			expect(data.score).toEqual(0)
+		} catch(err) {
+			done.fail('test failed')
+		} finally {
+			done()
+		}
+	})
 	test('create a new score', async done => {
 		expect.assertions(1)
 		try {
