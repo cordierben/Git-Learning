@@ -228,8 +228,7 @@ router.post('/lecture/:id1/quiz/:id2', async ctx => {
 	    if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id2)
 		const data=await db.get(`SELECT answer FROM option WHERE question_id = ${ctx.params.id2}
 		                                                    AND lecture_id=${ctx.params.id1};`)
-		const data2=await db.get(`SELECT MAX(attempt_id) as last, score FROM score WHERE user_id=${ctx.session.id}  
-		                                                                       AND lecture_id=${ctx.params.id1};`)
+		const data2=score.getscore(ctx.session.id,ctx.params.id1)
 		if(body.option===data.answer) {
 			data2.score++
 			score.updatescore(ctx.session.id,ctx.params.id1,data2.score,data2.last)
@@ -242,7 +241,7 @@ router.post('/lecture/:id1/quiz/:id2', async ctx => {
 			ctx.session.quiz=0
 			await db.close()
 			return ctx.redirect('/result')
-		} else {
+		} else {//Else go to next question randomly
 			ctx.session.quiz++
 			return ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${ctx.params.id2}+1`)
 		}

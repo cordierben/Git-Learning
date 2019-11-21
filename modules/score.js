@@ -1,18 +1,15 @@
 
 'use strict'
 
-const bcrypt = require('bcrypt-promise')
-const fs = require('fs-extra')
-const mime = require('mime-types')
 const sqlite = require('sqlite-async')
-const saltRounds = 10
 
 module.exports = class Score {
 
 	constructor(dbName = ':memory:') {
 		return (async() => {
 			this.db = await sqlite.open(dbName)
-			const sql = 'CREATE TABLE IF NOT EXISTS score (user_id INTEGER, lecture_id INTEGER, attempt_id INTEGER PRIMARY KEY AUTOINCREMENT, score INTEGER, date TEXT, fail TEXT);'
+			const sql = `CREATE TABLE IF NOT EXISTS score (user_id INTEGER, lecture_id INTEGER, 
+				        attempt_id INTEGER PRIMARY KEY AUTOINCREMENT, score INTEGER, date TEXT, fail TEXT);`
 			await this.db.run(sql)
 			return this
 		})()
@@ -21,11 +18,13 @@ module.exports = class Score {
 	async newscore(user,lecture) {
 		try {
 			const today=new Date()
-	        const dd = String(today.getDate()).padStart(2, '0')
-	        const mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0
+			const start=2
+	        const dd = String(today.getDate()).padStart(start, '0')
+	        const mm = String(today.getMonth() + 1).padStart(start, '0') //January is 0
 	        const yyyy = today.getFullYear()
 			const date = `${mm}/${dd}/${yyyy}`
-			await this.db.get(`INSERT INTO score(user_id, lecture_id, score, fail, date) VALUES (${user},${lecture},0,'',"${date}");`)
+			await this.db.get(`INSERT INTO score(user_id, lecture_id, score, fail, date) 
+			                             VALUES (${user},${lecture},0,'',"${date}");`)
 		} catch(err) {
 			throw err
 		}
@@ -33,8 +32,7 @@ module.exports = class Score {
 
 	async getscore(user, lecture) {
 		try {
-			console.log('ok')
-			const data=await this.db.get(`SELECT MAX(attempt_id) as last, score FROM score WHERE user_id=${user} 
+			const data=await this.db.get(`SELECT MAX(attempt_id) as last, score, fail FROM score WHERE user_id=${user} 
 			                                                                               AND lecture_id=${lecture};`)
 			return data
 		} catch(err) {
