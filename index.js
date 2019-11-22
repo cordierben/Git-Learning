@@ -188,15 +188,22 @@ router.get('/lecture/:id1/quiz/:id2', async ctx => {
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
 		const sqlLecture = `SELECT id, title FROM lecture 
 									WHERE id = ${ctx.params.id1};`
-	    const sqlQuiz = `SELECT id, question,lecture_id  FROM question 
+	    /*const sqlQuiz = `SELECT id, question,lecture_id  FROM question 
 									WHERE id =${ctx.params.id2}
-									AND lecture_id= ${ctx.params.id1};`
+									AND lecture_id= ${ctx.params.id1};`*/
+		//trial to test joining
+		const sqltrial = `SELECT o.question_id ,o.lecture_id, q.id , q.question,q.lecture_id  FROM (SELECT * FROM question ORDER BY RANDOM() LIMIT 10), question AS q ,option AS o
+									INNER JOIN question	 ON  q.lecture_id= o.lecture_id
+									INNER JOIN question	 ON  q.id= o.question_id
+									WHERE  q.lecture_id= ${ctx.params.id1}
+									AND ${ctx.params.id2}=q.id;`
 		const sqlOption = `SELECT option1, option2,answer,question_id  FROM option 
 									WHERE question_id= ${ctx.params.id2}
 								    AND lecture_id=${ctx.params.id1};`
 		const db=await sqlite.open(dbName)
 		const dataLecture=await db.get(sqlLecture)
-		const dataQuiz=await db.get(sqlQuiz)
+		//const dataQuiz=await db.get(sqlQuiz)
+		const dataQuiz=await db.get(sqltrial)
 		const dataOption=await db.get(sqlOption)
 		if(dataQuiz !== undefined || dataLecture !== undefined || dataOption !== undefined ) {
 			await ctx.render('quiz', {question: dataQuiz, lecture: dataLecture, option: dataOption} )
