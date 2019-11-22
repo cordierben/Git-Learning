@@ -165,6 +165,46 @@ INSERT INTO question (id, question , lecture_id) VALUES (
                                     10,
                                     "10) To switch to an existing branch you...",
                                     5);
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    11,
+                                    "11) How to switch back to the master branch",
+                                    5);
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    12,
+                                    "12) switch to the new testing branch",
+                                    5);
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    13,
+                                    "13) switch to the new testing branch",
+                                    5);
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    14,
+                                    "14) The branch that HEAD points to moves forward with each commit",
+                                    5);
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    15,
+                                    "15) A branch in Git is a lightweight fixed pointer to one of the commits",
+                                    5);
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    16,
+                                    "16) How do you create a new branch called Alice",
+                                    5);
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    17,
+                                    "17) The default branch name in Git is master",
+                                    5);
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    18,
+                                    "18) What happens if you create a new branch? ",
+                                    5);
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    19,
+                                    "19) How does Git know what branch you’re currently on?",
+                                    5);                                                                                                                                                                                   
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    20,
+                                    "20) What is the function of ‘git checkout’ in git?",
+                                    5);  
 
 
                                                                                                                                                                                                                                                      
