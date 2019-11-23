@@ -229,7 +229,7 @@ router.post('/lecture/:id1/quiz/:id2', async ctx => {
 		const data=await db.get(`SELECT answer FROM option WHERE question_id = ${ctx.params.id2}
 		                                                    AND lecture_id=${ctx.params.id1};`)
 		const data2=score.getscore(ctx.session.id,ctx.params.id1)
-		if(ctx.params.id2!=0){
+		if(ctx.params.id2!==0) {
 			if(body.option===data.answer) {
 				data2.score++
 				score.updatescore(ctx.session.id,ctx.params.id1,data2.score,data2.last)
@@ -245,7 +245,7 @@ router.post('/lecture/:id1/quiz/:id2', async ctx => {
 			return ctx.redirect('/result')
 		} else {//Else go to next question randomly
 			//ctx.session.quiz++
-			var random=Math.floor((Math.random() * 20) + 1);				
+			const random=Math.floor(Math.random() * 20 + 1)
 			return ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${random}`)
 		}
 	} catch(err) {
