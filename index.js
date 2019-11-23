@@ -22,6 +22,8 @@ const mime = require('mime-types')
 /* IMPORT CUSTOM MODULES */
 require('./modules/user')
 const Score=require('./modules/score')
+const Lecture=require('./modules/lecture')
+const Quiz=require('./modules/quiz')
 
 const app = new Koa()
 const router = new Router()
@@ -170,8 +172,9 @@ router.get('/lecture/:id', async ctx => {
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
 		console.log(ctx.params.id)
 		const db=await sqlite.open(dbName)
-		const sql = `SELECT id, title,text,module_id FROM lecture WHERE id = ${ctx.params.id};`
-		const data=await db.get(sql)
+		const lecture = await new Lecture(dbName)
+		const data = await lecture.getlecture(ctx.params.id)
+		//console.log(data)
 		const sql2=`SELECT MAX(score) as best, date FROM score WHERE user_id=${ctx.session.id}
 											AND lecture_id=${ctx.params.id};`
 		const data2=await db.get(sql2)
@@ -186,18 +189,11 @@ router.get('/lecture/:id', async ctx => {
 router.get('/lecture/:id1/quiz/:id2', async ctx => {
 	try{
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
-		const sqlLecture = `SELECT id, title FROM lecture 
-									WHERE id = ${ctx.params.id1};`
-	    const sqlQuiz = `SELECT id, question,lecture_id  FROM question 
-									WHERE id =${ctx.params.id2}
-									AND lecture_id= ${ctx.params.id1};`
-		const sqlOption = `SELECT option1, option2,answer,question_id  FROM option 
-									WHERE question_id= ${ctx.params.id2}
-								    AND lecture_id=${ctx.params.id1};`
-		const db=await sqlite.open(dbName)
-		const dataLecture=await db.get(sqlLecture)
-		const dataQuiz=await db.get(sqlQuiz)
-		const dataOption=await db.get(sqlOption)
+		const lecture = await new Lecture(dbName)
+		const dataLecture = await lecture.getlecture(ctx.params.id1)
+		const quiz = await new Quiz(dbName)
+		const dataQuiz = await quiz.getquestion(ctx.params.id2,ctx.params.id1)
+		const dataOption = await quiz.getoption(ctx.params.id2,ctx.params.id1)
 		if(dataQuiz !== undefined || dataLecture !== undefined || dataOption !== undefined ) {
 			await ctx.render('quiz', {question: dataQuiz, lecture: dataLecture, option: dataOption} )
 		}
@@ -225,9 +221,11 @@ router.post('/lecture/:id1/quiz/:id2', async ctx => {
 		const db=await sqlite.open(dbName)
 		const body= ctx.request.body
 		const score= await new Score(dbName)
-	    if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id2)
-		const data=await db.get(`SELECT answer FROM option WHERE question_id = ${ctx.params.id2}
-		                                                    AND lecture_id=${ctx.params.id1};`)
+		if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id2)
+		const quiz = await new Quiz(dbName)
+		const data = await quiz.getanswer(ctx.params.id2,ctx.params.id1)
+		/*const data=await db.get(`SELECT answer FROM option WHERE question_id = ${ctx.params.id2}
+		                                                    AND lecture_id=${ctx.params.id1};`)*/
 		const data2=score.getscore(ctx.session.id,ctx.params.id1)
 		if(ctx.params.id2!==0) {
 			if(body.option===data.answer) {
@@ -236,6 +234,9 @@ router.post('/lecture/:id1/quiz/:id2', async ctx => {
 			}
 		}
 		const end=9
+		console.log(ctx.session.quiz)
+		//console.log(ctx.session.id)
+		//console.count();
 		if(ctx.session.quiz===end) { //IF END OF THE QUIZ? GOES TO RESULT PAGE AND MARKED FAILED OR PASSED IN DB
 			const minimum=4
 			if(data2.score<minimum) score.updatefail(ctx.session.id,ctx.params.id1,'failed',data2.last)
@@ -244,9 +245,16 @@ router.post('/lecture/:id1/quiz/:id2', async ctx => {
 			await db.close()
 			return ctx.redirect('/result')
 		} else {//Else go to next question randomly
-			//ctx.session.quiz++
-			const random=Math.floor(Math.random() * 20 + 1)
-			return ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${random}`)
+			ctx.session.quiz++
+			//ctx.session.id ++
+			//return ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${ctx.params.id2}+1`)
+			let x=0
+			while(x<=10){
+				const random=Math.floor(Math.random() * 20 + 1)
+				ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${random}`)
+				x++
+			}
+            
 		}
 	} catch(err) {
 		ctx.body = err.message
