@@ -58,6 +58,16 @@ router.get('/', async ctx => {
 	}
 })
 
+router.get('/html', async ctx => {
+	try {
+		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
+		const data = {}
+		if(ctx.query.msg) data.msg = ctx.query.msg
+		await ctx.render('Menuhtml')
+	} catch(err) {
+		await ctx.render('error', {message: err.message})
+	}
+})
 
 /**
  * The user registration page.
@@ -176,7 +186,7 @@ router.get('/lecture/:id', async ctx => {
 		const data = await lecture.getlecture(ctx.params.id)
 		//console.log(data)
 		const sql2=`SELECT MAX(score) as best, date FROM score WHERE user_id=${ctx.session.id}
-											AND lecture_id=${ctx.params.id};`
+											                   AND lecture_id=${ctx.params.id};`
 		const data2=await db.get(sql2)
 		console.log(data2)
 		await ctx.render('lecture', {lecture: data, score: data2})
