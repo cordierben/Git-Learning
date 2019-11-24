@@ -218,17 +218,17 @@ router.get('/result', async ctx => {
 
 router.post('/lecture/:id1/quiz/:id2', async ctx => {
 	try{
-		
+
 		const db=await sqlite.open(dbName)
 		const body= ctx.request.body
-		var data2
+		let data2
 		const score= await new Score(dbName)
-		if(ctx.params.id2!=0) {
-		if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id1)
-		ctx.session.quiz++
-		const quiz = await new Quiz(dbName)
-		const data = await quiz.getanswer(ctx.params.id2,ctx.params.id1)
-		data2=await score.getscore(ctx.session.id,ctx.params.id1)
+		if(ctx.params.id2!==0) {
+			if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id1)
+			ctx.session.quiz++
+			const quiz = await new Quiz(dbName)
+			const data = await quiz.getanswer(ctx.params.id2,ctx.params.id1)
+			data2=await score.getscore(ctx.session.id,ctx.params.id1)
 			if(body.option===data.answer) {
 				data2.score++
 				score.updatescore(ctx.session.id,ctx.params.id1,data2.score,data2.last)
@@ -236,8 +236,8 @@ router.post('/lecture/:id1/quiz/:id2', async ctx => {
 		}
 		const end=9
 		console.log(ctx.session.quiz)
-		if(ctx.session.quiz==9) { //IF END OF THE QUIZ? GOES TO RESULT PAGE AND MARKED FAILED OR PASSED IN DB
-			console.log("end")
+		if(ctx.session.quiz===end) { //IF END OF THE QUIZ? GOES TO RESULT PAGE AND MARKED FAILED OR PASSED IN DB
+			console.log('end')
 			console.log(data2.last)
 		    console.log(data2.score)
 			const minimum=4
@@ -248,12 +248,13 @@ router.post('/lecture/:id1/quiz/:id2', async ctx => {
 			return ctx.redirect('/result')
 		} else {//Else go to next question randomly
 			let x=0
-			while(x<=10){
+			const max =10
+			while(x<=max) {
 				const random=Math.floor(Math.random() * 20 + 1)
 				ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${random}`)
 				x++
 			}
-            
+
 		}
 	} catch(err) {
 		ctx.body = err.message

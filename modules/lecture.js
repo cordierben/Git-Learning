@@ -13,46 +13,44 @@ module.exports = class Lecture {
 			await this.db.run(sql)
 			return this
 		})()
-    }
+	}
 
-	async addlecture(id, title, text, module_id) {
+	async addlecture(id, title, text, moduleId) {
 		try {
-            const data=await this.db.get(`INSERT INTO lecture (id, title, text,module_id)
-                                                VALUES (${id},${title},${text},${module_id});`)
+			const data=await this.db.get(`INSERT INTO lecture (id, title, text,module_id)
+                                                VALUES (${id},${title},${text},${moduleId});`)
 			return data
 		} catch(err) {
 			throw err
 		}
-    }
-    async getlecture(id) {
+	}
+	async getlecture(id) {
 		try {
-            const data=await this.db.get(`SELECT id, title, text,module_id FROM lecture
+			const data=await this.db.get(`SELECT id, title, text,module_id FROM lecture
                                                 WHERE id =${id};`)
 			return data
 		} catch(err) {
 			throw err
 		}
-    } 
-    
-    async deletelecture(id) {
+	}
+
+	async deletelecture(id) {
 		try {
-            await this.db.get(`DELETE FROM lecture
+			await this.db.get(`DELETE FROM lecture
                                              WHERE  lecture =${id};`)
 		} catch(err) {
 			throw err
 		}
-    }
-    async updatelecture(id, title, text, module_id) {
+	}
+	async updatelecture(id, title, text, moduleId) {
 		try {
-            await this.db.get(`UPDATE lecture SET title=${title},text=${text} 
+			await this.db.get(`UPDATE lecture SET title=${title},text=${text} 
                                                         WHERE id=${id}
-                                                        AND module_id=${module_id};`)
+                                                        AND module_id=${moduleId};`)
 		} catch(err) {
 			throw err
 		}
-    } 
-
-
+	}
 
 
 }
