@@ -29,7 +29,9 @@
                     <br>
                     <h1>{{{lecture.title}}}</h1>
                     <h5>{{{lecture.text}}}</h5>
-                    <a class="Test" href="/lecture/{{lecture.id}}/quiz/0">Test your understanding</a><br>
+                <form action="/lecture/{{lecture.id}}/quiz/0" method="post">
+                   <p><input type="submit" value="Test your understanding"></p>
+                </form>
                     <p>Best score : {{score.best}}/10  ({{score.date}})</p><br>
 
             </article>

@@ -24,7 +24,7 @@ module.exports = class Score {
 	        const yyyy = today.getFullYear()
 			const date = `${mm}/${dd}/${yyyy}`
 			await this.db.get(`INSERT INTO score(user_id, lecture_id, score, fail, date) 
-			                             VALUES (${user},${lecture},0,'',"${date}");`)
+			                             VALUES (${user},${lecture},0,"","${date}");`)
 		} catch(err) {
 			throw err
 		}
@@ -32,6 +32,7 @@ module.exports = class Score {
 
 	async getscore(user, lecture) {
 		try {
+			console.log("getscore")
 			const data=await this.db.get(`SELECT MAX(attempt_id) as last, score, fail FROM score WHERE user_id=${user} 
 			                                                                               AND lecture_id=${lecture};`)
 			return data
