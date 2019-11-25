@@ -83,6 +83,23 @@ INSERT INTO lecture (id, title, text, module_id) VALUES(1, "<h1>Why using GIT?</
                     existence of collaborative website such as GitHub. This is a social media for developers, with a huge community. This is an excellent way
                     to participate in projects and ask for help.</p>", 
                     1);
+                    
+INSERT INTO lecture (id, title, text, module_id) VALUES(6,“<h1>Merging</h1>”,
+'<p>When working on a project in Git, it is good practice to separate the code into different branches as it is developed. Branching allows different versions of the project to exist simultaneously without the risk of code being overwritten or modified unwantedly. Therefore each developer is able to work freely on different versions of the same project. Eventually however, the project will reach a point where we will want to compile all the code accordingly &ndash; for this, we use the git merge command.</p>
+<h2>Preparing to Merge</h2>
+<p>There are several steps that are necessary before we may eventually begin to merge. It is necessary to verify that the repository is up-to-date with all recent versions first before commencing. We start by using the git fetch command, followed by typing git branch &ndash;va. The output should contain a line of code reading [Behind 1] which confirms that the master branch has received the new changes. This should then be followed by typing git checkout master, a command which will effectively &lsquo;master&rsquo; the branch that is currently active. After this, we just need to use the git pull command which will bring us to the point where we can now start merging.</p>
+<h2>Process of Merging</h2>
+<p>We only require the use of one command to effectively merge in Git: git merge. We type git merge, followed the name of the version. For example, if the version of the code was called latest-version, the line of code we would type would read git merge latest-version. Having successfully done this, the commit history will be updated with the addition of a &lsquo;merge commit&rsquo; which will signify that the branch from which we merged is safe to be deleted.</p>
+<p>In some cases however, the process may not be successful due to a &lsquo;merge conflict&rsquo;. The steps that need to be taken to effectively resolve merge conflicts is detailed in the following video.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/MzpW-k66XE8"></iframe>
+<h3>In summary&hellip;</h3>
+<ul>
+<li>Branching allows simultaneous development of different versions</li>
+<li>Preparing to merge involves git fetch, git branch, git checkout and git pull commands</li>
+<li>Merging involves git merge command (followed by version name)</li>
+<li>Check that the repository is updated before starting merge</li>
+</ul>', 1);
+                    
 
 INSERT INTO lecture (id, title, text, module_id)
     VALUES(
