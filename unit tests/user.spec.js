@@ -3,6 +3,8 @@
 
 const Accounts = require('../modules/user.js')
 const Score = require('../modules/score.js')
+const Lecture = require('../modules/lecture.js')
+const Quiz = require('../modules/quiz.js')
 
 describe('register()', () => {
 
@@ -41,11 +43,6 @@ describe('register()', () => {
 
 })
 
-describe('uploadPicture()', () => {
-	// this would have to be done by mocking the file system
-	// perhaps using mock-fs?
-})
-
 describe('login()', () => {
 	test('log in with valid credentials', async done => {
 		expect.assertions(1)
@@ -76,11 +73,12 @@ describe('login()', () => {
 
 })
 
-describe('quiz()', () => {
+describe('score()', () => {
 	test('get last score', async done => {
 		expect.assertions(1)
 		try{
-			const score= await new Score('website.db')
+			const score= await new Score()
+			await score.newscore(0,0)
 			const result= await score.getscore(0,0)//Test record
 			expect(result.score).toEqual(0)
 		} catch(err) {
@@ -124,6 +122,88 @@ describe('quiz()', () => {
 			await score.updatefail(0,0,'failed',1)
 			const data= await score.getscore(0,0)
 			expect(data.fail).toEqual('failed')
+		} catch(err) {
+			done.fail('test failed')
+		} finally {
+			done()
+		}
+	})
+})
+
+describe('lecture()', () => {
+	test('Add a lecture', async done => {
+		try {
+			const lecture= await new Lecture()
+			await lecture.addlecture(0,"This is a test","This is the text of the test", 0)
+			const data= await lecture.getlecture(0)
+			expect(data.title).toEqual("This is a test")
+		} catch(err) {
+			done.fail('test failed')
+		} finally {
+			done()
+		}
+	})
+	test('Update a lecture', async done => {
+		try {
+			const lecture= await new Lecture()
+			await lecture.addlecture(0,"This is a test","This is the text of the test", 0)
+			await lecture.updatelecture(0,"This is a test but updated","this is the text but updated", 0)
+			const data= await lecture.getlecture(0)
+			expect(data.title).toEqual("This is a test but updated")
+		} catch(err) {
+			done.fail('test failed')
+		} finally {
+			done()
+		}
+	})
+	test('Delete a lecture', async done => {
+		try {
+			const lecture= await new Lecture()
+			await lecture.addlecture(0,"Lecture 1","Text 1", 0)
+			console.log("ok")
+			await lecture.deletelecture(0,0)
+			const data=await lecture.getlecture(0)
+			console.log(data)
+			expect(data).toEqual(undefined)
+		} catch(err) {
+			done.fail('test failed')
+		} finally {
+			done()
+		}
+	})
+})
+
+describe('quiz()', () => {
+	test('add a question', async done => {
+		try {
+			const quiz= await new Quiz()
+			await quiz.addquestion(0,"What is it?",0)
+			const data=await quiz.getquestion(0,0)
+			expect(data.question).toEqual("What is it?")
+		} catch(err) {
+			done.fail('test failed')
+		} finally {
+			done()
+		}
+	})
+	test('add options', async done => {
+		try {
+			const quiz= await new Quiz()
+			await quiz.addoption("1","2","2",0,0)
+			const data=await quiz.getoption(0,0)
+			expect(data.answer).toEqual("2")
+		} catch(err) {
+			done.fail('test failed')
+		} finally {
+			done()
+		}
+	})
+	test('Get answer', async done => {
+		try {
+			const quiz= await new Quiz()
+			await quiz.addoption("1","2","2",0,0)
+			const data=await quiz.getanswer(0,0)
+			expect(data.answer).toEqual("2")
 		} catch(err) {
 			done.fail('test failed')
 		} finally {
