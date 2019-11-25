@@ -274,3 +274,36 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                     "The pre-existing repository will be re-initialised",
                                      10,
                                      3);   
+                                     
+                                     
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     1,
+                                     6);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "git fetch, git branch",
+                                    "git branch, git fetch",
+                                    "git fetch, git branch",
+                                     2,
+                                     6);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "[Behind 0]",
+                                    "[Behind 1]",
+                                    "[Behind 1]",
+                                     3,
+                                     6);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     4,
+                                     6);
+                                                                                                                                                   
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     5,
+                                     6);                                     
