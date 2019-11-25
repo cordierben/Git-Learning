@@ -63,7 +63,6 @@ router.get('/editLecture', async ctx=> {
     if(ctx.query.msg) data.msg = ctx.query.msg
 })
 router.get('/admin', async ctx => {
-    try {
 		const db = await sqlite.open('./website.db')
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=Only Admin')
 		const admin = await db.get(`SELECT admin FROM user WHERE id ="${ctx.session.id}";`)
@@ -75,9 +74,6 @@ router.get('/admin', async ctx => {
 		} else {
 			return ctx.redirect('/login?msg=only for admins')
 		}
-    } catch(err) {
-        await ctx.render('error', {message: err.message})
-    }
 })
 router.get('/uploadLecture', async ctx =>{
 	const data = {}
@@ -209,6 +205,7 @@ router.post('/login', async ctx => {
 		// WE HAVE A VALID USERNAME AND PASSWORD
 		ctx.session.authorised = true
 		ctx.session.id=records.id
+		console.log(ctx.session.id)
 		//VAR FOR THE QUIZ, TO KNOW HOW MANY QUESTIONS THE USER HAS DONE
 		ctx.session.quiz=0
 		return ctx.redirect('/')
