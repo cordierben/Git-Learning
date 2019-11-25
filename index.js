@@ -47,23 +47,15 @@ const saltRounds = 10
  * @route {GET} /
  * @authentication This route requires cookie-based authentication.
  */
-router.get('/', async ctx => {
+router.get('/menu/:id', async ctx => {
 	try {
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
 		const data = {}
 		if(ctx.query.msg) data.msg = ctx.query.msg
-		await ctx.render('Menu')
-	} catch(err) {
-		await ctx.render('error', {message: err.message})
-	}
-})
-
-router.get('/html', async ctx => {
-	try {
-		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
-		const data = {}
-		if(ctx.query.msg) data.msg = ctx.query.msg
-		await ctx.render('Menuhtml')
+		const db=await sqlite.open(dbName) 
+		const data2= await db.all(`SELECT id, title FROM lecture WHERE module_id=${ctx.params.id}`)
+		console.log(data2)
+		await ctx.render('Menu', {lecture: data2})
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
 	}
@@ -136,6 +128,7 @@ router.get('/login', async ctx => {
 	if(ctx.query.user) data.user = ctx.query.user
 	await ctx.render('login', data)
 })
+
 /*eslint max-statements: [2, 100]*/
 router.post('/login', async ctx => {
 	try {
@@ -155,7 +148,7 @@ router.post('/login', async ctx => {
 		ctx.session.id=user.id
 		//VAR FOR THE QUIZ, TO KNOW HOW MANY QUESTIONS THE USER HAS DONE
 		ctx.session.quiz=0
-		return ctx.redirect('/')
+		return ctx.redirect('/menu/1')
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
 	}
@@ -163,7 +156,7 @@ router.post('/login', async ctx => {
 
 router.get('/logout', async ctx => {
 	ctx.session.authorised = null
-	ctx.redirect('/?msg=you have logged out successfully')
+	ctx.redirect('/menu/1?msg=you have logged out successfully')
 })
 
 router.post('/logout', async ctx => {
@@ -188,7 +181,6 @@ router.get('/lecture/:id', async ctx => {
 		const sql2=`SELECT MAX(score) as best, date FROM score WHERE user_id=${ctx.session.id}
 											                   AND lecture_id=${ctx.params.id};`
 		const data2=await db.get(sql2)
-		console.log(data2)
 		await ctx.render('lecture', {lecture: data, score: data2})
 	} catch(err) {
 		ctx.body = err.message
@@ -225,7 +217,7 @@ router.get('/result', async ctx => {
 })
 
 /* Score */
-
+/*eslint-disable eqeqeq*/
 router.post('/lecture/:id1/quiz/:id2', async ctx => {
 	try{
 
@@ -233,7 +225,7 @@ router.post('/lecture/:id1/quiz/:id2', async ctx => {
 		const body= ctx.request.body
 		let data2
 		const score= await new Score(dbName)
-		if(ctx.params.id2!==0) {
+		if(ctx.params.id2!=0) {
 			if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id1)
 			ctx.session.quiz++
 			const quiz = await new Quiz(dbName)

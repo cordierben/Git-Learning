@@ -72,12 +72,12 @@ nav ul.nav4 li:hover > ul {
 
 /*Lecture*/
 
-nav ul {
+article ul {
     list-style: none;
     
 }
 
-nav ul.lessons li {
+article ul.lessons li {
     float: left;
     width: 35%;
     height:80px;
