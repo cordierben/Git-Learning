@@ -55,6 +55,33 @@ INSERT INTO question (id, question , lecture_id) VALUES (
                                     
                                     
                                     
+                                    
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    1,
+                                    "1) Before merging, it is not necessary to check that the repository is up-to-date.",
+                                    6);
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    2,
+                                    "2) In what sequence should the following commands be used to prepare for merging?",
+                                    6);
+
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    3,
+                                    "3) The git branch command outputs which of the following?",
+                                    6);
+
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    4,
+                                    "4) When using the git merge command, it must be followed by the version name.",
+                                    6);
+
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    5,
+                                    "5) The branch from which we are merging should not be deleted after merging.",
+                                    6);    
+                                    
+                                    
+                                    
 
 
 INSERT INTO question (id, question , lecture_id) VALUES ( 
