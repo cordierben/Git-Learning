@@ -12,8 +12,8 @@
             <img class="logo" src='images/logo3.png' alt="logo">
             <header>
                 <a class="header2" href="/Profile">Profile</a>
-                <form action="/logout" method="post">
-                <p><input type="submit" value="Log Out"></p>
+                <form action="/logout"  method="post">
+                <p><input type="submit"  value="Log Out" class="header3"></p>
                 </form>
                
             </header>
@@ -34,6 +34,14 @@
                 <br>
                 <br>
                 <br>
+            
+           <!-- <ul>
+                {{#each lecture}}
+                    <li><a class="lessons" href="/lecture/{{{this.id}}}">{{this.title}}</a></li>
+
+                {{/each}}
+            </ul>   --> 
+            
             <ul>
                 <li><a class="lessons" href="/lecture/1">Why use Git</a></li>
                 <li><a class="lessons" href="/lecture/2">Installing Git</a></li>
@@ -42,7 +50,7 @@
                 <li><a class="lessons" href="/lecture/5">Branches</a></li>
                 <li><a class="lessons" href="/lecture/6"> Merging</a></li>
                 
-            </ul>   
+            </ul>  
         </nav> 
                     
             
