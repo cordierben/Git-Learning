@@ -89,6 +89,37 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                      15,
                                      1); 
 INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "In 2014",
+                                    "In 2005",
+                                    "In 2005",
+                                     16,
+                                     1);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "CVS",
+                                    "CSV",
+                                    "CVS",
+                                     17,
+                                     1);                                     
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Track the code",
+                                    "See the quality of a code",
+                                    "Track the code",
+                                     18,
+                                     1); 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Mat Mackall",
+                                    "Matt Mackall",
+                                    "Matt Mackall",
+                                     19,
+                                     1); 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Yes",
+                                    "No",
+                                    "Yes",
+                                     20,
+                                     1); 
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
                                     "True",
                                     "False",
                                     "False",
