@@ -1,0 +1,31 @@
+
+<!doctype html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Log In</title>
+		<link href="css/loginstyle.css" type="text/css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="box">
+		<h1>Log In</h1>
+		<div class="error">
+		{{#if msg}}
+ 			<p class="msg"></p>{{msg}}</p>
+		{{/if}}
+		</div>
+			<form action="/adminlogin" enctype="multipart/form-data" method="post">
+			<div class="inputBox">
+				<input type="text" name="user"/>
+            	<label>username</label>
+			</div>
+			<div class="inputBox">
+				<input type="password" name="pass">
+				<label>password</label>
+			</div>
+			<input type="submit" value="Log in">
+			</form>
+		</div>
+	</body>
+</html>
