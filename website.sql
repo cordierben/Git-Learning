@@ -256,3 +256,27 @@ You can also install it as part of the GitHub for macOS install. Their GUI Git t
 
 <p style='background-color:lightgray'>$ git clone git://git.kernel.org/pub/scm/git/git.git</p></p>
 ",1)
+
+INSERT INTO lecture (id, title, text, module_id) VALUES(1,“<h1>Introduction to HTML</h1>”,
+'<p>HTML (Hypertext Markup Language) is the standard language that is used to build webpages. HTML essentially provides instructions that are interpreted by the web browser to construct almost every item, visible and unseen, on a webpage. The HTML document not only tells the browser what to display but also how to display it, by controlling the way in which it is presented. Obviously as the world wide web has developed, the language of HTML has also evolved - the version of HTML that is being used currently is HTML5, the fifth iteration of HTML.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dD2EISBDjWM" ></iframe>
+<h2>Creating a HTML5 Document</h2>
+<p>A HTML5 document will most likely include elements such as headings, paragraphs, images, videos etc. Every element that will be included will needed to be enclosed by tags &ndash; they allow the browser to identify what the element is, how it should be displayed and where it starts and finishes. For example, if we want to insert into our webpage a heading called &lsquo;TITLE&rsquo;, the HTML translation would be:</p>
+<p>&nbsp; &nbsp; &nbsp;&nbsp;<span style="background-color: #99ccff;">&lt;h1&gt;TITLE&lt;/h1&gt;</span></p>
+<p>As is visible, it has an opening tag reading &lsquo;h1&rsquo;; the &lsquo;h&rsquo; signifies to the browser that the element is a heading whilst the &lsquo;1&rsquo; indicates that this will be the main heading. The closing tag reads &lsquo;/h1&rsquo;; it tells the browser where the element ends by repeating the &lsquo;h1&rsquo; that was present in the opening tag but also adding a &lsquo;/&rsquo; to the start. Most other elements will need closing tags that following a similar format.</p>
+<p>Apart from surrounding the individual elements, tags must also be present at the start and end of the HTML5 document as a whole. We must always first start by using the following tag:</p>
+<p>&nbsp; &nbsp; &nbsp; <span style="background-color: #99ccff;">&lt;!DOCTYPE HTML&gt;</span></p>
+<p>This tag unlike others does not have a corresponding tag since its sole purpose is to inform the browser of the version of HTML being used. Next, the whole HTML5 document must be enclosed within tags &ndash; we must start with an opening tag reading &lt;html&gt; and end with a closing tag reading &lt;/html&gt;. Between these two tags, we insert the contents of the HTML5 document. The majority of simple HTML5 documents will abide by this format and look similar to this:</p>
+<p>&nbsp; &nbsp; &nbsp; <span style="background-color: #99ccff;">&lt;!DOCTYPE HTML&gt;</span></p>
+<p>&nbsp; &nbsp; &nbsp; <span style="background-color: #99ccff;">&lt;html&gt;</span></p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #3366ff;">#<em>insert HTML5 elements here#</em></span></p>
+<p>&nbsp; &nbsp; &nbsp; <span style="background-color: #99ccff;">&lt;/html&gt;</span></p>
+<h3>In summary&hellip;</h3>
+<ul>
+<li>HTML provides instructions for the browser</li>
+<li>Elements should be enclosed by tags</li>
+<li>Start of the HTML5 with the doctype declaration</li>
+<li>Surround all the content with &lt;html&gt; tags</li>
+</ul>
+
+', 2);
