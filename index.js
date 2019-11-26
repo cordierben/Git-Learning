@@ -223,11 +223,12 @@ router.post('/lecture/:id1/quiz/:id2', async ctx => {
 		const body= ctx.request.body
 		let data2
 		const score= await new Score(dbName)
-		if(ctx.params.id2!==0) {
+		if(ctx.params.id2!=0) { // double equal goesinto if
 			if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id1)
 			ctx.session.quiz++
 			const quiz = await new Quiz(dbName)
 			const data = await quiz.getanswer(ctx.params.id2,ctx.params.id1)
+			console.log(data.answer)
 			data2=await score.getscore(ctx.session.id,ctx.params.id1)
 			if(body.option===data.answer) {
 				data2.score++
@@ -237,9 +238,6 @@ router.post('/lecture/:id1/quiz/:id2', async ctx => {
 		const end=9
 		console.log(ctx.session.quiz)
 		if(ctx.session.quiz===end) { //IF END OF THE QUIZ? GOES TO RESULT PAGE AND MARKED FAILED OR PASSED IN DB
-			console.log('end')
-			console.log(data2.last)
-		    console.log(data2.score)
 			const minimum=4
 			if(data2.score<minimum) score.updatefail(ctx.session.id,ctx.params.id1,'failed',data2.last)
 			else score.updatefail(ctx.session.id,ctx.params.id1,'passed',data2.last)
