@@ -52,6 +52,71 @@ INSERT INTO question (id, question , lecture_id) VALUES (
                                     10,
                                     "10) Which kind of version-control is GIT?",
                                     1);
+INSERT INTO question (id, question, lecture_id) VALUES (
+                                    11,
+                                    "Which of these version-control system isn’t Open Source?",
+                                    1);   
+INSERT INTO question(id, question, lecture_id) VALUES (
+                                    12,
+                                    "Which of these is not supported by Unix-Like?",
+                                    1);             
+INSERT INTO question(id, question, lecture_id) VALUES (
+                                    13,
+                                    "Who is the maintainer of Git?",
+                                    1);
+INSERT INTO question(id, question, lecture_id) VALUES (
+                                    14,
+                                    "Which of these possibilities is not a functionnality of GIT?",
+                                    1);  
+INSERT INTO question(id, question, lecture_id) VALUES (
+                                    15,
+                                    "Does GitHub support other version-control system than Git?",
+                                    1);                                     
+INSERT INTO question(id, question, lecture_id) VALUES (
+                                    16,
+                                    "When GIT was created?",
+                                    1);  
+INSERT INTO question(id, question, lecture_id) VALUES (
+                                    17,
+                                    "Which of these is a version-control system?",
+                                    1);  
+INSERT INTO question(id, question, lecture_id) VALUES (
+                                    18,
+                                    "Which of these possibilities is a functionnality of a version-control system?",
+                                    1);  
+INSERT INTO question(id, question, lecture_id) VALUES (
+                                    19,
+                                    "Who is the maintainer of Mercurial?",
+                                    1);  
+INSERT INTO question(id, question, lecture_id) VALUES (
+                                    20,
+                                    "Is GIT Open Source?",
+                                    1);  
+
+
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    1,
+                                    "1) Before merging, it is not necessary to check that the repository is up-to-date.",
+                                    6);
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    2,
+                                    "2) In what sequence should the following commands be used to prepare for merging?",
+                                    6);
+
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    3,
+                                    "3) The git branch command outputs which of the following?",
+                                    6);
+
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    4,
+                                    "4) When using the git merge command, it must be followed by the version name.",
+                                    6);
+
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    5,
+                                    "5) The branch from which we are merging should not be deleted after merging.",
+                                    6);    
                                     
                                     
                                     

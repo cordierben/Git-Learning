@@ -3,13 +3,10 @@
         <head>
             <meta charset="utf-8"/>
             <title>Git-Learning</title>
-            <link href="css/Layout.css" type="text/css" rel="stylesheet"  />
+            <link href="../css/Layout.css" type="text/css" rel="stylesheet"  />
         </head>
         <body>
-            
-
-
-            <img class="logo" src='images/logo3.png' alt="logo">
+            <img class="logo" src='../images/logo3.png' alt="logo">
             <header>
                 <a class="header2" href="/Profile">Profile</a>
                 <form action="/logout"  method="post">
@@ -17,41 +14,36 @@
                 </form>
                
             </header>
+
             <nav>
-                <a class="nav1" href="/">Home</a>
-                <a class="nav2" href="/">Lectures list</a>
-                <a class="nav3" href="/Profile">Profile</a>
-                <a class="nav4" href="/AboutUs">About Us</a>
-                </p>
+                <ul class="nav4">
+                    <li><a class="nav1" href="/">Home</a></li>
+                    <li>Module List
+                        <ul>
+                            <li><a href="/menu/1">GIT</a></li>
+                            <li><a href="/menu/2">HTML5</a></li>
+                        </ul>
+                    </li> 
+                    <li><a class="nav2" href="/menu/1">Lectures list</a></li>
+                    <li><a class="nav3" href="/Profile">Profile</a></li>
+                </ul>
             </nav>
+
 
 
 
              <h1>Lectures</h1>
         
-        <nav class="side" >
-                  
+        <article class="list" >
                 <br>
                 <br>
                 <br>
-            
-           <!-- <ul>
+            <ul class="lessons">
                 {{#each lecture}}
-                    <li><a class="lessons" href="/lecture/{{{this.id}}}">{{this.title}}</a></li>
-
-                {{/each}}
-            </ul>   --> 
-            
-            <ul>
-                <li><a class="lessons" href="/lecture/1">Why use Git</a></li>
-                <li><a class="lessons" href="/lecture/2">Installing Git</a></li>
-                <li><a class="lessons" href="/lecture/3">Create a repository</a></li>
-                <li><a class="lessons" href="/lecture/4"> Making commits</a> </li>
-                <li><a class="lessons" href="/lecture/5">Branches</a></li>
-                <li><a class="lessons" href="/lecture/6"> Merging</a></li>
-                
-            </ul>  
-        </nav> 
+                <li><a class="lessons" href="/lecture/{{this.id}}">{{{this.title}}}</a></li>
+                {{/each}}   
+            </ul>   
+        </article> 
                     
             
             <article class="links">

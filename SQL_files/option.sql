@@ -89,6 +89,37 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                      15,
                                      1); 
 INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "In 2014",
+                                    "In 2005",
+                                    "In 2005",
+                                     16,
+                                     1);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "CVS",
+                                    "CSV",
+                                    "CVS",
+                                     17,
+                                     1);                                     
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Track the code",
+                                    "See the quality of a code",
+                                    "Track the code",
+                                     18,
+                                     1); 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Mat Mackall",
+                                    "Matt Mackall",
+                                    "Matt Mackall",
+                                     19,
+                                     1); 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Yes",
+                                    "No",
+                                    "Yes",
+                                     20,
+                                     1); 
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
                                     "True",
                                     "False",
                                     "False",
@@ -274,3 +305,36 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                     "The pre-existing repository will be re-initialised",
                                      10,
                                      3);   
+                                     
+                                     
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     1,
+                                     6);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "git fetch, git branch",
+                                    "git branch, git fetch",
+                                    "git fetch, git branch",
+                                     2,
+                                     6);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "[Behind 0]",
+                                    "[Behind 1]",
+                                    "[Behind 1]",
+                                     3,
+                                     6);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     4,
+                                     6);
+                                                                                                                                                   
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     5,
+                                     6);                                     

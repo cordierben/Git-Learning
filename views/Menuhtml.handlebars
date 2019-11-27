@@ -1,52 +1,54 @@
- <DOCTYPE! html>
+<DOCTYPE! html>
     <html>
         <head>
             <meta charset="utf-8"/>
             <title>Git-Learning</title>
-            
-            <link href="../css/Layout.css" type="text/css" rel="stylesheet"  />
+            <link href="css/Layout.css" type="text/css" rel="stylesheet"  />
         </head>
         <body>
-            
-
-            <img class="logo" src='../images/logo3.png' alt="logo">
-            
+            <img class="logo" src='images/logo3.png' alt="logo">
             <header>
                 <a class="header2" href="/Profile">Profile</a>
                 <form action="/logout" method="post">
-                <p><input type="submit" value="Log Out" class="header3"></p>
-                </form>
+                <p><input type="submit" value="Log Out"></p>
+                </form> 
             </header>
+
             <nav>
                 <ul class="nav4">
                     <li><a class="nav1" href="/">Home</a></li>
                     <li>Module List
                         <ul>
-                            <li><a href="/menu/1">GIT</a></li>
-                            <li><a href="/menu/2">HTML5</a></li>
+                            <li><a href="/">GIT</a></li>
+                            <li><a href="/html">HTML5</a></li>
                         </ul>
                     </li> 
-                    <li><a class="nav2" href="/menu/1">Lectures list</a></li>
+                    <li><a class="nav2" href="/">Lectures list</a></li>
                     <li><a class="nav3" href="/Profile">Profile</a></li>
                 </ul>
             </nav>
 
 
-            <article class="side">
-                    <br>
-                    <h1>{{{lecture.title}}}</h1>
-                    <h5>{{{lecture.text}}}</h5>
-                <form action="/lecture/{{lecture.id}}/quiz/0" method="post">
-                   <p><input type="submit" value="Test your understanding"></p>
-                </form>
-                    <p>Best score : {{score.best}}/10  ({{score.date}})</p><br>
 
-            </article>
+
+             <h1>Lectures</h1>
+        
+        <nav class="side" >
+                  
+                <br>
+                <br>
+                <br>
+            <ul class="lessons">
+                <li><a class="lessons" href="/lecture/1">Intro to HTML5</a></li>
+                
+            </ul>   
+        </nav> 
+                    
+            
             <article class="links">
                 <h1>Useful links</h1>
-                <br>
-                {{{lecture.links}}}
             </article>
+
 
 
             <footer>
@@ -56,6 +58,5 @@
                 <p class="cr"> © Copyright E-learner 2019</p>
             </footer>
         </body>
-        
     </html>
 </DOCTYPE>

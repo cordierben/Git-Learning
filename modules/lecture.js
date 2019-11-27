@@ -4,7 +4,7 @@
 const sqlite = require('sqlite-async')
 
 module.exports = class Lecture {
-
+ 
 	constructor(dbName = ':memory:') {
 		return (async() => {
 			this.db = await sqlite.open(dbName)
@@ -18,7 +18,7 @@ module.exports = class Lecture {
 	async addlecture(id, title, text, moduleId) {
 		try {
 			const data=await this.db.get(`INSERT INTO lecture (id, title, text,module_id)
-                                                VALUES (${id},${title},${text},${moduleId});`)
+                                                VALUES (${id},"${title}","${text}",${moduleId});`)
 			return data
 		} catch(err) {
 			throw err
@@ -34,17 +34,17 @@ module.exports = class Lecture {
 		}
 	}
 
-	async deletelecture(id) {
+	async deletelecture(id, moduleId) {
 		try {
-			await this.db.get(`DELETE FROM lecture
-                                             WHERE  lecture =${id};`)
+			await this.db.get(`DELETE FROM lecture WHERE id=${id} AND module_id=${moduleId};`)
+			console.log("delete")
 		} catch(err) {
 			throw err
 		}
 	}
 	async updatelecture(id, title, text, moduleId) {
 		try {
-			await this.db.get(`UPDATE lecture SET title=${title},text=${text} 
+			await this.db.get(`UPDATE lecture SET title="${title}",text="${text}" 
                                                         WHERE id=${id}
                                                         AND module_id=${moduleId};`)
 		} catch(err) {
