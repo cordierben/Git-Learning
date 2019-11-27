@@ -31,6 +31,8 @@ module.exports = class Lecture {
 	// get the chosen lecture of a specific module 
 	async getlecture(id,moduleId) {
 		try {
+			if(moduleId.toString().length === 0) throw new Error('did not specify which module id')
+			if(id.toString().length === 0) throw new Error('did not specify which lecture id')
 			const data=await this.db.get(`SELECT id, title, text,module_id FROM lecture
 												WHERE id =${id}
 												AND module_id=${moduleId};`)
@@ -42,6 +44,9 @@ module.exports = class Lecture {
     // delete the chosen lecture of a specific module 
 	async deletelecture(id, moduleId) {
 		try {
+			let sql = `SELECT count(id) AS count FROM lecture WHERE id =${id};`
+			const records = await this.db.get(sql)
+			if(!records.count) throw new Error(`lecture not found`)
 			await this.db.get(`DELETE FROM lecture
 										 WHERE id=${id} 
 										 AND module_id=${moduleId};`)
@@ -53,6 +58,9 @@ module.exports = class Lecture {
 	// update the chosen lecture of a specific module 
 	async updatelecture(id, title, text, moduleId) {
 		try {
+			let sql = `SELECT count(id) AS count FROM lecture WHERE id =${id};`
+			const records = await this.db.get(sql)
+			if(!records.count) throw new Error(`lecture not found`)
 			await this.db.get(`UPDATE lecture SET title="${title}",text="${text}"
                                                         WHERE id=${id}
                                                         AND module_id=${moduleId};`)
