@@ -50,7 +50,6 @@ module.exports = class Lecture {
 			await this.db.get(`DELETE FROM lecture
 										 WHERE id=${id} 
 										 AND module_id=${moduleId};`)
-			console.log("delete")
 		} catch(err) {
 			throw err
 		}

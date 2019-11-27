@@ -35,7 +35,7 @@ module.exports = class Quiz {
 	}
 	async addoption(option1, option2,answer,questionId, lectureId) {
 		try {
-			if(answer.length === 0) throw new Error('missing answer')
+			if(option1.length === 0) throw new Error('missing option 1')
 			const data=await this.db.get(`INSERT INTO option (option1, option2,answer,question_id,lecture_id)
                                                 VALUES ("${option1}","${option2}","${answer}",${questionId},${lectureId});`)
 			return data
