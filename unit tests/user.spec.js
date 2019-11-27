@@ -4,8 +4,6 @@
 const Accounts = require('../modules/user.js')
 
 
-
-
 describe('register()', () => {
 
 	test('register a valid account', async done => {

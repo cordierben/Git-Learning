@@ -52,7 +52,7 @@ router.get('/menu/:id', async ctx => {
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
 		const data = {}
 		if(ctx.query.msg) data.msg = ctx.query.msg
-		const db=await sqlite.open(dbName) 
+		const db=await sqlite.open(dbName)
 		const data2= await db.all(`SELECT id, title FROM lecture WHERE module_id=${ctx.params.id}`)
 		console.log(data2)
 		await ctx.render('Menu', {lecture: data2})

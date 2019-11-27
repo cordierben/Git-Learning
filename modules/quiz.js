@@ -59,9 +59,9 @@ module.exports = class Quiz {
 
 	async getoption(id, lecture) {
 		try {
-			let sql = `SELECT count(question_id) AS count FROM option WHERE question_id =${id};`
+			const sql = `SELECT count(question_id) AS count FROM option WHERE question_id =${id};`
 			const records = await this.db.get(sql)
-			if(!records.count) throw new Error(`options for the question do not exist`)
+			if(!records.count) throw new Error('options for the question do not exist')
 			const data= await this.db.get(`SELECT option1, option2,answer,question_id  FROM option 
                                 WHERE question_id= ${id}
 								AND lecture_id=${lecture};`)
