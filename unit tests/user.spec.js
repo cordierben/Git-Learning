@@ -131,38 +131,102 @@ describe('score()', () => {
 })
 
 describe('lecture()', () => {
-	test('Add a lecture', async done => {
-		try {
+	
+	test('get lecture', async done => {
+		try{
 			const lecture= await new Lecture()
-			await lecture.addlecture(0,"This is a test","This is the text of the test", 0)
-			const data= await lecture.getlecture(0)
-			expect(data.title).toEqual("This is a test")
+			const add =await lecture.addlecture(1,"html","html rules",0)
+			const data= await lecture.getlecture(1,0)
+			expect(data.lecture).toEqual(add) 
 		} catch(err) {
 			done.fail('test failed')
 		} finally {
 			done()
 		}
 	})
-	test('Update a lecture', async done => {
-		try {
+	test('update lecture content', async done => {
+		try{
 			const lecture= await new Lecture()
-			await lecture.addlecture(0,"This is a test","This is the text of the test", 0)
-			await lecture.updatelecture(0,"This is a test but updated","this is the text but updated", 0)
-			const data= await lecture.getlecture(0)
-			expect(data.title).toEqual("This is a test but updated")
+			await lecture.addlecture(1,"html","html rules",0)
+			await lecture.updatelecture(1,"Using html5","html5 semantic rules",0)
+			const data= await lecture.getlecture(1,0)		
+			expect(data.title).toEqual("Using html5")
 		} catch(err) {
 			done.fail('test failed')
 		} finally {
 			done()
 		}
 	})
+	test('lecture to update does not exist ', async done => {
+		const lecture= await new Lecture()
+		await expect( lecture.updatelecture(1,0) )
+			.rejects.toEqual( Error('lecture not found'))
+		done()
+	
+    })
+	test('add a single lecture', async done => {
+		try {
+			const lecture= await new Lecture()
+			await lecture.addlecture(1,"html","html rules",0)
+			const data= await lecture.getlecture(1,0)
+			expect(data.title).toEqual("html")
+		} catch(err) {
+			done.fail('test failed')
+		} finally {
+			done()
+		}
+	})
+	test('error if blank title ', async done => {
+			const lecture= await new Lecture()
+			await expect( lecture.addlecture(1,"","html rules",0) )
+				.rejects.toEqual( Error('missing lecture title'))
+			done()
+		
+	})
+	test('error if blank lecture id ', async done => {
+		const lecture= await new Lecture()
+		await expect( lecture.addlecture("","html","html rules",0) )
+			.rejects.toEqual( Error('missing lecture id'))
+		done()
+	
+	})	
+	test('error if blank lecture text ', async done => {
+		const lecture= await new Lecture()
+		await expect( lecture.addlecture(1,"html","",0) )
+			.rejects.toEqual( Error('missing lecture text'))
+		done()
+	
+	})
+	test('error if blank module id when adding a new lecture ', async done => {
+		const lecture= await new Lecture()
+		await expect( lecture.addlecture(1,"html","html rules","") )
+			.rejects.toEqual( Error('missing module id'))
+		done()
+	
+	})
+	test('error if blank module id when getting a  lecture ', async done => {
+		const lecture= await new Lecture()
+		await lecture.addlecture(1,"html","html rules",0)
+		await expect( lecture.getlecture(1,"") )
+			.rejects.toEqual( Error('did not specify which module id'))
+		done()
+	
+	})
+	test('error if blank lecture id when getting a  lecture ', async done => {
+		const lecture= await new Lecture()
+		await lecture.addlecture(1,"html","html rules",0)
+		await expect( lecture.getlecture("",0) )
+			.rejects.toEqual( Error('did not specify which lecture id'))
+		done()
+	
+    })
 	test('Delete a lecture', async done => {
 		try {
 			const lecture= await new Lecture()
 			await lecture.addlecture(0,"Lecture 1","Text 1", 0)
 			console.log("ok")
 			await lecture.deletelecture(0,0)
-			const data=await lecture.getlecture(0)
+			const data=await lecture.getlecture(0,0)
 			console.log(data)
 			expect(data).toEqual(undefined)
 		} catch(err) {
@@ -171,6 +235,13 @@ describe('lecture()', () => {
 			done()
 		}
 	})
+	test('lecture to delete does not exist ', async done => {
+		const lecture= await new Lecture()
+		await expect( lecture.deletelecture(1,0) )
+			.rejects.toEqual( Error('lecture not found'))
+		done()
+	
+    })
 })
 
 describe('quiz()', () => {
@@ -186,17 +257,86 @@ describe('quiz()', () => {
 			done()
 		}
 	})
+	test('error if blank question ', async done => {
+		const quiz= await new Quiz()
+		await expect( quiz.addquestion(1,"",0) )
+			.rejects.toEqual( Error('missing question'))
+		done()
+	
+	})
+	test('error if blank question id ', async done => {
+		const quiz= await new Quiz()
+		await expect( quiz.addquestion("","What is git",0) )
+			.rejects.toEqual( Error('missing question id'))
+		done()
+	
+	})
+	test('error if blank lecture id ', async done => {
+		const quiz= await new Quiz()
+		await expect( quiz.addquestion(1,"What is git","") )
+			.rejects.toEqual( Error('missing lecture id'))
+		done()
+	
+	})
+	
 	test('add options', async done => {
 		try {
 			const quiz= await new Quiz()
 			await quiz.addoption("1","2","2",0,0)
 			const data=await quiz.getoption(0,0)
-			expect(data.answer).toEqual("2")
+			expect(data.option1).toEqual("1")
 		} catch(err) {
 			done.fail('test failed')
 		} finally {
 			done()
 		}
+	})
+	test('error if blank answer ', async done => {
+		const quiz= await new Quiz()
+		await expect( quiz.addoption("A","B","",1,0) )
+			.rejects.toEqual( Error('missing answer'))
+		done()
+	
+	})
+	test('Get question', async done => {
+		try {
+			const quiz= await new Quiz()
+			await quiz.addquestion(1,"Why use git?",0)
+			const data=await quiz.getquestion(1,0)
+			expect(data.id).toEqual(1)
+		} catch(err) {
+			done.fail('test failed')
+		} finally {
+			done()
+		}
+	})
+	test('error if blank lecture id ', async done => {
+		const quiz= await new Quiz()
+		await quiz.addquestion(1,"Why use git?",0)
+		await expect( quiz.getquestion(1,"") )
+			.rejects.toEqual( Error('did not specify which lecture id'))
+		done()
+	
+	})
+	
+	test('Get option', async done => {
+		try {
+			const quiz= await new Quiz()
+			await quiz.addoption("1","2","2",0,0)
+			const data=await quiz.getoption(0,0)
+			expect(data.option1).toEqual("1")
+		} catch(err) {
+			done.fail('test failed')
+		} finally {
+			done()
+		}
+	})
+	test('error if option does not exist ', async done => {
+		const quiz= await new Quiz()
+		await expect( quiz.getoption(1,0) )
+			.rejects.toEqual( Error('options for the question do not exist'))
+		done()
+	
 	})
 	test('Get answer', async done => {
 		try {
@@ -210,4 +350,13 @@ describe('quiz()', () => {
 			done()
 		}
 	})
+	test('error if blank question id ', async done => {
+		const quiz= await new Quiz()
+		await quiz.addoption("1","2","2",0,0)
+		await expect( quiz.getanswer("",0) )
+			.rejects.toEqual( Error('did not specify which question id the answer belongs to'))
+		done()
+	
+	})
+
 })
