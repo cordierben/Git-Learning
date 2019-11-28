@@ -20,7 +20,7 @@ const mime = require('mime-types')
 
 
 /* IMPORT CUSTOM MODULES */
-require('./modules/user')
+const User=require('./modules/user')
 const Score=require('./modules/score')
 const Lecture=require('./modules/lecture')
 const Quiz=require('./modules/quiz')
@@ -47,6 +47,19 @@ const saltRounds = 10
  * @route {GET} /
  * @authentication This route requires cookie-based authentication.
  */
+router.get('/', async ctx => {
+	try {
+		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
+		const data = {}
+		if(ctx.query.msg) data.msg = ctx.query.msg
+		const db=await sqlite.open(dbName)
+		const data2= await db.all(`SELECT id, name FROM module`)
+		console.log(data2)
+		await ctx.render('Home', {home: data2})
+	} catch(err) {
+		await ctx.render('error', {message: err.message})
+	}
+})
 router.get('/menu/:id', async ctx => {
 	try {
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
@@ -97,18 +110,12 @@ router.post('/register', koaBody, async ctx => {
 		const letters = /^[A-Za-z]+$/
 		// CHECKS IF USERNAME AND PASSWORD BOX CONTAINS ONLY LETTERS
 		if (x.match(letters) && y.match(letters)) {
-			// DOES THE USERNAME EXIST IN DATABASE
-			const db = await sqlite.open('./website.db')
-			const userChecker = await db.get(`SELECT user FROM user WHERE user="${body.user}";`)
-			if (!userChecker) {
-				// ENCRYPTING PASSWORD AND BUILDING SQL
-				body.pass = await bcrypt.hash(body.pass, saltRounds)
-				/*Adds username, password and email into the database */
-				const sql = `INSERT INTO user(user, pass, email) VALUES("${body.user}", "${body.pass}","${body.mail}")`
-				console.log(sql)
-				// DATABASE COMMANDS
-				await db.run(sql)
-				await db.close()
+			await sqlite.open(dbName)
+			const register = await new User(dbName)
+			const newUserChecker = await register.selectUser(body.user)
+			console.log(newUserChecker)
+			if (newUserChecker === true) {
+				await register.register(body.user, body.pass,body.email)
 				// REDIRECTING USER TO HOME PAGE
 				ctx.redirect('/login')
 			} else {
@@ -133,20 +140,13 @@ router.get('/login', async ctx => {
 router.post('/login', async ctx => {
 	try {
 		const body = ctx.request.body
-		const db = await sqlite.open('./website.db')
-		// DOES THE USERNAME EXIST?
-		const records = await db.get(`SELECT user FROM user WHERE user="${body.user}";`)
-		if(!records) return ctx.redirect('/login?msg=invalid%20username')
-		const record = await db.get(`SELECT pass FROM user WHERE user = "${body.user}";`)
-		const user = await db.get(`SELECT id FROM user WHERE user = "${body.user}";`)
+		const db = await sqlite.open(dbName)
+		const account = await new User(dbName)
+		const user = await account.selectUser(body.user)
+		const login = await account.login(body.user, body.pass)
 		await db.close()
-		// DOES THE PASSWORD MATCH?
-		const valid = await bcrypt.compare(body.pass, record.pass)
-		if(valid === false) return ctx.redirect(`/login?user=${body.user}&msg=invalid%20password`)
-		// WE HAVE A VALID USERNAME AND PASSWORD
 		ctx.session.authorised = true
 		ctx.session.id=user.id
-		//VAR FOR THE QUIZ, TO KNOW HOW MANY QUESTIONS THE USER HAS DONE
 		ctx.session.quiz=0
 		return ctx.redirect('/menu/1')
 	} catch(err) {
