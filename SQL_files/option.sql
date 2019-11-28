@@ -305,7 +305,6 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                     "The pre-existing repository will be re-initialised",
                                      10,
                                      3);   
-<<<<<<< HEAD:option.sql
 
 
 
@@ -391,7 +390,6 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                     "Yes",
                                      10,
                                      2);
-=======
                                      
                                      
 INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
@@ -425,4 +423,3 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                     "False",
                                      5,
                                      6);                                     
->>>>>>> 968cfb7df34d8a815cdec7c4f9f7c5d8d15f34ee:SQL_files/option.sql
