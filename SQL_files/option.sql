@@ -404,6 +404,13 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                     "Distributed revision control system",
                                      12,
                                      2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "git config",
+                                    "git Chocolatey",
+                                    "git config",
+                                     13,
+                                     2);
                                      
                                      
 INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 

@@ -336,3 +336,8 @@ INSERT INTO question (id, question , lecture_id) VALUES (
                                     12,
                                     "12) What is Git?",
                                     2);
+
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    13,
+                                    "13) Git comes with a tool called .... that lets you get and set configuration variables that control all aspects of how Git looks and operates. What is the name of the tool?",
+                                    2);
