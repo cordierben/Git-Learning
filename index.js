@@ -162,9 +162,12 @@ router.get('/register', async ctx => {
 
 router.post('/register', koaBody, async ctx => {
 	try {
+		const body = ctx.request.body
 		const letters = /^[A-Za-z]+$/
 		// CHECKS IF USERNAME AND PASSWORD BOX CONTAINS ONLY LETTERS
-		//if (ctx.request.body.user.match(letters) && ctx.request.body.pass.match(letters)) 
+		//if (ctx.request.body.user.match(letters) && ctx.request.body.pass.match(letters))
+		const x = body.user
+		const y = body.pass
 		if (x.match(letters) && y.match(letters)) {
 			await sqlite.open(dbName)
 			const register = await new User(dbName)
@@ -283,6 +286,7 @@ router.post('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 	try{
 		const db=await sqlite.open(dbName)
 		const body= ctx.request.body
+		let data2
 		const score= await new Score(dbName)
 		if(ctx.params.id2!=0) { 
 			console.log('premier if')
