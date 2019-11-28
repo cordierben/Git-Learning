@@ -147,19 +147,6 @@ router.get('/register', async ctx => {
 * @route {POST} /register
 */
 /*eslint max-lines-per-function: ["error", 200]*/
-/*
-router.post('/login', koaBody, async ctx => {
-	try {
-		const db=await sqlite.open(dbName)
-		const login = await new Login(dbName)
-		const sendData = await login.userChecker(ctx.params.body.user, ctx.params.body.pass)
-		sendData()
-	} catch (err)
-	{
-		await ctx.render('error', {message: err.message})
-	}
-})
-*/
 
 
 router.post('/register', koaBody, async ctx => {
