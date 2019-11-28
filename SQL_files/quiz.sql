@@ -326,4 +326,13 @@ INSERT INTO question (id, question , lecture_id) VALUES (
                                     10,
                                     "10) should you have git updated?",
                                     2);
+
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    11,
+                                    "11) After you install Git and prior to issuing the first commit, which two configuration properties does the tool expect to be configured?",
+                                    2);
                                    
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    12,
+                                    "12) What is Git?",
+                                    2);

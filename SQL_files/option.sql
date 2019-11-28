@@ -390,6 +390,20 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                     "Yes",
                                      10,
                                      2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Username and email address",
+                                    "Username and password",
+                                    "Username and email address",
+                                     11,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Distributed revision control system",
+                                    "Web-based Git repository hosting service",
+                                    "Distributed revision control system",
+                                     12,
+                                     2);
                                      
                                      
 INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
