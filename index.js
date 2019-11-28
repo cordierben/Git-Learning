@@ -74,6 +74,7 @@ router.get('/admin', async ctx => {
 		} else {
 			return ctx.redirect('/login?msg=only for admins')
 		}
+
 })
 router.get('/uploadLecture', async ctx =>{
 	const data = {}
