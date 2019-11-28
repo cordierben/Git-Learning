@@ -24,7 +24,6 @@ const User=require('./modules/user')
 const Score=require('./modules/score')
 const Lecture=require('./modules/lecture')
 const Quiz=require('./modules/quiz')
-const Login=require('./modules/login')
 
 const app = new Koa()
 const router = new Router()
@@ -163,27 +162,17 @@ router.get('/register', async ctx => {
 router.post('/register', koaBody, async ctx => {
 	try {
 		const body = ctx.request.body
-		console.log(body)
-		// PROCESSING FILE
-		const {path, type} = ctx.request.files.avatar
-		const fileExtension = mime.extension(type)
-		console.log(`path: ${path}`)
-		console.log(`type: ${type}`)
-		console.log(`fileExtension: ${fileExtension}`)
-		await fs.copy(path, 'public/avatars/avatar11.png')
-		// USERNAME AND PASSWORD BLANK CHECKER
-		const x = body.user
-		const y = body.pass
 		const letters = /^[A-Za-z]+$/
 		// CHECKS IF USERNAME AND PASSWORD BOX CONTAINS ONLY LETTERS
-		//if (ctx.request.body.user.match(letters) && ctx.request.body.pass.match(letters)) 
+		const x = body.user
+		const y = body.pass
 		if (x.match(letters) && y.match(letters)) {
 			await sqlite.open(dbName)
 			const register = await new User(dbName)
 			const newUserChecker = await register.selectUser(body.user)
 			console.log(newUserChecker)
 			if (newUserChecker === true) {
-				await register.register(body.user, body.pass,body.email)
+				await register.register(body.user, body.pass, body.email)
 				// REDIRECTING USER TO HOME PAGE
 				ctx.redirect('/login')
 			} else {
