@@ -1,6 +1,6 @@
 'use strict'
 
-const Score = require('../modules/score')
+const Score = require('../modules/score.js')
 
 describe('score()', () => {
 	test('get last score', async done => {
@@ -8,7 +8,7 @@ describe('score()', () => {
 			const score= await new Score()
 			await score.newscore(0,0,0)
 			const result= await score.getscore(0,0,0)//Test record
-			expect(result.user).toEqual(0)
+			expect(result.score).toEqual(0)
 		} catch(err) {
 			done.fail('test failed')
 		} finally {

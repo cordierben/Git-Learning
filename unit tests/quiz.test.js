@@ -28,17 +28,7 @@ describe('question()', () => {
 		await expect( quiz.addquestion('','What is git',0) )
 			.rejects.toEqual( Error('missing question id'))
 		done()
-
 	})
-	test('error if blank lecture id ', async done => {
-		const quiz= await new Quiz()
-		await expect( quiz.addquestion(1,'What is git','',0) )
-			.rejects.toEqual( Error('missing lecture id'))
-		done()
-
-	})
-
-
 	test('Get question', async done => {
 		try {
 			const quiz= await new Quiz()
@@ -53,14 +43,12 @@ describe('question()', () => {
 	})
 	test('error if blank lecture id ', async done => {
 		const quiz= await new Quiz()
-		await quiz.addquestion(1,'Why use git?',0)
-		await expect( quiz.getquestion(1,'') )
+		await quiz.addquestion(1,'Why use git?',0,0)
+		await expect( quiz.getquestion(1,'',0) )
 			.rejects.toEqual( Error('did not specify which lecture id'))
 		done()
 
 	})
-
-
 })
 
 describe('option()', () => {

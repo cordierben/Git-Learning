@@ -8,7 +8,7 @@ module.exports = class Score {
 	constructor(dbName = ':memory:') {
 		return (async() => {
 			this.db = await sqlite.open(dbName)
-			const sql = `CREATE TABLE IF NOT EXISTS score (user_id INTEGER, lecture_id INTEGER, module_id INTEGER 
+			const sql = `CREATE TABLE IF NOT EXISTS score (user_id INTEGER, lecture_id INTEGER, module_id INTEGER,
 				        attempt_id INTEGER PRIMARY KEY AUTOINCREMENT, score INTEGER, date TEXT, fail TEXT);`
 			await this.db.run(sql)
 			return this
@@ -17,7 +17,6 @@ module.exports = class Score {
 
 	async newscore(user,lecture,moduleid) {
 		try {
-			console.log('new')
 			const today=new Date()
 			const start=2
 	        const dd = String(today.getDate()).padStart(start, '0')

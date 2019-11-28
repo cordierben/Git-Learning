@@ -77,4 +77,13 @@ module.exports = class User {
 		}
 	}
 
+	async getuser(user) {
+		try {
+			const record=await this.db.get(`SELECT id FROM user WHERE user = "${user}";`)
+			return record
+		} catch(err) {
+			throw err
+		}
+	}
+
 }

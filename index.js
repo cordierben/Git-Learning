@@ -201,7 +201,7 @@ router.post('/login', async ctx => {
 		const body = ctx.request.body
 		const db = await sqlite.open(dbName)
 		const account = await new User(dbName)
-		const user = await account.selectUser(body.user)
+		const user = await account.getuser(body.user)
 		const login = await account.login(body.user, body.pass)
 		await db.close()
 		ctx.session.authorised = true
@@ -237,11 +237,12 @@ router.get('/lecture/:id/module/:id3', async ctx => {
 		const db=await sqlite.open(dbName)
 		const lecture = await new Lecture(dbName)
 		const data = await lecture.getlecture(ctx.params.id, ctx.params.id3)
-		//console.log(data)
 		const sql2=`SELECT MAX(score) as best, date FROM score WHERE user_id=${ctx.session.id}
 															   AND lecture_id=${ctx.params.id}
 															   AND module_id=${ctx.params.id3};`
+		console.log(sql2)													   
 		const data2=await db.get(sql2)
+		console.log('ok2')
 		console.log(data2)
 		await ctx.render('lecture', {lecture: data, score: data2})
 	} catch(err) {
@@ -288,13 +289,8 @@ router.post('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 		let data2
 		const score= await new Score(dbName)
 		if(ctx.params.id2!=0) { 
-			console.log('premier if')
-			console.log("le compteur :")
 			console.log(ctx.session.quiz)
-			if(ctx.session.quiz===0) {
-				console.log("second if")
-				score.newscore(ctx.session.id, ctx.params.id1, ctx.params.id3)
-			}
+			if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id1, ctx.params.id3)
 			ctx.session.quiz++
 			const quiz = await new Quiz(dbName)
 			const data = await quiz.getanswer(ctx.params.id2,ctx.params.id1, ctx.params.id3)
