@@ -1,5 +1,4 @@
-
-INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+INSERT INTO option (option1, option2, answer, question_id, lecture_id) VALUES ( 
                                     "A version-control system",
                                     "A Backup software",
                                     "A version-control system",
@@ -90,66 +89,158 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                      15,
                                      1); 
 INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "In 2014",
+                                    "In 2005",
+                                    "In 2005",
+                                     16,
+                                     1);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "CVS",
+                                    "CSV",
+                                    "CVS",
+                                     17,
+                                     1);                                     
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Track the code",
+                                    "See the quality of a code",
+                                    "Track the code",
+                                     18,
+                                     1); 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Mat Mackall",
+                                    "Matt Mackall",
+                                    "Matt Mackall",
+                                     19,
+                                     1); 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Yes",
+                                    "No",
+                                    "Yes",
+                                     20,
+                                     1); 
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
                                     "True",
                                     "False",
                                     "False",
                                      1,
-                                     2);
+                                     5);
 INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
                                     "git checkout -b brand_new",
                                     "git branch brand_new",
                                     "git checkout -b brand_new",
                                      2,
-                                     2);
+                                     5);
 INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
                                     "True",
                                     "False",
                                     "True",
                                      3,
-                                     2);
+                                     5);
 INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
                                     "Brand_new",
                                     "Master",
                                     "Master",
                                      4,
-                                     2);
+                                     5);
                                                                                                                                                     
 INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
                                     "git branch -d brand_new",
                                     "git delete brand_new",
                                     "git branch -d brand_new",
                                      5,
-                                     2);
+                                     5);
 INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
                                     "True",
                                     "False",
                                     "True",
                                      6,
-                                     2);
+                                     5);
 INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
                                     "Branch",
                                     "Master",
                                     "Master",
                                      7,
-                                     2); 
+                                     5); 
 INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
                                     "1",
                                     "Any number",
                                     "Any number",
                                      8,
-                                     2);                                                                   
+                                     5);                                                                   
 INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
                                     "That you can create your own branch and jump between those branches.",
                                     "Allows multiple people to edit on the same branch at the same time.",
                                     "That you can create your own branch and jump between those branches.",
                                      9,
-                                     2); 
+                                     5); 
 INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
                                     "You run a git checkout command",
                                     "You run a git switch command",
                                     "You run a git checkout command",
                                      10,
-                                     2);                    
+                                     5);               
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "$ git checkout master",
+                                    "$ git switch master",
+                                    "$ git checkout master",
+                                     11,
+                                     5); 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "$ git checkout testing",
+                                    "$ git switch testing",
+                                    "$ git checkout testing",
+                                     12,
+                                     5);                
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "HEAD still points to the master branch",
+                                    "This moves HEAD to point to the testing branch",
+                                    "This moves HEAD to point to the testing branch",
+                                     13,
+                                     5);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     14,
+                                     5);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     15,
+                                     5);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "$ git branch Alice",
+                                    "$ git new branch Alice",
+                                    "$ git branch Alice",
+                                     16,
+                                     5);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     17,
+                                     5);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "the old pointer moves",
+                                    "a new pointer is created",
+                                    "a new pointer is created",
+                                     18,
+                                     5);                                                                                                                                                                                         
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "It keeps a special pointer called HEAD",
+                                    "It keeps a special pointer called BRANCH",
+                                    "It keeps a special pointer called HEAD",
+                                     19,
+                                     5);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "A ‘git checkout’ command is used to update directories or specific files in your working tree with those from another branch with merging it in the whole branch",
+                                    "A ‘git checkout’ command is used to update directories or specific files in your working tree with those from another branch without merging it in the whole branch",
+                                    "A ‘git checkout’ command is used to update directories or specific files in your working tree with those from another branch without merging it in the whole branch",
+                                     20,
+                                     5);                
                                      
 
 
@@ -214,6 +305,7 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                     "The pre-existing repository will be re-initialised",
                                      10,
                                      3);   
+<<<<<<< HEAD:option.sql
 
 
 
@@ -299,3 +391,38 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                     "Yes",
                                      10,
                                      2);
+=======
+                                     
+                                     
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     1,
+                                     6);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "git fetch, git branch",
+                                    "git branch, git fetch",
+                                    "git fetch, git branch",
+                                     2,
+                                     6);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "[Behind 0]",
+                                    "[Behind 1]",
+                                    "[Behind 1]",
+                                     3,
+                                     6);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     4,
+                                     6);
+                                                                                                                                                   
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     5,
+                                     6);                                     
+>>>>>>> 968cfb7df34d8a815cdec7c4f9f7c5d8d15f34ee:SQL_files/option.sql

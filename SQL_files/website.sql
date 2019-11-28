@@ -83,6 +83,23 @@ INSERT INTO lecture (id, title, text, module_id) VALUES(1, "<h1>Why using GIT?</
                     existence of collaborative website such as GitHub. This is a social media for developers, with a huge community. This is an excellent way
                     to participate in projects and ask for help.</p>", 
                     1);
+                    
+INSERT INTO lecture (id, title, text, module_id) VALUES(6,'<h1>Merging</h1>',
+'<p>When working on a project in Git, it is good practice to separate the code into different branches as it is developed. Branching allows different versions of the project to exist simultaneously without the risk of code being overwritten or modified unwantedly. Therefore each developer is able to work freely on different versions of the same project. Eventually however, the project will reach a point where we will want to compile all the code accordingly &ndash; for this, we use the git merge command.</p>
+<h2>Preparing to Merge</h2>
+<p>There are several steps that are necessary before we may eventually begin to merge. It is necessary to verify that the repository is up-to-date with all recent versions first before commencing. We start by using the git fetch command, followed by typing git branch &ndash;va. The output should contain a line of code reading [Behind 1] which confirms that the master branch has received the new changes. This should then be followed by typing git checkout master, a command which will effectively &lsquo;master&rsquo; the branch that is currently active. After this, we just need to use the git pull command which will bring us to the point where we can now start merging.</p>
+<h2>Process of Merging</h2>
+<p>We only require the use of one command to effectively merge in Git: git merge. We type git merge, followed the name of the version. For example, if the version of the code was called latest-version, the line of code we would type would read git merge latest-version. Having successfully done this, the commit history will be updated with the addition of a &lsquo;merge commit&rsquo; which will signify that the branch from which we merged is safe to be deleted.</p>
+<p>In some cases however, the process may not be successful due to a &lsquo;merge conflict&rsquo;. The steps that need to be taken to effectively resolve merge conflicts is detailed in the following video.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/MzpW-k66XE8"></iframe>
+<h3>In summary&hellip;</h3>
+<ul>
+<li>Branching allows simultaneous development of different versions</li>
+<li>Preparing to merge involves git fetch, git branch, git checkout and git pull commands</li>
+<li>Merging involves git merge command (followed by version name)</li>
+<li>Check that the repository is updated before starting merge</li>
+</ul>', 1);
+                    
 
 INSERT INTO lecture (id, title, text, module_id)
     VALUES(
@@ -130,10 +147,9 @@ INSERT INTO lecture (id, title, text, module_id)
                        </figcaption>
                        </figure>
                    <p>You created and switched to a branch, did some work on it, and then switched back to your main branch and did other work. Both of those changes are isolated in separate branches: you can switch back and forth between the branches and merge (explained in the next lesson) them together when you’re ready. And you did all that with simple <code>branch</code> and <code>checkout</code> commands.</p>",
-         "1"
-    );
+                   1);
     
-INSERT INTO lecture (id, title, text, module_id) VALUES(3, "<h1>How Do We Create A Repository?</h1>","<p>A git repository is a directory that is hidden within the project directory &ndash; it tracks and logs all modifications (commits) that are made to files in the directory by any user that has access to it. Because it creates a history of the versions of the files that have been worked on, it allows us to easily access the files as they were in the different stages in their development when needed. It can be easily identified in the directory folder through its <code>.git/</code> file name.</p>
+INSERT INTO lecture (id, title, text, module_id) VALUES(3, '<h1>How Do We Create A Repository?</h1>',"<p>A git repository is a directory that is hidden within the project directory &ndash; it tracks and logs all modifications (commits) that are made to files in the directory by any user that has access to it. Because it creates a history of the versions of the files that have been worked on, it allows us to easily access the files as they were in the different stages in their development when needed. It can be easily identified in the directory folder through its <code>.git/</code> file name.</p>
 <p><iframe src='https://www.youtube.com/embed/A-4WltCTVms' width='560' height='315' frameborder='0' allowfullscreen='allowfullscreen'></iframe></p>
 <h2>Initialisation of a New Repository</h2>
 <p>Before we may create our new repository, we must first navigate to our desired project folder that will both store the repository and provide the files for which version histories will be created. For this, we must us the <code>cd</code> command followed by the directory name/location.</p>
@@ -238,4 +254,26 @@ You can also install it as part of the GitHub for macOS install. Their GUI Git t
 
 
 <p style='background-color:lightgray'>$ git clone git://git.kernel.org/pub/scm/git/git.git</p></p>
-",1)
+",1);
+
+INSERT INTO lecture (id, title, text, module_id) VALUES(1,'<h1>Introduction to HTML</h1>',
+'<p>HTML (Hypertext Markup Language) is the standard language that is used to build webpages. HTML essentially provides instructions that are interpreted by the web browser to construct almost every item, visible and unseen, on a webpage. The HTML document not only tells the browser what to display but also how to display it, by controlling the way in which it is presented. Obviously as the world wide web has developed, the language of HTML has also evolved - the version of HTML that is being used currently is HTML5, the fifth iteration of HTML.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dD2EISBDjWM" ></iframe>
+<h2>Creating a HTML5 Document</h2>
+<p>A HTML5 document will most likely include elements such as headings, paragraphs, images, videos etc. Every element that will be included will needed to be enclosed by tags &ndash; they allow the browser to identify what the element is, how it should be displayed and where it starts and finishes. For example, if we want to insert into our webpage a heading called &lsquo;TITLE&rsquo;, the HTML translation would be:</p>
+<p>&nbsp; &nbsp; &nbsp;&nbsp;<span style="background-color: #99ccff;">&lt;h1&gt;TITLE&lt;/h1&gt;</span></p>
+<p>As is visible, it has an opening tag reading &lsquo;h1&rsquo;; the &lsquo;h&rsquo; signifies to the browser that the element is a heading whilst the &lsquo;1&rsquo; indicates that this will be the main heading. The closing tag reads &lsquo;/h1&rsquo;; it tells the browser where the element ends by repeating the &lsquo;h1&rsquo; that was present in the opening tag but also adding a &lsquo;/&rsquo; to the start. Most other elements will need closing tags that following a similar format.</p>
+<p>Apart from surrounding the individual elements, tags must also be present at the start and end of the HTML5 document as a whole. We must always first start by using the following tag:</p>
+<p>&nbsp; &nbsp; &nbsp; <span style="background-color: #99ccff;">&lt;!DOCTYPE HTML&gt;</span></p>
+<p>This tag unlike others does not have a corresponding tag since its sole purpose is to inform the browser of the version of HTML being used. Next, the whole HTML5 document must be enclosed within tags &ndash; we must start with an opening tag reading &lt;html&gt; and end with a closing tag reading &lt;/html&gt;. Between these two tags, we insert the contents of the HTML5 document. The majority of simple HTML5 documents will abide by this format and look similar to this:</p>
+<p>&nbsp; &nbsp; &nbsp; <span style="background-color: #99ccff;">&lt;!DOCTYPE HTML&gt;</span></p>
+<p>&nbsp; &nbsp; &nbsp; <span style="background-color: #99ccff;">&lt;html&gt;</span></p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #3366ff;">#<em>insert HTML5 elements here#</em></span></p>
+<p>&nbsp; &nbsp; &nbsp; <span style="background-color: #99ccff;">&lt;/html&gt;</span></p>
+<h3>In summary&hellip;</h3>
+<ul>
+<li>HTML provides instructions for the browser</li>
+<li>Elements should be enclosed by tags</li>
+<li>Start of the HTML5 with the doctype declaration</li>
+<li>Surround all the content with &lt;html&gt; tags</li>
+</ul>', 2);

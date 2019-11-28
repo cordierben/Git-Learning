@@ -22,6 +22,8 @@ const mime = require('mime-types')
 /* IMPORT CUSTOM MODULES */
 require('./modules/user')
 const Score=require('./modules/score')
+const Lecture=require('./modules/lecture')
+const Quiz=require('./modules/quiz')
 
 const app = new Koa()
 const router = new Router()
@@ -45,17 +47,19 @@ const saltRounds = 10
  * @route {GET} /
  * @authentication This route requires cookie-based authentication.
  */
-router.get('/', async ctx => {
+router.get('/menu/:id', async ctx => {
 	try {
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
 		const data = {}
 		if(ctx.query.msg) data.msg = ctx.query.msg
-		await ctx.render('Menu')
+		const db=await sqlite.open(dbName)
+		const data2= await db.all(`SELECT id, title FROM lecture WHERE module_id=${ctx.params.id}`)
+		console.log(data2)
+		await ctx.render('Menu', {lecture: data2})
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
 	}
 })
-
 
 /**
  * The user registration page.
@@ -124,6 +128,7 @@ router.get('/login', async ctx => {
 	if(ctx.query.user) data.user = ctx.query.user
 	await ctx.render('login', data)
 })
+
 /*eslint max-statements: [2, 100]*/
 router.post('/login', async ctx => {
 	try {
@@ -143,7 +148,7 @@ router.post('/login', async ctx => {
 		ctx.session.id=user.id
 		//VAR FOR THE QUIZ, TO KNOW HOW MANY QUESTIONS THE USER HAS DONE
 		ctx.session.quiz=0
-		return ctx.redirect('/')
+		return ctx.redirect('/menu/1')
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
 	}
@@ -151,7 +156,7 @@ router.post('/login', async ctx => {
 
 router.get('/logout', async ctx => {
 	ctx.session.authorised = null
-	ctx.redirect('/?msg=you have logged out successfully')
+	ctx.redirect('/menu/1?msg=you have logged out successfully')
 })
 
 router.post('/logout', async ctx => {
@@ -170,12 +175,12 @@ router.get('/lecture/:id', async ctx => {
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
 		console.log(ctx.params.id)
 		const db=await sqlite.open(dbName)
-		const sql = `SELECT id, title,text,module_id FROM lecture WHERE id = ${ctx.params.id};`
-		const data=await db.get(sql)
+		const lecture = await new Lecture(dbName)
+		const data = await lecture.getlecture(ctx.params.id)
+		//console.log(data)
 		const sql2=`SELECT MAX(score) as best, date FROM score WHERE user_id=${ctx.session.id}
-											AND lecture_id=${ctx.params.id};`
+											                   AND lecture_id=${ctx.params.id};`
 		const data2=await db.get(sql2)
-		console.log(data2)
 		await ctx.render('lecture', {lecture: data, score: data2})
 	} catch(err) {
 		ctx.body = err.message
@@ -186,18 +191,11 @@ router.get('/lecture/:id', async ctx => {
 router.get('/lecture/:id1/quiz/:id2', async ctx => {
 	try{
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
-		const sqlLecture = `SELECT id, title FROM lecture 
-									WHERE id = ${ctx.params.id1};`
-	    const sqlQuiz = `SELECT id, question,lecture_id  FROM question 
-									WHERE id =${ctx.params.id2}
-									AND lecture_id= ${ctx.params.id1};`
-		const sqlOption = `SELECT option1, option2,answer,question_id  FROM option 
-									WHERE question_id= ${ctx.params.id2}
-								    AND lecture_id=${ctx.params.id1};`
-		const db=await sqlite.open(dbName)
-		const dataLecture=await db.get(sqlLecture)
-		const dataQuiz=await db.get(sqlQuiz)
-		const dataOption=await db.get(sqlOption)
+		const lecture = await new Lecture(dbName)
+		const dataLecture = await lecture.getlecture(ctx.params.id1)
+		const quiz = await new Quiz(dbName)
+		const dataQuiz = await quiz.getquestion(ctx.params.id2,ctx.params.id1)
+		const dataOption = await quiz.getoption(ctx.params.id2,ctx.params.id1)
 		if(dataQuiz !== undefined || dataLecture !== undefined || dataOption !== undefined ) {
 			await ctx.render('quiz', {question: dataQuiz, lecture: dataLecture, option: dataOption} )
 		}
@@ -219,22 +217,28 @@ router.get('/result', async ctx => {
 })
 
 /* Score */
-
+/*eslint-disable eqeqeq*/
 router.post('/lecture/:id1/quiz/:id2', async ctx => {
 	try{
+
 		const db=await sqlite.open(dbName)
 		const body= ctx.request.body
+		let data2
 		const score= await new Score(dbName)
-	    if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id2)
-		const data=await db.get(`SELECT answer FROM option WHERE question_id = ${ctx.params.id2}
-		                                                    AND lecture_id=${ctx.params.id1};`)
-		const data2=await db.get(`SELECT MAX(attempt_id) as last, score FROM score WHERE user_id=${ctx.session.id}  
-		                                                                       AND lecture_id=${ctx.params.id1};`)
-		if(body.option===data.answer) {
-			data2.score++
-			score.updatescore(ctx.session.id,ctx.params.id1,data2.score,data2.last)
+		if(ctx.params.id2!=0) { // double equal goesinto if
+			if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id1)
+			ctx.session.quiz++
+			const quiz = await new Quiz(dbName)
+			const data = await quiz.getanswer(ctx.params.id2,ctx.params.id1)
+			console.log(data.answer)
+			data2=await score.getscore(ctx.session.id,ctx.params.id1)
+			if(body.option===data.answer) {
+				data2.score++
+				score.updatescore(ctx.session.id,ctx.params.id1,data2.score,data2.last)
+			}
 		}
 		const end=9
+		console.log(ctx.session.quiz)
 		if(ctx.session.quiz===end) { //IF END OF THE QUIZ? GOES TO RESULT PAGE AND MARKED FAILED OR PASSED IN DB
 			const minimum=4
 			if(data2.score<minimum) score.updatefail(ctx.session.id,ctx.params.id1,'failed',data2.last)
@@ -242,9 +246,15 @@ router.post('/lecture/:id1/quiz/:id2', async ctx => {
 			ctx.session.quiz=0
 			await db.close()
 			return ctx.redirect('/result')
-		} else {
-			ctx.session.quiz++
-			return ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${ctx.params.id2}+1`)
+		} else {//Else go to next question randomly
+			let x=0
+			const max =10
+			while(x<=max) {
+				const random=Math.floor(Math.random() * 20 + 1)
+				ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${random}`)
+				x++
+			}
+
 		}
 	} catch(err) {
 		ctx.body = err.message
