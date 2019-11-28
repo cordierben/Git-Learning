@@ -18,7 +18,6 @@ module.exports = class Lecture {
 	async addlecture(id, title, text, moduleId) {
 		try {
 			if(id.toString().length === 0) throw new Error('missing lecture id')
-			if(title.length === 0) throw new Error('missing lecture title')
 			if(text.length === 0) throw new Error('missing lecture text')
 			if(moduleId.toString().length === 0) throw new Error('missing module id')
 			const data=await this.db.get(`INSERT INTO lecture (id, title, text,module_id)
