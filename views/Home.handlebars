@@ -1,0 +1,62 @@
+<DOCTYPE! html>
+    <html>
+        <head>
+            <meta charset="utf-8"/>
+            <title>Git-Learning</title>
+            <link href="../css/Layout.css" type="text/css" rel="stylesheet"  />
+        </head>
+        <body>
+            <img class="logo" src='../images/logo3.png' alt="logo">
+            <header>
+                <a class="header2" href="/Profile">Profile</a>
+                <form action="/logout" method="post">
+                <p><input type="submit" value="Log Out"></p>
+                </form> 
+            </header>
+
+            <nav>
+                <ul class="nav4">
+                    <li><a class="nav1" href="/">Home</a></li>
+                    <li>Module List
+                        <ul>
+                            <li><a href="/menu/1">GIT</a></li>
+                            <li><a href="/menu/2">HTML5</a></li>
+                        </ul>
+                    </li> 
+                    <li><a class="nav2" href="/menu/1">Lectures list</a></li>
+                    <li><a class="nav3" href="/Profile">Profile</a></li>
+                </ul>
+            </nav>
+
+
+
+
+             <h1>Modules</h1>
+        
+        <article>
+                <br>
+                <br>
+                <br>
+            <ul class="lessons">
+                {{#each module}}
+                 <li><a  href="/menu/{{this.id}}">{{{this.name}}}</a></li>
+                {{/each}}   
+            </ul>   
+        </article> 
+                    
+            
+            <article class="links">
+                <h1>Useful links</h1>
+            </article>
+
+
+
+            <footer>
+                <a class="f1" href="/ContactUs">Contact Us<br><br></a>
+                <a class="f2" href="/Copyright">Copyright<br><br></a>
+                <a class="f3" href="/Menu">Home<br></a>
+                <p class="cr"> © Copyright E-learner 2019</p>
+            </footer>
+        </body>
+    </html>
+</DOCTYPE>
