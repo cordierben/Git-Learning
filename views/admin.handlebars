@@ -1,0 +1,44 @@
+
+<!doctype html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Home Page</title>
+		<meta name="description" content="form to add new books">
+		<meta name="author" content="Mark Tyers">
+		<link href="css/admin.css" type="text/css" rel="stylesheet" />
+	</head>
+	<body>
+		{{#if msg}}
+ 			<p class="msg"></p>{{msg}}</p>
+		{{/if}}
+		<div class="admin">
+		<p>Editing Lecture</p>
+		<form action="/editLecture" method="post">
+			<input type="text" name="showLecture" placeholder="Enter the lecture you want to view" size="50">
+			<input type="submit" value="Display">
+		</form>
+		<form action="/updateLecture" method="post">
+			<input type="text" name="updateLectureID" value="{{lecture.module_id}}" size="50">
+			<br>
+			<input type="text" name="updateLectureTitle" value="{{lecture.title}}" size="50">
+			<br>
+			<textarea name="updateLectureText" rows="4" cols="50">
+			{{lecture.text}}
+			</textarea>
+			<br>
+			<input type="submit" value="Update">
+		</form>
+		<p>Creating Lecture</p>
+		<form action="/uploadLecture" method="post">
+			<input type="text" name="titleLecture" placeholder="Enter title here..." size="50">
+			<br>
+			<textarea name="textLecture" rows="4" cols="50" placeholder="Enter text here...">
+			</textarea>
+			<br>
+			<input type="submit" value="Create">
+		</form>
+		</div>
+		<p><a href="/logout">log out</a></p>
+</html>
