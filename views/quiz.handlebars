@@ -33,11 +33,11 @@
                     <br>
                     <h1>{{{lecture.title}}}</h1>
                     
-                    <h3>{{{question.question}}}</h3>
+                    <h3>{{question.question}}</h3>
                     
                     <form action="/lecture/{{question.lecture_id}}/quiz/{{question.id}}/module/{{question.module_id}}" method="post">
-                        <input type="radio" name="option" value="{{option.option1}}" > {{{option.option1}}}<br>
-                        <input type="radio" name="option" value="{{option.option2}}" > {{{option.option2}}}<br>
+                        <input type="radio" name="option" value="{{option.option1}}" > {{option.option1}}<br>
+                        <input type="radio" name="option" value="{{option.option2}}" > {{option.option2}}<br>
                         <p><input type="submit" value="Submit"></p>
                     </form>
         
