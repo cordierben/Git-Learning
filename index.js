@@ -82,8 +82,7 @@ router.get('/admin', async ctx => {
 		const db = await sqlite.open('./website.db')
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=Only Admin')
 		const admin = await db.get(`SELECT admin FROM user WHERE id ="${ctx.session.id}";`)
-		if (admin.admin === 'yes')
-		{
+		if (admin.admin === 'yes') {
 			const data = {}
 			if(ctx.query.msg) data.msg = ctx.query.msg
 			await ctx.render('admin')
@@ -103,7 +102,7 @@ router.post('/uploadLecture', async ctx=> {
 		await db.run(upload)
 		await db.close()
 		ctx.redirect('/admin?msg=Uploaded')
-	} catch (err){
+	} catch (err) {
 		await ctx.render('error', {message: err.message})
 	}
 })
@@ -119,7 +118,7 @@ router.post('/editLecture', async ctx=> {
 		await db.close()
 		console.log(searchLecture)
 		return ctx.render('admin', {lecture: searchLecture})
-	} catch (err){
+	} catch (err) {
 		await ctx.render('error', {message: err.message})
 	}
 })
@@ -134,7 +133,7 @@ router.post('/updateLecture', async ctx=> {
 		await db.close()
 		console.log(updateLecture)
 		return ctx.redirect('/admin?msg=uploaded')        
-	} catch (err){
+	} catch (err) {
 		await ctx.render('error', {message: err.message})
 	}
 })
@@ -163,6 +162,18 @@ router.get('/register', async ctx => {
 
 router.post('/register', koaBody, async ctx => {
 	try {
+		const body = ctx.request.body
+		console.log(body)
+		// PROCESSING FILE
+		const {path, type} = ctx.request.files.avatar
+		const fileExtension = mime.extension(type)
+		console.log(`path: ${path}`)
+		console.log(`type: ${type}`)
+		console.log(`fileExtension: ${fileExtension}`)
+		await fs.copy(path, 'public/avatars/avatar11.png')
+		// USERNAME AND PASSWORD BLANK CHECKER
+		const x = body.user
+		const y = body.pass
 		const letters = /^[A-Za-z]+$/
 		// CHECKS IF USERNAME AND PASSWORD BOX CONTAINS ONLY LETTERS
 		//if (ctx.request.body.user.match(letters) && ctx.request.body.pass.match(letters)) 
@@ -313,7 +324,7 @@ router.post('/lecture/:id1/quiz/:id2', async ctx => {
 			let x=0
 			while(x<=10){
 				const random=Math.floor(Math.random() * 20 + 1)
-				ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${random}`)
+				ctx.redirect (`/lecture/${ctx.params.id1}/quiz/${random}`)
 				x++
 			}
             
