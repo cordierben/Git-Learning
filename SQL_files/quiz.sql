@@ -1,65 +1,65 @@
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     1,
-                                    "1) What kind of software is GIT?",
+                                    "What kind of software is GIT?",
                                     1,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     2,
-                                    "2) Who created GIT in 2005?",
+                                    "Who created GIT in 2005?",
                                     1,
                                     1);
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     3,
-                                    "3) What is the functionality of a version-control?",
+                                    "What is the functionality of a version-control?",
                                     1,
                                     1);
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     4,
-                                    "4) Which one is the older?",
+                                    "Which one is the older?",
                                     1,
                                     1);
 
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     5,
-                                    "5) What is GitHub?",
+                                    "What is GitHub?",
                                     1,
                                     1);
 
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     6,
-                                    "6) What are the possibilities on GitHub?",
+                                    "What are the possibilities on GitHub?",
                                     1,
                                     1);
 
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     7,
-                                    "7) What is the drawback of GIT?",
+                                    "What is the drawback of GIT?",
                                     1,
                                     1);
 
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     8,
-                                    "8) Which of these companies use GIT",
+                                    "Which of these companies use GIT",
                                     1,
                                     1);
 
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     9,
-                                    "9) What is the difference between a distributed and a centralized version-control.?",
+                                    "What is the difference between a distributed and a centralized version-control.?",
                                     1,
                                     1);
 
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     10,
-                                    "10) Which kind of version-control is GIT?",
+                                    "Which kind of version-control is GIT?",
                                     1,
                                     1);
 INSERT INTO question (id, question, lecture_id, module_id) VALUES (
@@ -116,30 +116,30 @@ INSERT INTO question(id, question, lecture_id, module_id) VALUES (
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     1,
-                                    "1) Before merging, it is not necessary to check that the repository is up-to-date.",
+                                    "Before merging, it is not necessary to check that the repository is up-to-date.",
                                     6,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     2,
-                                    "2) In what sequence should the following commands be used to prepare for merging?",
+                                    "In what sequence should the following commands be used to prepare for merging?",
                                     6,
                                     1);
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     3,
-                                    "3) The git branch command outputs which of the following?",
+                                    "The git branch command outputs which of the following?",
                                     6,
                                     1);
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     4,
-                                    "4) When using the git merge command, it must be followed by the version name.",
+                                    "When using the git merge command, it must be followed by the version name.",
                                     6,
                                     1);
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     5,
-                                    "5) The branch from which we are merging should not be deleted after merging.",
+                                    "The branch from which we are merging should not be deleted after merging.",
                                     6,
                                     1);    
                                     
@@ -149,60 +149,60 @@ INSERT INTO question (id, question , lecture_id, module_id) VALUES (
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     1,
-                                    "1) It is recommended to create a repository…",
+                                    "It is recommended to create a repository…",
                                     3,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     2,
-                                    "2) The git command used to create a new empty repository is…",
+                                    "The git command used to create a new empty repository is…",
                                     3,
                                     1);
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     3,
-                                    "3) Which command is used to stage files before a commit?",
+                                    "Which command is used to stage files before a commit?",
                                     3,
                                     1);
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     4,
-                                    "4) Which of these shows the correct syntax for committing changes along with a brief message?",
+                                    "Which of these shows the correct syntax for committing changes along with a brief message?",
                                     3,
                                     1);
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     5,
-                                    "5) The git init command will have the same effect regardless of whether it is used at the start, middle or end of a project.",
+                                    "The git init command will have the same effect regardless of whether it is used at the start, middle or end of a project.",
                                     3,
                                     1);
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     6,
-                                    "6) gitignore. is used to prevent unwanted files from being added to the repository.",
+                                    "gitignore. is used to prevent unwanted files from being added to the repository.",
                                     3,
                                     1);
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     7,
-                                    "7) The git init command results in the creation of a new master branch.",
+                                    "The git init command results in the creation of a new master branch.",
                                     3,
                                     1);
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     8,
-                                    "8) Dependency caches (e.g. node modules) must always be committed to the repository.",
+                                    "Dependency caches (e.g. node modules) must always be committed to the repository.",
                                     3,
                                     1);
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     9,
-                                    "9) Which of these shows the correct sequence of commands needed to successfully commit a file to the repository?",
+                                    "Which of these shows the correct sequence of commands needed to successfully commit a file to the repository?",
                                     3,
                                     1);
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     10,
-                                    "10) If the git init command is used while a repository is already present…",
+                                    "If the git init command is used while a repository is already present…",
                                     3,
                                     1);
                                     
@@ -213,181 +213,305 @@ INSERT INTO question (id, question , lecture_id, module_id) VALUES (
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     1,
-                                    "1) It's a good idea to work directly on your master branch.",
+                                    "It's a good idea to work directly on your master branch.",
                                     5,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     2,
-                                    "2) Which of the following commands will create a new branch called brand_new and also check it out?",
+                                    "Which of the following commands will create a new branch called brand_new and also check it out?",
                                     5,
                                     1);
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     3,
-                                    "3) In order to merge a new branch into master, you have to add and commit changes to that branch first.",
+                                    "In order to merge a new branch into master, you have to add and commit changes to that branch first.",
                                     5,
                                     1);
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     4,
-                                    "4) Let's say we want to merge brand_new into master. Which branch should we be on when we run the command git merge brand_new?",
+                                    "Let's say we want to merge brand_new into master. Which branch should we be on when we run the command git merge brand_new?",
                                     5,
                                     1);
 
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     5,
-                                    "5) Which of the following commands will delete the branch brand_new?",
+                                    "Which of the following commands will delete the branch brand_new?",
                                     5,
                                     1);
 
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     6,
-                                    "6) A ‘head’ is simply a reference to a commit object?",
+                                    "A ‘head’ is simply a reference to a commit object?",
                                     5,
                                     1);
 
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     7,
-                                    "7) In every repository, there is a default head referred as",
+                                    "In every repository, there is a default head referred as",
                                     5,
                                     1);
 
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     8,
-                                    "8) how many heads can be created in a repository?",
+                                    "how many heads can be created in a repository?",
                                     5,
                                     1);
 
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     9,
-                                    "9) What is the purpose of branching in GIT?",
+                                    "What is the purpose of branching in GIT?",
                                     5,
                                     1);
 
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     10,
-                                    "10) To switch to an existing branch you...",
+                                    "To switch to an existing branch you...",
                                     5,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     11,
-                                    "11) How to switch back to the master branch",
+                                    "How to switch back to the master branch",
                                     5,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     12,
-                                    "12) switch to the new testing branch",
+                                    "switch to the new testing branch",
                                     5,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     13,
-                                    "13) switch to the new testing branch",
+                                    "switch to the new testing branch",
                                     5,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     14,
-                                    "14) The branch that HEAD points to moves forward with each commit",
+                                    "The branch that HEAD points to moves forward with each commit",
                                     5,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     15,
-                                    "15) A branch in Git is a lightweight fixed pointer to one of the commits",
+                                    "A branch in Git is a lightweight fixed pointer to one of the commits",
                                     5,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     16,
-                                    "16) How do you create a new branch called Alice",
+                                    "How do you create a new branch called Alice",
                                     5,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     17,
-                                    "17) The default branch name in Git is master",
+                                    "The default branch name in Git is master",
                                     5,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     18,
-                                    "18) What happens if you create a new branch? ",
+                                    "What happens if you create a new branch? ",
                                     5,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     19,
-                                    "19) How does Git know what branch you’re currently on?",
+                                    "How does Git know what branch you’re currently on?",
                                     5,
                                     1);                                                                                                                                                                                   
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     20,
-                                    "20) What is the function of ‘git checkout’ in git?",
+                                    "What is the function of ‘git checkout’ in git?",
                                     5,
-                                    1);  
-
-
-
-
-
-
-
-INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     1,
-                                    "1) If you want to install git on linux and you're on a Debian-based distribution, such as Ubuntu...",
-                                    2);
-
-INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    "What is the meaning of « HTML »?",
+                                    1,
+                                    2);                                      
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     2,
-                                    "2) If you want to install git on linux and you're on Fedora (or any closely-related RPM-based distribution, such as RHEL or CentOS)...",
-                                    2);    
-
-INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    "Why do we use HTML?",
+                                    1,
+                                    2); 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     3,
-                                    "3) To get an automated installation on windows you can use the...",
-                                    2);                                                                                                                                                                                              
-                                   
-INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    "Are HTML tags visible on the website?",
+                                    1,
+                                    2); 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     4,
-                                    "4) If you use the command $ git --version on macOS when you don't have git installed will it prompt you to install it?",
-                                    2);                                                                                                                                                                                              
-                                   
-INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    "Which the current HTML version?",
+                                    1,
+                                    2); 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     5,
-                                    "5) when you installing from source and you're on a system that has linux Fedora, you can use the command to install the minimal dependencies for compiling and intalling the git binaries:",
-                                    2);    
-
-INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    "Is it possible to insert images with HTML?",
+                                    1,
+                                    2); 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     6,
-                                    "6) when you installing from source and you're on a system that has linux Ubuntu, you can use the command to install the minimal dependencies for compiling and intalling the git binaries:",
-                                    2);        
-
-INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    "What is the first tag of a HTML page?",
+                                    1,
+                                    2); 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     7,
-                                    "7) Is there more than one way to install git?",
-                                    2);    
+                                    "How do we create a tag?",
+                                    1,
+                                    2); 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    8,
+                                    "Does every tag has an enclosing tag?",
+                                    1,
+                                    2); 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    9,
+                                    "What is the tag <h1>?",
+                                    1,
+                                    2); 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    10,
+                                    "What is the tag <a …>",
+                                    1,
+                                    2); 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    11,
+                                    "What is an attribute?",
+                                    1,
+                                    2); 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    12,
+                                    "What is the tag <body>?",
+                                    1,
+                                    2); 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    13,
+                                    "What is the tag <br>?",
+                                    1,
+                                    2); 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    14,
+                                    "What is the number in a tag <h…>?",
+                                    1,
+                                    2); 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    15,
+                                    "What do we need to write to create a closing tag?",
+                                    1,
+                                    2); 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    16,
+                                    "Is HTML the same as XHTML?",
+                                    1,
+                                    2); 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    17,
+                                    "Is HTML a…",
+                                    1,
+                                    2); 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    18,
+                                    "What is the tag <article>?",
+                                    1,
+                                    2); 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    19,
+                                    "When HTML5 was uploaded?",
+                                    1,
+                                    2); 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    20,
+                                    "Can we add style in a HTML file?",
+                                    1,
+                                    2); 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    1,
+                                    "If you want to install git on linux and you're on a Debian-based distribution, such as Ubuntu...",
+                                    2,
+                                    1);
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    2,
+                                    "If you want to install git on linux and you're on Fedora (or any closely-related RPM-based distribution, such as RHEL or CentOS)...",
+                                    2,
+                                    1);    
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    3,
+                                    "To get an automated installation on windows you can use the...",
+                                    2,
+                                    1);                                                                                                                                                                                              
+                                   
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    4,
+                                    "If you use the command $ git --version on macOS when you don't have git installed will it prompt you to install it?",
+                                    2,
+                                    1);                                                                                                                                                                                              
+                                   
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    5,
+                                    "when you installing from source and you're on a system that has linux Fedora, you can use the command to install the minimal dependencies for compiling and intalling the git binaries:",
+                                    2,
+                                    1);    
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    6,
+                                    "when you installing from source and you're on a system that has linux Ubuntu, you can use the command to install the minimal dependencies for compiling and intalling the git binaries:",
+                                    2,
+                                    1);        
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    7,
+                                    "Is there more than one way to install git?",
+                                    2,
+                                    1);    
 
 INSERT INTO question (id, question , lecture_id) VALUES ( 
                                     8,
-                                    "8) Is Git Chocolatey package community maintained?",
-                                    2);   
+                                    "Is Git Chocolatey package community maintained?",
+                                    2,
+                                    1);   
 
-INSERT INTO question (id, question , lecture_id) VALUES ( 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     9,
-                                    "9) when you install git from source what kind of libraries you depend on?",
-                                    2);  
+                                    "when you install git from source what kind of libraries you depend on?",
+                                    2,
+                                    1);  
 
-INSERT INTO question (id, question , lecture_id) VALUES ( 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     10,
-                                    "10) should you have git updated?",
-                                    2);
+                                    "should you have git updated?",
+                                    2,
+                                    1);
 
-INSERT INTO question (id, question , lecture_id) VALUES ( 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     11,
-                                    "11) After you install Git and prior to issuing the first commit, which two configuration properties does the tool expect to be configured?",
-                                    2);
+                                    "After you install Git and prior to issuing the first commit, which two configuration properties does the tool expect to be configured?",
+                                    2,
+                                    1);
                                    
-INSERT INTO question (id, question , lecture_id) VALUES ( 
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     12,
-                                    "12) What is Git?",
-                                    2);
+                                    "What is Git?",
+                                    2,
+                                    1);
