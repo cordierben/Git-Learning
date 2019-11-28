@@ -52,10 +52,48 @@ INSERT INTO question (id, question , lecture_id) VALUES (
                                     10,
                                     "10) Which kind of version-control is GIT?",
                                     1);
-                                    
-                                    
-                                    
-                                    
+INSERT INTO question (id, question, lecture_id) VALUES (
+                                    11,
+                                    "Which of these version-control system isn’t Open Source?",
+                                    1);   
+INSERT INTO question(id, question, lecture_id) VALUES (
+                                    12,
+                                    "Which of these is not supported by Unix-Like?",
+                                    1);             
+INSERT INTO question(id, question, lecture_id) VALUES (
+                                    13,
+                                    "Who is the maintainer of Git?",
+                                    1);
+INSERT INTO question(id, question, lecture_id) VALUES (
+                                    14,
+                                    "Which of these possibilities is not a functionnality of GIT?",
+                                    1);  
+INSERT INTO question(id, question, lecture_id) VALUES (
+                                    15,
+                                    "Does GitHub support other version-control system than Git?",
+                                    1);                                     
+INSERT INTO question(id, question, lecture_id) VALUES (
+                                    16,
+                                    "When GIT was created?",
+                                    1);  
+INSERT INTO question(id, question, lecture_id) VALUES (
+                                    17,
+                                    "Which of these is a version-control system?",
+                                    1);  
+INSERT INTO question(id, question, lecture_id) VALUES (
+                                    18,
+                                    "Which of these possibilities is a functionnality of a version-control system?",
+                                    1);  
+INSERT INTO question(id, question, lecture_id) VALUES (
+                                    19,
+                                    "Who is the maintainer of Mercurial?",
+                                    1);  
+INSERT INTO question(id, question, lecture_id) VALUES (
+                                    20,
+                                    "Is GIT Open Source?",
+                                    1);  
+
+
 INSERT INTO question (id, question , lecture_id) VALUES ( 
                                     1,
                                     "1) Before merging, it is not necessary to check that the repository is up-to-date.",
@@ -234,8 +272,67 @@ INSERT INTO question (id, question , lecture_id) VALUES (
                                     5);  
 
 
-                                                                                                                                                                                                                                                     
-                                   
-                                   
 
+
+
+
+
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    1,
+                                    "1) If you want to install git on linux and you're on a Debian-based distribution, such as Ubuntu...",
+                                    2);
+
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    2,
+                                    "2) If you want to install git on linux and you're on Fedora (or any closely-related RPM-based distribution, such as RHEL or CentOS)...",
+                                    2);    
+
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    3,
+                                    "3) To get an automated installation on windows you can use the...",
+                                    2);                                                                                                                                                                                              
                                    
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    4,
+                                    "4) If you use the command $ git --version on macOS when you don't have git installed will it prompt you to install it?",
+                                    2);                                                                                                                                                                                              
+                                   
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    5,
+                                    "5) when you installing from source and you're on a system that has linux Fedora, you can use the command to install the minimal dependencies for compiling and intalling the git binaries:",
+                                    2);    
+
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    6,
+                                    "6) when you installing from source and you're on a system that has linux Ubuntu, you can use the command to install the minimal dependencies for compiling and intalling the git binaries:",
+                                    2);        
+
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    7,
+                                    "7) Is there more than one way to install git?",
+                                    2);    
+
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    8,
+                                    "8) Is Git Chocolatey package community maintained?",
+                                    2);   
+
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    9,
+                                    "9) when you install git from source what kind of libraries you depend on?",
+                                    2);  
+
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    10,
+                                    "10) should you have git updated?",
+                                    2);
+
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    11,
+                                    "11) After you install Git and prior to issuing the first commit, which two configuration properties does the tool expect to be configured?",
+                                    2);
+                                   
+INSERT INTO question (id, question , lecture_id) VALUES ( 
+                                    12,
+                                    "12) What is Git?",
+                                    2);

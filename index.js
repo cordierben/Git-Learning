@@ -53,7 +53,6 @@ router.get('/', async ctx => {
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
 		const data = {}
 		if(ctx.query.msg) data.msg = ctx.query.msg
-		await ctx.render('Menu')
 		const db=await sqlite.open(dbName)
 		const data2= await db.all(`SELECT id, title FROM lecture WHERE module_id=${ctx.params.id}`)
 		console.log(data2)
@@ -277,13 +276,13 @@ router.post('/lecture/:id1/quiz/:id2', async ctx => {
 		const db=await sqlite.open(dbName)
 		const body= ctx.request.body
 		const score= await new Score(dbName)
-		if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id2)
-		const quiz = await new Quiz(dbName)
-		const data = await quiz.getanswer(ctx.params.id2,ctx.params.id1)
-		/*const data=await db.get(`SELECT answer FROM option WHERE question_id = ${ctx.params.id2}
-		                                                    AND lecture_id=${ctx.params.id1};`)*/
-		const data2=score.getscore(ctx.session.id,ctx.params.id1)
-		if(ctx.params.id2!==0) {
+		if(ctx.params.id2!=0) { // double equal goesinto if
+			if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id1)
+			ctx.session.quiz++
+			const quiz = await new Quiz(dbName)
+			const data = await quiz.getanswer(ctx.params.id2,ctx.params.id1)
+			console.log(data.answer)
+			data2=await score.getscore(ctx.session.id,ctx.params.id1)
 			if(body.option===data.answer) {
 				data2.score++
 				score.updatescore(ctx.session.id,ctx.params.id1,data2.score,data2.last)
