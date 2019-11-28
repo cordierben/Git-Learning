@@ -289,7 +289,7 @@ INSERT INTO question (id, question , lecture_id) VALUES (
 
 INSERT INTO question (id, question , lecture_id) VALUES ( 
                                     3,
-                                    "3) To get an automated installation on windows you can use the....",
+                                    "3) To get an automated installation on windows you can use the...",
                                     2);                                                                                                                                                                                              
                                    
 INSERT INTO question (id, question , lecture_id) VALUES ( 
