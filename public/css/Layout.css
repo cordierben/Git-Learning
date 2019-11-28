@@ -26,10 +26,16 @@ a.header2{
     color : white;
 }
 
-a.header3{
+.header3{
+    background-color: transparent;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 180%;
+    border: none;
+    margin-top : -47px;
     text-decoration: none;
-    margin-left: 4%; 
+    margin-left: 90%; 
     color : white;
+
 }
 
 /*Navigation*/

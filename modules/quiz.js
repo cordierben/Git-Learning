@@ -23,6 +23,9 @@ module.exports = class Quiz {
 
 	async addquestion(id,question,lecture) {
 		try {
+			if(id.toString().length === 0) throw new Error('missing question id')
+			if(question.length === 0) throw new Error('missing question')
+			if(lecture.toString().length === 0) throw new Error('missing lecture id')
 			const data=await this.db.get(`INSERT INTO question (id,question,lecture_id)
                                                 VALUES (${id},"${question}",${lecture});`)
 			return data
@@ -32,6 +35,7 @@ module.exports = class Quiz {
 	}
 	async addoption(option1, option2,answer,questionId, lectureId) {
 		try {
+			if(option1.length === 0) throw new Error('missing option 1')
 			const data=await this.db.get(`INSERT INTO option (option1, option2,answer,question_id,lecture_id)
                                                 VALUES ("${option1}","${option2}","${answer}",${questionId},${lectureId});`)
 			return data
@@ -43,6 +47,7 @@ module.exports = class Quiz {
 
 	async getquestion(id, lecture) {
 		try {
+			if(lecture.toString().length === 0) throw new Error('did not specify which lecture id')
 			const data = await this.db.get(`SELECT id, question,lecture_id  FROM question 
 											WHERE id =${id}
 											AND lecture_id= ${lecture};`)
@@ -54,6 +59,9 @@ module.exports = class Quiz {
 
 	async getoption(id, lecture) {
 		try {
+			const sql = `SELECT count(question_id) AS count FROM option WHERE question_id =${id};`
+			const records = await this.db.get(sql)
+			if(!records.count) throw new Error('options for the question do not exist')
 			const data= await this.db.get(`SELECT option1, option2,answer,question_id  FROM option 
                                 WHERE question_id= ${id}
 								AND lecture_id=${lecture};`)
@@ -64,6 +72,7 @@ module.exports = class Quiz {
 	}
 	async getanswer(id, lecture) {
 		try {
+			if(id.toString().length === 0) throw new Error('did not specify which question id the answer belongs to')
 			const data = await this.db.get(`SELECT answer FROM option 
 											WHERE question_id = ${id}
 											AND lecture_id=${lecture};`)

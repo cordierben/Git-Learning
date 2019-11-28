@@ -89,6 +89,37 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                      15,
                                      1); 
 INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "In 2014",
+                                    "In 2005",
+                                    "In 2005",
+                                     16,
+                                     1);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "CVS",
+                                    "CSV",
+                                    "CVS",
+                                     17,
+                                     1);                                     
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Track the code",
+                                    "See the quality of a code",
+                                    "Track the code",
+                                     18,
+                                     1); 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Mat Mackall",
+                                    "Matt Mackall",
+                                    "Matt Mackall",
+                                     19,
+                                     1); 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Yes",
+                                    "No",
+                                    "Yes",
+                                     20,
+                                     1); 
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
                                     "True",
                                     "False",
                                     "False",
@@ -274,6 +305,105 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                     "The pre-existing repository will be re-initialised",
                                      10,
                                      3);   
+
+
+
+
+
+
+
+
+
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "$ sudo apt install git-all",
+                                    "$ sudo dnf install git-all",
+                                    "$ sudo apt install git-all",
+                                     1,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "$ sudo apt install git-all",
+                                    "$ sudo dnf install git-all",
+                                    "$ sudo dnf install git-all",
+                                     2,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Git Chocolatey package",
+                                    "Git windows package",
+                                    "Git Chocolatey package",
+                                     3,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Yes",
+                                    "No",
+                                    "Yes",
+                                     4,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "$ sudo dnf install dh-autoreconf curl-devel expat-devel gettext-devel \
+  openssl-devel perl-devel zlib-devel",
+                                    "$ sudo apt-get install dh-autoreconf libcurl4-gnutls-dev libexpat1-dev \
+  gettext libz-dev libssl-dev",
+                                    "$ sudo dnf install dh-autoreconf curl-devel expat-devel gettext-devel \
+  openssl-devel perl-devel zlib-devel",
+                                     5,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "$ sudo apt-get install dh-autoreconf libcurl4-gnutls-dev libexpat1-dev \
+  gettext libz-dev libssl-dev",
+                                    "$ sudo dnf install dh-autoreconf curl-devel expat-devel gettext-devel \
+  openssl-devel perl-devel zlib-devel",
+                                    "$ sudo apt-get install dh-autoreconf libcurl4-gnutls-dev libexpat1-dev \
+  gettext libz-dev libssl-dev",
+                                     6,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Yes",
+                                    "No",
+                                    "Yes",
+                                     7,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Yes",
+                                    "No",
+                                    "Yes",
+                                     8,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "autotools, curl, zlib, openssl, Chocolatey, and libiconv",
+                                    "autotools, curl, zlib, openssl, expat, and libiconv",
+                                    "autotools, curl, zlib, openssl, expat, and libiconv",
+                                     9,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "No",
+                                    "Yes",
+                                    "Yes",
+                                     10,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Username and email address",
+                                    "Username and password",
+                                    "Username and email address",
+                                     11,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Distributed revision control system",
+                                    "Web-based Git repository hosting service",
+                                    "Distributed revision control system",
+                                     12,
+                                     2);
                                      
                                      
 INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
