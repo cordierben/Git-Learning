@@ -24,7 +24,6 @@ const User=require('./modules/user')
 const Score=require('./modules/score')
 const Lecture=require('./modules/lecture')
 const Quiz=require('./modules/quiz')
-const Login=require('./modules/login')
 
 const app = new Koa()
 const router = new Router()
@@ -174,7 +173,7 @@ router.post('/register', koaBody, async ctx => {
 			const newUserChecker = await register.selectUser(body.user)
 			console.log(newUserChecker)
 			if (newUserChecker === true) {
-				await register.register(body.user, body.pass,body.email)
+				await register.register(body.user, body.pass, body.email)
 				// REDIRECTING USER TO HOME PAGE
 				ctx.redirect('/login')
 			} else {
