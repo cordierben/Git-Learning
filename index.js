@@ -5,7 +5,6 @@
 'use strict'
 
 /* MODULE IMPORTS */
-const bcrypt = require('bcrypt-promise')
 const Koa = require('koa')
 const Router = require('koa-router')
 const views = require('koa-views')
@@ -14,8 +13,6 @@ const bodyParser = require('koa-bodyparser')
 const koaBody = require('koa-body')({multipart: true, uploadDir: '.'})
 const session = require('koa-session')
 const sqlite = require('sqlite-async')
-const fs = require('fs-extra')
-const mime = require('mime-types')
 //const jimp = require('jimp')
 
 
@@ -38,7 +35,6 @@ app.use(views(`${__dirname}/views`, { extension: 'handlebars' }, {map: { handleb
 const defaultPort = 8080
 const port = process.env.PORT || defaultPort
 const dbName = 'website.db'
-const saltRounds = 10
 
 /**
  * The secure home page.
@@ -53,8 +49,7 @@ router.get('/', async ctx => {
 		const data = {}
 		if(ctx.query.msg) data.msg = ctx.query.msg
 		const db=await sqlite.open(dbName)
-		const data2= await db.all(`SELECT id, name FROM module`)
-		console.log(data2)
+		const data2= await db.all('SELECT id, name FROM module')
 		await ctx.render('Home', {home: data2})
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
@@ -73,7 +68,7 @@ router.get('/menu/:id', async ctx => {
 		await ctx.render('error', {message: err.message})
 	}
 })
-router.get('/editLecture', async ctx=> {
+router.get('/editLecture', async ctx => {
     const data = {}
     if(ctx.query.msg) data.msg = ctx.query.msg
 })
@@ -90,14 +85,15 @@ router.get('/admin', async ctx => {
 		}
 
 })
-router.get('/uploadLecture', async ctx =>{
+router.get('/uploadLecture', async ctx => {
 	const data = {}
 	if(ctx.query.msg) data.msg = ctx.query.msg
 } )
-router.post('/uploadLecture', async ctx=> {
+router.post('/uploadLecture', async ctx => {
 	try {
 		const db = await sqlite.open('./website.db')
-		const upload = `INSERT INTO lecture(title, text) VALUES("${ctx.request.body.titleLecture}", "${ctx.request.body.textLecture}")`
+		const upload = `INSERT INTO lecture(title, text) VALUES
+		                ("${ctx.request.body.titleLecture}", "${ctx.request.body.textLecture}")`
 		await db.run(upload)
 		await db.close()
 		ctx.redirect('/admin?msg=Uploaded')
@@ -113,7 +109,8 @@ router.post('/editLecture', async ctx => {
 		const body = ctx.request.body
 		console.log(body)
 		const db = await sqlite.open('./website.db')
-		const searchLecture = await db.get(`SELECT id, title, text, module_id FROM lecture WHERE id ="${body.showLecture}";`)
+		const searchLecture = await db.get(`SELECT id, title, text, module_id FROM lecture 
+		                                    WHERE id ="${body.showLecture}";`)
 		await db.close()
 		console.log(searchLecture)
 		return ctx.render('admin', {lecture: searchLecture})
@@ -128,10 +125,13 @@ router.post('/updateLecture', async ctx => {
 		const body = ctx.request.body
 		console.log(body)
 		const db = await sqlite.open('./website.db')
-		const updateLecture = await db.get(`UPDATE lecture SET module_id ="${body.updateLectureID}", title ="${body.updateLectureTitle}", text ="${body.updateLectureText}" WHERE id ="${body.updateLectureID}";`)
+		const updateLecture = await db.get(`UPDATE lecture SET module_id ="${body.updateLectureID}", 
+															   title ="${body.updateLectureTitle}", 
+															   text ="${body.updateLectureText}" 
+															   WHERE id ="${body.updateLectureID}";`)
 		await db.close()
 		console.log(updateLecture)
-		return ctx.redirect('/admin?msg=uploaded')        
+		return ctx.redirect('/admin?msg=uploaded')
 	} catch (err) {
 		await ctx.render('error', {message: err.message})
 	}
@@ -202,7 +202,6 @@ router.post('/login', async ctx => {
 		const db = await sqlite.open(dbName)
 		const account = await new User(dbName)
 		const user = await account.getuser(body.user)
-		const login = await account.login(body.user, body.pass)
 		await db.close()
 		ctx.session.authorised = true
 		ctx.session.id=user.id
@@ -211,7 +210,7 @@ router.post('/login', async ctx => {
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
 	}
-}) 
+})
 
 
 router.get('/logout', async ctx => {
@@ -240,7 +239,7 @@ router.get('/lecture/:id/module/:id3', async ctx => {
 		const sql2=`SELECT MAX(score) as best, date FROM score WHERE user_id=${ctx.session.id}
 															   AND lecture_id=${ctx.params.id}
 															   AND module_id=${ctx.params.id3};`
-		console.log(sql2)													   
+		console.log(sql2)
 		const data2=await db.get(sql2)
 		console.log('ok2')
 		console.log(data2)
@@ -288,8 +287,7 @@ router.post('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 		const body= ctx.request.body
 		let data2
 		const score= await new Score(dbName)
-		if(ctx.params.id2!=0) { 
-			console.log(ctx.session.quiz)
+		if(ctx.params.id2!=0) {
 			if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id1, ctx.params.id3)
 			ctx.session.quiz++
 			const quiz = await new Quiz(dbName)
@@ -309,7 +307,8 @@ router.post('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 			await db.close()
 			return ctx.redirect(`/result/${ctx.params.id3}`)
 		} else {//Else go to next question randomly
-				const random=Math.floor(Math.random() * 20 + 1)
+			    const mult=20
+				const random=Math.floor(Math.random() * mult + 1)
 				ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${random}/module/${ctx.params.id3}`)
 			}
 	} catch(err) {
