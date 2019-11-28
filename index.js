@@ -54,6 +54,10 @@ router.get('/', async ctx => {
 		const data = {}
 		if(ctx.query.msg) data.msg = ctx.query.msg
 		await ctx.render('Menu')
+		const db=await sqlite.open(dbName)
+		const data2= await db.all(`SELECT id, title FROM lecture WHERE module_id=${ctx.params.id}`)
+		console.log(data2)
+		await ctx.render('Menu', {lecture: data2})
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
 	}
