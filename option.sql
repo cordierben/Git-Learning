@@ -214,3 +214,88 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                     "The pre-existing repository will be re-initialised",
                                      10,
                                      3);   
+
+
+
+
+
+
+
+
+
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "$ sudo apt install git-all",
+                                    "$ sudo dnf install git-all",
+                                    "$ sudo apt install git-all",
+                                     1,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "$ sudo apt install git-all",
+                                    "$ sudo dnf install git-all",
+                                    "$ sudo dnf install git-all",
+                                     2,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Git Chocolatey package",
+                                    "Git windows package",
+                                    "Git Chocolatey package",
+                                     3,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Yes",
+                                    "No",
+                                    "Yes",
+                                     4,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "$ sudo dnf install dh-autoreconf curl-devel expat-devel gettext-devel \
+  openssl-devel perl-devel zlib-devel",
+                                    "$ sudo apt-get install dh-autoreconf libcurl4-gnutls-dev libexpat1-dev \
+  gettext libz-dev libssl-dev",
+                                    "$ sudo dnf install dh-autoreconf curl-devel expat-devel gettext-devel \
+  openssl-devel perl-devel zlib-devel",
+                                     5,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "$ sudo apt-get install dh-autoreconf libcurl4-gnutls-dev libexpat1-dev \
+  gettext libz-dev libssl-dev",
+                                    "$ sudo dnf install dh-autoreconf curl-devel expat-devel gettext-devel \
+  openssl-devel perl-devel zlib-devel",
+                                    "$ sudo apt-get install dh-autoreconf libcurl4-gnutls-dev libexpat1-dev \
+  gettext libz-dev libssl-dev",
+                                     6,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Yes",
+                                    "No",
+                                    "Yes",
+                                     7,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Yes",
+                                    "No",
+                                    "Yes",
+                                     8,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "autotools, curl, zlib, openssl, Chocolatey, and libiconv",
+                                    "autotools, curl, zlib, openssl, expat, and libiconv",
+                                    "autotools, curl, zlib, openssl, expat, and libiconv",
+                                     9,
+                                     2);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "No",
+                                    "Yes",
+                                    "Yes",
+                                     10,
+                                     2);
