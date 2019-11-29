@@ -69,20 +69,20 @@ router.get('/menu/:id', async ctx => {
 	}
 })
 router.get('/editLecture', async ctx => {
-    const data = {}
-    if(ctx.query.msg) data.msg = ctx.query.msg
+	const data = {}
+	if(ctx.query.msg) data.msg = ctx.query.msg
 })
 router.get('/admin', async ctx => {
-		const db = await sqlite.open('./website.db')
-		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=Only Admin')
-		const admin = await db.get(`SELECT admin FROM user WHERE id ="${ctx.session.id}";`)
-		if (admin.admin === 'yes') {
-			const data = {}
-			if(ctx.query.msg) data.msg = ctx.query.msg
-			await ctx.render('admin')
-		} else {
-			return ctx.redirect('/login?msg=only for admins')
-		}
+	const db = await sqlite.open('./website.db')
+	if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=Only Admin')
+	const admin = await db.get(`SELECT admin FROM user WHERE id ="${ctx.session.id}";`)
+	if (admin.admin === 'yes') {
+		const data = {}
+		if(ctx.query.msg) data.msg = ctx.query.msg
+		await ctx.render('admin')
+	} else {
+		return ctx.redirect('/login?msg=only for admins')
+	}
 
 })
 router.get('/uploadLecture', async ctx => {
@@ -158,7 +158,6 @@ router.get('/register', async ctx => {
 */
 /*eslint max-lines-per-function: ["error", 200]*/
 
-
 router.post('/register', koaBody, async ctx => {
 	try {
 		const body = ctx.request.body
@@ -193,8 +192,6 @@ router.get('/login', async ctx => {
 	if(ctx.query.user) data.user = ctx.query.user
 	await ctx.render('login', data)
 })
-
-/*eslint max-statements: [2, 100]*/
 
 router.post('/login', async ctx => {
 	try {
@@ -298,8 +295,7 @@ router.post('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 				score.updatescore(ctx.session.id,ctx.params.id1, ctx.params.id3, data2.score,data2.last)
 			}
 		}
-		const end=9
-		if(ctx.session.quiz===end) { //IF END OF THE QUIZ? GOES TO RESULT PAGE AND MARKED FAILED OR PASSED IN DB
+		if(ctx.session.quiz===9) { 
 			const minimum=4
 			if(data2.score<minimum) score.updatefail(ctx.session.id,ctx.params.id1, ctx.params.id3,'failed',data2.last)
 			else score.updatefail(ctx.session.id,ctx.params.id1, ctx.params.id3, 'passed',data2.last)
@@ -307,14 +303,23 @@ router.post('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 			await db.close()
 			return ctx.redirect(`/result/${ctx.params.id3}`)
 		} else {//Else go to next question randomly
-			    const mult=20
-				const random=Math.floor(Math.random() * mult + 1)
-				ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${random}/module/${ctx.params.id3}`)
-			}
+			 const random= await gen()
+			ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${random}/module/${ctx.params.id3}`)
+		}
 	} catch(err) {
 		ctx.body = err.message
 	}
 })
+
+const gen= async function() {
+	try {
+		const mult=20
+	    const random=Math.floor(Math.random() * mult + 1)
+	    return random
+	} catch(err) {
+		throw err
+	}
+}
 
 app.use(router.routes())
 module.exports = app.listen(port, async() => console.log(`listening on port ${port}`))

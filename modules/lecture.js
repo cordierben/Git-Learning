@@ -9,7 +9,8 @@ module.exports = class Lecture {
 		return (async() => {
 			this.db = await sqlite.open(dbName)
 			const sql = `CREATE TABLE IF NOT EXISTS lecture (id INTEGER, title TEXT, 
-				        text TEXT, module_id INTEGER , PRIMARY KEY (id), FOREIGN KEY(module_id) REFERENCES module (id));`
+						text TEXT, module_id INTEGER , PRIMARY KEY (id), 
+						FOREIGN KEY(module_id) REFERENCES module (id));`
 			await this.db.run(sql)
 			return this
 		})()
