@@ -17,7 +17,7 @@
 
             <nav>
                 <ul class="nav4">
-                    <li><a class="nav1" href="/">Home</a></li>
+                    <li><a class="nav1" href="/menu/1">Home</a></li>
                     <li>Module List
                         <ul>
                             <li><a href="/menu/1">GIT</a></li>
@@ -40,22 +40,15 @@
                 <br>
             <ul class="lessons">
                 {{#each lecture}}
-                <li><a class="lessons" href="/lecture/{{this.id}}">{{{this.title}}}</a></li>
+                <li><a class="lessons" href="/lecture/{{this.id}}/module/{{this.module_id}}">{{{this.title}}}</a></li>
                 {{/each}}   
             </ul>   
         </article> 
                     
-            
-            <article class="links">
-                <h1>Useful links</h1>
-            </article>
-
-
-
             <footer>
                 <a class="f1" href="/ContactUs">Contact Us<br><br></a>
                 <a class="f2" href="/Copyright">Copyright<br><br></a>
-                <a class="f3" href="/Menu">Home<br></a>
+                <a class="f3" href="/menu/1">Home<br></a>
                 <p class="cr"> © Copyright E-learner 2019</p>
             </footer>
         </body>

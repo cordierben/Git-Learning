@@ -76,7 +76,7 @@ describe('add lecture()', () => {
 	})
 	test('error if blank title ', async done => {
 		const lecture= await new Lecture()
-		await expect( lecture.addlecture(1,'','html rules',0) )
+		await expect(lecture.addlecture(1,'','html rules',0))
 			.rejects.toEqual( Error('missing lecture title'))
 		done()
 
