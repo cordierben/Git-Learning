@@ -35,7 +35,7 @@ describe('score()', () => {
 			await score.newscore(0,0,0)
 			score.updatescore(0,0,0,1,1)
 			const result= await score.getscore(0,0,0)
-			expect(result.score).toEqual(1)
+			expect(result.score).toEqual(2)
 		} catch(err) {
 			done.fail('test failed')
 		} finally {

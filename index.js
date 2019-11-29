@@ -280,27 +280,24 @@ router.get('/result/:id1', async ctx => {
 /*eslint-disable eqeqeq*/
 router.post('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 	try{
-		const db=await sqlite.open(dbName)
 		const body= ctx.request.body
-		let data2
+		const value={'zero': 0,'four': 4,'nine': 9, 'data2': 0}
 		const score= await new Score(dbName)
-		if(ctx.params.id2!=0) {
-			if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id1, ctx.params.id3)
+		if(ctx.params.id2!=value.zero) {
+			if(ctx.session.quiz===value.zero) score.newscore(ctx.session.id, ctx.params.id1, ctx.params.id3)
 			ctx.session.quiz++
 			const quiz = await new Quiz(dbName)
 			const data = await quiz.getanswer(ctx.params.id2,ctx.params.id1, ctx.params.id3)
-			data2=await score.getscore(ctx.session.id,ctx.params.id1, ctx.params.id3)
+			value.data2=await score.getscore(ctx.session.id,ctx.params.id1, ctx.params.id3)
 			if(body.option===data.answer) {
-				data2.score++
-				score.updatescore(ctx.session.id,ctx.params.id1, ctx.params.id3, data2.score,data2.last)
+				score.updatescore(ctx.session.id,ctx.params.id1, ctx.params.id3, value.data2.score, value.data2.last)
 			}
 		}
-		if(ctx.session.quiz===9) { 
-			const minimum=4
-			if(data2.score<minimum) score.updatefail(ctx.session.id,ctx.params.id1, ctx.params.id3,'failed',data2.last)
-			else score.updatefail(ctx.session.id,ctx.params.id1, ctx.params.id3, 'passed',data2.last)
+		if(ctx.session.quiz===value.nine) {
+			if(value.data2.score<value.four) {
+				score.updatefail(ctx.session.id,ctx.params.id1, ctx.params.id3,'failed',value.data2.last)
+			} else score.updatefail(ctx.session.id,ctx.params.id1, ctx.params.id3, 'passed',value.data2.last)
 			ctx.session.quiz=0
-			await db.close()
 			return ctx.redirect(`/result/${ctx.params.id3}`)
 		} else {//Else go to next question randomly
 			 const random= await gen()
@@ -310,6 +307,8 @@ router.post('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 		ctx.body = err.message
 	}
 })
+
+//Random Generator
 
 const gen= async function() {
 	try {
