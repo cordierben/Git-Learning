@@ -43,6 +43,7 @@ module.exports = class Score {
 
 	async updatescore(user, lecture, moduleid, score, attempt) {
 		try {
+			score++
 			await this.db.get(`UPDATE score SET score=${score} WHERE user_id=${user}
 														  AND lecture_id=${lecture}
 														  AND attempt_id=${attempt}

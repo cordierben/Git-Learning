@@ -1,11 +1,7 @@
 
 'use strict'
 
-const bcrypt = require('bcrypt-promise')
-const fs = require('fs-extra')
-const mime = require('mime-types')
 const sqlite = require('sqlite-async')
-const saltRounds = 10
 
 module.exports = class Quiz {
 
@@ -13,8 +9,12 @@ module.exports = class Quiz {
 		return (async() => {
 			this.db = await sqlite.open(dbName)
 			// we need this table to store the quiz and options
-			const sql = 'CREATE TABLE IF NOT EXISTS question (id INTEGER PRIMARY KEY , question TEXT, lecture_id INTEGER, module_id INTEGER, FOREIGN KEY(lecture_id) REFERENCES lecture (id));'
-			const sql2 = 'CREATE TABLE IF NOT EXISTS option (option1 TEXT, option2 TEXT, answer TEXT, question_id INTEGER,lecture_id INTEGER, module_id INTEGER);'
+			const sql = `CREATE TABLE IF NOT EXISTS question 
+						(id INTEGER PRIMARY KEY , question TEXT, lecture_id INTEGER, 
+						module_id INTEGER, FOREIGN KEY(lecture_id) REFERENCES lecture (id));`
+			const sql2 = `CREATE TABLE IF NOT EXISTS option 
+						(option1 TEXT, option2 TEXT, answer TEXT, 
+						question_id INTEGER,lecture_id INTEGER, module_id INTEGER);`
 			await this.db.run(sql)
 			await this.db.run(sql2)
 			return this
@@ -39,7 +39,8 @@ module.exports = class Quiz {
 		try {
 			if(option1.length === 0) throw new Error('missing option 1')
 			const data=await this.db.get(`INSERT INTO option (option1, option2,answer,question_id,lecture_id, module_id)
-                                                VALUES ("${option1}","${option2}","${answer}",${questionId},${lectureId}, ${moduleid});`)
+												VALUES ("${option1}","${option2}","${answer}",
+												${questionId},${lectureId}, ${moduleid});`)
 			return data
 		} catch(err) {
 			throw err
