@@ -5,7 +5,6 @@
 'use strict'
 
 /* MODULE IMPORTS */
-const bcrypt = require('bcrypt-promise')
 const Koa = require('koa')
 const Router = require('koa-router')
 const views = require('koa-views')
@@ -14,8 +13,6 @@ const bodyParser = require('koa-bodyparser')
 const koaBody = require('koa-body')({multipart: true, uploadDir: '.'})
 const session = require('koa-session')
 const sqlite = require('sqlite-async')
-const fs = require('fs-extra')
-const mime = require('mime-types')
 //const jimp = require('jimp')
 
 
@@ -24,6 +21,7 @@ const User=require('./modules/user')
 const Score=require('./modules/score')
 const Lecture=require('./modules/lecture')
 const Quiz=require('./modules/quiz')
+const Admin=require('./modules/admin')
 
 const app = new Koa()
 const router = new Router()
@@ -38,7 +36,7 @@ app.use(views(`${__dirname}/views`, { extension: 'handlebars' }, {map: { handleb
 const defaultPort = 8080
 const port = process.env.PORT || defaultPort
 const dbName = 'website.db'
-const saltRounds = 10
+
 
 /**
  * The secure home page.
@@ -78,60 +76,65 @@ router.get('/editLecture', async ctx=> {
     if(ctx.query.msg) data.msg = ctx.query.msg
 })
 router.get('/admin', async ctx => {
-		const db = await sqlite.open('./website.db')
-		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=Only Admin')
-		const admin = await db.get(`SELECT admin FROM user WHERE id ="${ctx.session.id}";`)
-		if (admin.admin === 'yes') {
-			const data = {}
-			if(ctx.query.msg) data.msg = ctx.query.msg
-			await ctx.render('admin')
-		} else {
-			return ctx.redirect('/login?msg=only for admins')
-		}
-
+    const data = {}
+    if(ctx.query.msg) data.msg = ctx.query.msg
 })
 router.get('/uploadLecture', async ctx =>{
 	const data = {}
 	if(ctx.query.msg) data.msg = ctx.query.msg
 } )
-router.post('/uploadLecture', async ctx=> {
+
+router.get('/adminlogin', async ctx => {
+	const data = {}
+	if(ctx.query.msg) data.msg = ctx.query.msg
+	if(ctx.query.user) data.user = ctx.query.user
+	await ctx.render('adminlogin', data)
+})
+
+router.post('/adminlogin', async ctx => {
 	try {
-		const db = await sqlite.open('./website.db')
-		const upload = `INSERT INTO lecture(title, text) VALUES("${ctx.request.body.titleLecture}", "${ctx.request.body.textLecture}")`
-		await db.run(upload)
+		const body = ctx.request.body
+		const db = await sqlite.open(dbName)
+		const account = await new Admin(dbName)
+		const login = await account.login(body.user, body.pass)
 		await db.close()
-		ctx.redirect('/admin?msg=Uploaded')
+		return ctx.render('admin')
 	} catch (err) {
 		await ctx.render('error', {message: err.message})
 	}
 })
-
-router.post('/editLecture', async ctx=> {
+router.post('/uploadLecture', async ctx=> {
 	try {
-		const data = {}
-		if(ctx.query.msg) data.msg = ctx.query.msg
 		const body = ctx.request.body
-		console.log(body)
-		const db = await sqlite.open('./website.db')
-		const searchLecture = await db.get(`SELECT id, title, text, module_id FROM lecture WHERE id ="${body.showLecture}";`)
+		const db = await sqlite.open(dbName)
+		const uploading = await new Admin(dbName)
+		const dbUpload = await uploading.uploadLecture(body.IDLecture, body.titleLecture, body.textLecture, body.ModuleIDLecture)
 		await db.close()
-		console.log(searchLecture)
-		return ctx.render('admin', {lecture: searchLecture})
+		return ctx.render('admin')
+	} catch (err) {
+		await ctx.render('error', {message: err.message})
+	}
+})
+router.post('/editLecture', async ctx => {
+	try {
+		const body = ctx.request.body
+		const db = await sqlite.open(dbName)
+		const searchLecture = await new Admin(dbName)
+		const finder = await searchLecture.editLecture(body.showLecture)
+		await db.close()
+		return ctx.render('admin', {lecture: finder})
 	} catch (err) {
 		await ctx.render('error', {message: err.message})
 	}
 })
 router.post('/updateLecture', async ctx=> {
 	try {
-		const data = {}
-		if(ctx.query.msg) data.msg = ctx.query.msg
 		const body = ctx.request.body
-		console.log(body)
-		const db = await sqlite.open('./website.db')
-		const updateLecture = await db.get(`UPDATE lecture SET module_id ="${body.updateLectureID}", title ="${body.updateLectureTitle}", text ="${body.updateLectureText}" WHERE id ="${body.updateLectureID}";`)
+		const db = await sqlite.open(dbName)
+		const updateLecture = await new Admin(dbName)
+		const updated = await updateLecture.updateLecture(body.updateLectureID, body.updateLectureTitle, body.updateLectureText, body.updateLectureModuleID)
 		await db.close()
-		console.log(updateLecture)
-		return ctx.redirect('/admin?msg=uploaded')        
+		return ctx.render('admin')
 	} catch (err) {
 		await ctx.render('error', {message: err.message})
 	}
@@ -204,7 +207,6 @@ router.post('/login', async ctx => {
 		const login = await account.login(body.user, body.pass)
 		await db.close()
 		ctx.session.authorised = true
-		ctx.session.id=user.id
 		ctx.session.quiz=0
 		return ctx.redirect('/')
 	} catch(err) {
@@ -283,13 +285,13 @@ router.post('/lecture/:id1/quiz/:id2', async ctx => {
 		const db=await sqlite.open(dbName)
 		const body= ctx.request.body
 		const score= await new Score(dbName)
+		const data2=await score.getscore(ctx.session.id,ctx.params.id1)
 		if(ctx.params.id2!=0) { // double equal goesinto if
 			if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id1)
 			ctx.session.quiz++
 			const quiz = await new Quiz(dbName)
 			const data = await quiz.getanswer(ctx.params.id2,ctx.params.id1)
 			console.log(data.answer)
-			data2=await score.getscore(ctx.session.id,ctx.params.id1)
 			if(body.option===data.answer) {
 				data2.score++
 				score.updatescore(ctx.session.id,ctx.params.id1,data2.score,data2.last)

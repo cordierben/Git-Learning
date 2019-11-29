@@ -15,17 +15,19 @@
  			<p class="msg"></p>{{msg}}</p>
 		{{/if}}
 		</div>
-			<form action="/adminlogin" enctype="multipart/form-data" method="post">
-			<div class="inputBox">
-				<input type="text" name="user"/>
-            	<label>username</label>
+		<form action="/adminlogin" method="post">
+		<div class="inputBox">
+			 <input type="text" name="user" value="{{user}}" required="" />
+                    <label>username</label>
 			</div>
 			<div class="inputBox">
-				<input type="password" name="pass">
-				<label>password</label>
+			<input type="password" name="pass" required="">
+			<label>password</label>
 			</div>
 			<input type="submit" value="Log in">
-			</form>
+			<input type="button" onclick="window.location.href = 'http://localhost:8080/register';" value="Register"/>
+
+		</form>
 		</div>
 	</body>
 </html>

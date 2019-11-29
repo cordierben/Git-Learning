@@ -14,29 +14,27 @@
  			<p class="msg"></p>{{msg}}</p>
 		{{/if}}
 		<div class="admin">
-		<p>Editing Lecture</p>
 		<form action="/editLecture" method="post">
+			<p>Editing Lecture</p>
 			<input type="text" name="showLecture" placeholder="Enter the lecture you want to view" size="50">
 			<input type="submit" value="Display">
 		</form>
 		<form action="/updateLecture" method="post">
-			<input type="text" name="updateLectureID" value="{{lecture.module_id}}" size="50">
-			<br>
-			<input type="text" name="updateLectureTitle" value="{{lecture.title}}" size="50">
-			<br>
-			<textarea name="updateLectureText" rows="4" cols="50">
+			<input type="text" name="updateLectureID" value="{{lecture.id}}" placeholder="ID" size="50">
+			<input type="text" name="updateLectureModuleID" value="{{lecture.module_id}}" placeholder="Module ID" size="50">
+			<input type="text" name="updateLectureTitle" value="{{lecture.title}}" placeholder="Module Title" size="50">
+			<textarea name="updateLectureText" rows="4" cols="60">
 			{{lecture.text}}
 			</textarea>
-			<br>
 			<input type="submit" value="Update">
 		</form>
-		<p>Creating Lecture</p>
 		<form action="/uploadLecture" method="post">
+			<p>Creating Lecture</p>
+			<input type="text" name="IDLecture" placeholder="Enter ID here..." size="50">
+			<input type="text" name="ModuleIDLecture" placeholder="Enter Module ID here..." size="50">
 			<input type="text" name="titleLecture" placeholder="Enter title here..." size="50">
-			<br>
-			<textarea name="textLecture" rows="4" cols="50" placeholder="Enter text here...">
+			<textarea name="textLecture" rows="4" cols="60" placeholder="Enter text here...">
 			</textarea>
-			<br>
 			<input type="submit" value="Create">
 		</form>
 		</div>
