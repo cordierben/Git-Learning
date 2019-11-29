@@ -44,6 +44,7 @@ const dbName = 'website.db'
  * @route {GET} /
  * @authentication This route requires cookie-based authentication.
  */
+
 router.get('/', async ctx => {
 	try {
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
@@ -117,7 +118,7 @@ router.post('/editLecture', async ctx => {
 		const body = ctx.request.body
 		const db = await sqlite.open(dbName)
 		const searchLecture = await new Admin(dbName)
-		const finder = await searchLecture.editLecture(body.showLecture)
+		const finder = await searchLecture.editLecture(body.showLecture, body.showModuleID)
 		await db.close()
 		return ctx.render('admin', {lecture: finder})
 	} catch (err) {
@@ -199,8 +200,12 @@ router.post('/login', async ctx => {
 		const db = await sqlite.open(dbName)
 		const account = await new User(dbName)
 		const user = await account.getuser(body.user)
+		const login = await account.login(body.user, body.pass)
 		await db.close()
+		console.log(login)
 		ctx.session.authorised = true
+		ctx.session.id=login
+		console.log(ctx.session.id)
 		ctx.session.quiz=0
 		return ctx.redirect('/')
 	} catch(err) {
@@ -291,7 +296,7 @@ router.post('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 			console.log(data.answer)
 				score.updatescore(ctx.session.id,ctx.params.id1, ctx.params.id3, value.data2.score, value.data2.last)
 			}
-		}
+
 		if(ctx.session.quiz===value.nine) {
 			if(value.data2.score<value.four) {
 				score.updatefail(ctx.session.id,ctx.params.id1, ctx.params.id3,'failed',value.data2.last)
