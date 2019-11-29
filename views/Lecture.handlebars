@@ -4,12 +4,12 @@
             <meta charset="utf-8"/>
             <title>Git-Learning</title>
             
-            <link href="../css/Layout.css" type="text/css" rel="stylesheet"  />
+            <link href="/css/Layout.css" type="text/css" rel="stylesheet"  />
         </head>
         <body>
             
 
-            <img class="logo" src='../images/logo3.png' alt="logo">
+            <img class="logo" src='/images/logo3.png' alt="logo">
             
             <header>
                 <a class="header2" href="/Profile">Profile</a>
@@ -19,7 +19,7 @@
             </header>
             <nav>
                 <ul class="nav4">
-                    <li><a class="nav1" href="/">Home</a></li>
+                    <li><a class="nav1" href="/menu/1">Home</a></li>
                     <li>Module List
                         <ul>
                             <li><a href="/menu/1">GIT</a></li>
@@ -36,7 +36,7 @@
                     <br>
                     <h1>{{{lecture.title}}}</h1>
                     <h5>{{{lecture.text}}}</h5>
-                <form action="/lecture/{{lecture.id}}/quiz/0" method="post">
+                <form action="/lecture/{{lecture.id}}/quiz/0/module/{{lecture.module_id}}" method="post">
                    <p><input type="submit" value="Test your understanding"></p>
                 </form>
                     <p>Best score : {{score.best}}/10  ({{score.date}})</p><br>
@@ -52,7 +52,7 @@
             <footer>
                 <a class="f1" href="/ContactUs">Contact Us<br><br></a>
                 <a class="f2" href="/Copyright">Copyright<br><br></a>
-                <a class="f3" href="/Menu">Home<br></a>
+                <a class="f3" href="/menu/1">Home<br></a>
                 <p class="cr"> © Copyright E-learner 2019</p>
             </footer>
         </body>
