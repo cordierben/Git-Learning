@@ -18,15 +18,27 @@ describe('question()', () => {
 	})
 	test('error if blank question ', async done => {
 		const quiz= await new Quiz()
-		await expect( quiz.addquestion(1,'',0) )
+		await expect( quiz.addquestion(1,'',0,0) )
 			.rejects.toEqual( Error('missing question'))
 		done()
 
 	})
 	test('error if blank question id ', async done => {
 		const quiz= await new Quiz()
-		await expect( quiz.addquestion('','What is git',0) )
+		await expect( quiz.addquestion('','What is git',0,2) )
 			.rejects.toEqual( Error('missing question id'))
+		done()
+	})
+	test('error if blank lecture id ', async done => {
+		const quiz= await new Quiz()
+		await expect( quiz.addquestion(1,'What is git','',2))
+			.rejects.toEqual( Error('missing lecture id'))
+		done()
+	})
+	test('error if blank module id ', async done => {
+		const quiz= await new Quiz()
+		await expect( quiz.addquestion(1,'What is git',1,''))
+			.rejects.toEqual( Error('missing module id'))
 		done()
 	})
 	test('Get question', async done => {
