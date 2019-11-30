@@ -45,7 +45,17 @@ const dbName = 'website.db'
  * @authentication This route requires cookie-based authentication.
  */
 
-router.get('/', async ctx => {
+router.get('/', async ctx =>{
+	try {
+		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
+		const data = {}
+		if(ctx.query.msg) data.msg = ctx.query.msg
+		await ctx.render('index')
+	} catch (err){
+		await ctx.render('error', {message: err.message})
+	}
+}) 
+router.get('/Home', async ctx => {
 	try {
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
 		const data = {}
@@ -55,8 +65,9 @@ router.get('/', async ctx => {
 		await ctx.render('Home', {home: data2})
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
-	}
+	} 
 })
+
 router.get('/menu/:id', async ctx => {
 	try {
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
@@ -105,8 +116,8 @@ router.post('/uploadLecture', async ctx=> {
 	try {
 		const body = ctx.request.body
 		const db = await sqlite.open(dbName)
-		const uploading = await new Admin(dbName)
-		const dbUpload = await uploading.uploadLecture(body.IDLecture, body.titleLecture, body.textLecture, body.ModuleIDLecture)
+		const uploading = await new Lecture(dbName)
+		const dbUpload = await uploading.addlecture(body.IDLecture, body.titleLecture, body.textLecture, body.ModuleIDLecture)
 		await db.close()
 		return ctx.render('admin')
 	} catch (err) {
@@ -117,8 +128,8 @@ router.post('/editLecture', async ctx => {
 	try {
 		const body = ctx.request.body
 		const db = await sqlite.open(dbName)
-		const searchLecture = await new Admin(dbName)
-		const finder = await searchLecture.editLecture(body.showLecture, body.showModuleID)
+		const searchLecture = await new Lecture(dbName)
+		const finder = await searchLecture.getlecture(body.showLecture, body.showModuleID)
 		await db.close()
 		return ctx.render('admin', {lecture: finder})
 	} catch (err) {
@@ -129,8 +140,8 @@ router.post('/updateLecture', async ctx => {
 	try {
 		const body = ctx.request.body
 		const db = await sqlite.open(dbName)
-		const updateLecture = await new Admin(dbName)
-		const updated = await updateLecture.updateLecture(body.updateLectureID, body.updateLectureTitle, body.updateLectureText, body.updateLectureModuleID)
+		const updateLecture = await new Lecture(dbName)
+		const updated = await updateLecture.updatelecture(body.updateLectureID, body.updateLectureTitle, body.updateLectureText, body.updateLectureModuleID)
 		await db.close()
 		return ctx.render('admin')
 	} catch (err) {

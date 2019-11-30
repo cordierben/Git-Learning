@@ -12,7 +12,7 @@ module.exports = class Admin {
 		return (async() => {
 			this.db = await sqlite.open(dbName)
 			// we need this table to store the user accounts
-			const sql = 'CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, user TEXT, pass TEXT, email TEXT, admin INTEGER, user_module INTEGER, FOREIGN KEY(user_module) REFERENCES module (id));'
+			const sql = 'CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, user TEXT, pass TEXT, email TEXT, admin TEXT, user_module INTEGER, FOREIGN KEY(user_module) REFERENCES module (id));'
 			await this.db.run(sql)
 			return this
 		})()
@@ -22,20 +22,42 @@ module.exports = class Admin {
 		try {
 			if(user.length === 0) throw new Error('Username not specified')
 			if(pass.length === 0) throw new Error('Password not specified')
-			let sql = `SELECT count(id) AS count FROM user WHERE user="${user}";`
+			const adminUser = 'test'
+			if(user !== adminUser) throw new Error('Account not admin')
+			let sql = `SELECT count(*) AS count FROM user WHERE user="${user}";`
 			const records = await this.db.get(sql)
 			if(!records.count) throw new Error(`username "${user}" not found`)
 			const record = await this.db.get(`SELECT pass FROM user WHERE user = "${user}";`)
 			const admin = await this.db.get(`SELECT admin FROM user WHERE user = "${user}";`)
 			const valid = await bcrypt.compare(pass, record.pass)
+			console.log(admin.admin)
 			if(valid === false) throw new Error(`invalid password for account "${user}"`)
-			if(admin.admin === false) throw new Error(`invalid admin for account "${user}"`)
+			const adminPass = 'yes'
+			if(admin.admin !== adminPass) throw new Error(`invalid admin for account "${user}"`)
 			return true
 		} catch(err) {
 			throw err
 		}
 	}
-
+	async register(user, pass, email, admin) {
+		try {
+			if(user.length === 0) throw new Error('missing username')
+			if(pass.length === 0) throw new Error('missing password')
+			let sql = `SELECT COUNT(id) as records FROM user WHERE user="${user}";`
+			const data = await this.db.get(sql)
+			if(data.records !== 0) throw new Error(`username "${user}" already in use`)
+			// ENCRYPTING PASSWORD AND BUILDING SQL
+			pass = await bcrypt.hash(pass, saltRounds)
+			//Adds username, password and email into the database
+			sql = `INSERT INTO user(user, pass, email, admin) VALUES("${user}", "${pass}","${email}", "${admin}")`
+			// DATABASE COMMANDS
+			await this.db.run(sql)
+			return true
+		} catch(err) {
+			throw err
+		}
+	}
+	/*
 	async editLecture(lectureNum, module_id) {
 		try {
 			if(lectureNum.toString().length === 0) throw new Error('Lecture ID not specified')
@@ -69,6 +91,6 @@ module.exports = class Admin {
 		} catch (err) {
 			throw err
 		}
-	}
+	} */
 
 }
