@@ -64,10 +64,14 @@ ul.nav4 li {
 }
 
 nav ul.nav4 li ul {
+    
     visibility: hidden;
     position: absolute;
     background-color : rgb(20,20,20) ;
     text-align: start;
+}
+nav ul.nav4 li ul li {
+    display: block;
 }
 nav ul.nav4 li:hover > ul {
     visibility:visible;

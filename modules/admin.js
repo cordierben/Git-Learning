@@ -1,5 +1,5 @@
 'use strict'
-
+/*eslint-disable complexity*/
 const bcrypt = require('bcrypt-promise')
 const fs = require('fs-extra')
 const mime = require('mime-types')
@@ -58,10 +58,10 @@ module.exports = class Admin {
 		}
 	}
 	/*
-	async editLecture(lectureNum, module_id) {
+	async editLecture(lectureNum, moduleid) {
 		try {
 			if(lectureNum.toString().length === 0) throw new Error('Lecture ID not specified')
-			const sql = `SELECT id, title, text, module_id FROM lecture WHERE id =${lectureNum} AND module_id='${module_id}'`
+			const sql = `SELECT id, title, text, module_id FROM lecture WHERE id =${lectureNum} AND module_id='${moduleid}'`
 			const search = await this.db.get(sql)
 			if(!search.id) throw new Error('Lecture does not exist')
 			return search
