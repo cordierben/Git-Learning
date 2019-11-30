@@ -2,6 +2,7 @@ INSERT INTO question (id, question , lecture_id, module_id) VALUES (
                                     1,
                                     "What kind of software is GIT?",
                                     1,
+                                    "What kind of software is GIT?",
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     2,

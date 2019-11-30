@@ -9,9 +9,9 @@ describe('get lecture()', () => {
 	test('get lecture', async done => {
 		try{
 			const lecture= await new Lecture()
-			const add =await lecture.addlecture(1,'html','html rules',0)
+			await lecture.addlecture(1,'html','html rules',0)
 			const data= await lecture.getlecture(1,0)
-			expect(data.lecture).toEqual(add)
+			expect(data.id).toEqual(1)
 		} catch(err) {
 			done.fail('test failed')
 		} finally {
