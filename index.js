@@ -43,16 +43,16 @@ const dbName = 'website.db'
  * @authentication This route requires cookie-based authentication.
  */
 
-router.get('/', async ctx =>{
+router.get('/', async ctx => {
 	try {
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
 		const data = {}
 		if(ctx.query.msg) data.msg = ctx.query.msg
 		await ctx.render('index')
-	} catch (err){
+	} catch (err) {
 		await ctx.render('error', {message: err.message})
 	}
-}) 
+})
 router.get('/Home', async ctx => {
 	try {
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
@@ -60,11 +60,11 @@ router.get('/Home', async ctx => {
 		if(ctx.query.msg) data.msg = ctx.query.msg
 		const db=await sqlite.open(dbName)
 		const data2= await db.all('SELECT id, name FROM module')
-		const data3= await db.all(`SELECT id, title, module_id FROM lecture`)
+		const data3= await db.all('SELECT id, title, module_id FROM lecture')
 		await ctx.render('Home', {module: data2 ,lecture: data3 })
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
-	} 
+	}
 })
 
 router.get('/menu/:id', async ctx => {
@@ -85,8 +85,8 @@ router.get('/editLecture', async ctx => {
 	if(ctx.query.msg) data.msg = ctx.query.msg
 })
 router.get('/admin', async ctx => {
-    const data = {}
-    if(ctx.query.msg) data.msg = ctx.query.msg
+	const data = {}
+	if(ctx.query.msg) data.msg = ctx.query.msg
 })
 router.get('/uploadLecture', async ctx => {
 	const data = {}
@@ -111,7 +111,7 @@ router.post('/adminlogin', async ctx => {
 		await ctx.render('error', {message: err.message})
 	}
 })
-router.post('/uploadLecture', async ctx=> {
+router.post('/uploadLecture', async ctx => {
 	try {
 		const body = ctx.request.body
 		const db = await sqlite.open(dbName)
@@ -297,8 +297,8 @@ router.post('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 			ctx.session.quiz++
 			const quiz = await new Quiz(dbName)
 			const data = await quiz.getanswer(ctx.params.id2,ctx.params.id1)
-				score.updatescore(ctx.session.id,ctx.params.id1, ctx.params.id3, value.data2.score, value.data2.last)
-			}
+			score.updatescore(ctx.session.id,ctx.params.id1, ctx.params.id3, value.data2.score, value.data2.last)
+		}
 		 if(ctx.session.quiz===value.nine) {
 			if(value.data2.score<value.four) {
 				score.updatefail(ctx.session.id,ctx.params.id1, ctx.params.id3,'failed',value.data2.last)

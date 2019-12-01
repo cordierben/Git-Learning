@@ -20,7 +20,7 @@ describe('score()', () => {
 		const score = await new Score()
 		await score.newscore(1,2,3)
 		await expect( score.getscore(0,2,3) )
-			.rejects.toEqual( Error(`user ID "0" does not have a previous score`) )
+			.rejects.toEqual( Error('user ID "0" does not have a previous score') )
 		done()
 	})
 	test('create a new score', async done => {
