@@ -43,16 +43,16 @@ const dbName = 'website.db'
  * @authentication This route requires cookie-based authentication.
  */
 
-router.get('/', async ctx =>{
+router.get('/', async ctx => {
 	try {
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
 		const data = {}
 		if(ctx.query.msg) data.msg = ctx.query.msg
 		await ctx.render('index')
-	} catch (err){
+	} catch (err) {
 		await ctx.render('error', {message: err.message})
 	}
-}) 
+})
 router.get('/Home', async ctx => {
 	try {
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
@@ -60,11 +60,11 @@ router.get('/Home', async ctx => {
 		if(ctx.query.msg) data.msg = ctx.query.msg
 		const db=await sqlite.open(dbName)
 		const data2= await db.all('SELECT id, name FROM module')
-		const data3= await db.all(`SELECT id, title, module_id FROM lecture`)
+		const data3= await db.all('SELECT id, title, module_id FROM lecture')
 		await ctx.render('Home', {module: data2 ,lecture: data3 })
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
-	} 
+	}
 })
 
 router.get('/menu/:id', async ctx => {
@@ -85,8 +85,8 @@ router.get('/editLecture', async ctx => {
 	if(ctx.query.msg) data.msg = ctx.query.msg
 })
 router.get('/admin', async ctx => {
-    const data = {}
-    if(ctx.query.msg) data.msg = ctx.query.msg
+	const data = {}
+	if(ctx.query.msg) data.msg = ctx.query.msg
 })
 router.get('/uploadLecture', async ctx => {
 	const data = {}
@@ -111,7 +111,7 @@ router.post('/adminlogin', async ctx => {
 		await ctx.render('error', {message: err.message})
 	}
 })
-router.post('/uploadLecture', async ctx=> {
+router.post('/uploadLecture', async ctx => {
 	try {
 		const body = ctx.request.body
 		const db = await sqlite.open(dbName)
@@ -239,12 +239,13 @@ router.get('/lecture/:id/module/:id3', async ctx => {
 		const db=await sqlite.open(dbName)
 		const lecture = await new Lecture(dbName)
 		const data = await lecture.getlecture(ctx.params.id, ctx.params.id3)
-        const data3= await db.all('SELECT id, name FROM module')
+		const data3= await db.all('SELECT id, name FROM module')
+		const data4=await db.all(`SELECT id, title FROM lecture WHERE module_id=${ctx.params.id3}`)
 		const sql2=`SELECT MAX(score) as best, date FROM score WHERE user_id=${ctx.session.id}
 															   AND lecture_id=${ctx.params.id}
 															   AND module_id=${ctx.params.id3};`// can be reduced
 		const data2=await db.get(sql2)
-		await ctx.render('lecture', {lecture: data, score: data2, module: data3})
+		await ctx.render('lecture', {lecture: data, lectures: data4, score: data2, module: data3})
 	} catch(err) {
 		ctx.body = err.message
 	}

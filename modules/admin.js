@@ -24,7 +24,7 @@ module.exports = class Admin {
 			if(pass.length === 0) throw new Error('Password not specified')
 			const adminUser = 'test'
 			if(user !== adminUser) throw new Error('Account not admin')
-			let sql = `SELECT count(*) AS count FROM user WHERE user="${user}";`
+			const sql = `SELECT count(*) AS count FROM user WHERE user="${user}";`
 			const records = await this.db.get(sql)
 			if(!records.count) throw new Error(`username "${user}" not found`)
 			const record = await this.db.get(`SELECT pass FROM user WHERE user = "${user}";`)

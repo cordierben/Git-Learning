@@ -115,6 +115,10 @@ INSERT INTO question(id, question, lecture_id, module_id) VALUES (
                                     1);  
 
 
+
+
+
+
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     1,
                                     "Before merging, it is not necessary to check that the repository is up-to-date.",
@@ -125,24 +129,97 @@ INSERT INTO question (id, question , lecture_id, module_id) VALUES (
                                     "In what sequence should the following commands be used to prepare for merging?",
                                     6,
                                     1);
-
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     3,
                                     "The git branch command outputs which of the following?",
                                     6,
                                     1);
-
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     4,
                                     "When using the git merge command, it must be followed by the version name.",
                                     6,
                                     1);
-
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     5,
                                     "The branch from which we are merging should not be deleted after merging.",
                                     6,
                                     1);    
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    6,
+                                    "It is good practice to separate the code into branches as it is developed.”,
+                                    6,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    7,
+                                    "Branches allows different versions of the same file to exist simultaneously.”,
+                                    6,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    8,
+                                    "Branching does not allow users to work on different versions of the same project.”,
+                                    6,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    9,
+                                    "No preparation is needed before merging.",
+                                    6,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    10,
+                                    "The first command to use when merging is git checkout.",
+                                    6,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    11,
+                                    "The git pull command should be used after git checkout.”,
+                                    6,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    12,
+                                    "The checkout command used is ‘git checkout master’.”,
+                                    6,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    13,
+                                    "The version name is needed after the git merge command.”,
+                                    6,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    14,
+                                    "Merge conflicts do not occur.”,
+                                    6,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    15,
+                                    "The git push command is required to merge.",
+                                    6,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    16,
+                                    "The branch command to use is ‘git branch -av‘.
+                                    6,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    17,
+                                    "The commit history is updated after merging.",
+                                    6,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    18,
+                                    "Merging adds a ‘merge commit’ to the commit history.",
+                                    6,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    19,
+                                    "Branching eliminates the risk of code being overwritten or modified unwantedly.",
+                                    6,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    20,
+                                    "Merging does not require use of the git fetch command.",
+                                    6,
+                                    1);
+                                    
                                     
                                     
                                     
@@ -158,55 +235,97 @@ INSERT INTO question (id, question , lecture_id, module_id) VALUES (
                                     "The git command used to create a new empty repository is…",
                                     3,
                                     1);
-
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     3,
                                     "Which command is used to stage files before a commit?",
                                     3,
                                     1);
-
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     4,
                                     "Which of these shows the correct syntax for committing changes along with a brief message?",
                                     3,
                                     1);
-
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     5,
                                     "The git init command will have the same effect regardless of whether it is used at the start, middle or end of a project.",
                                     3,
                                     1);
-
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     6,
                                     "gitignore. is used to prevent unwanted files from being added to the repository.",
                                     3,
                                     1);
-
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     7,
                                     "The git init command results in the creation of a new master branch.",
                                     3,
                                     1);
-
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     8,
                                     "Dependency caches (e.g. node modules) must always be committed to the repository.",
                                     3,
                                     1);
-
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     9,
                                     "Which of these shows the correct sequence of commands needed to successfully commit a file to the repository?",
                                     3,
                                     1);
-
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     10,
                                     "If the git init command is used while a repository is already present…",
                                     3,
                                     1);
-                                    
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    11,
+                                    "The git repository is hidden within the project directory.",
+                                    3,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    12,
+                                    "Repositories track and log all file modifications”,
+                                    3,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    13,
+                                    "Repositories do not allow access files as they existed in previous versions.",
+                                    3,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    14,
+                                    "One must first navigate to the desired project folder before creating a repository",
+                                    3,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    15,
+                                    "The cd command is used to create a repository.",
+                                    3,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    16,
+                                    "The gitinit command crates a new subdirectory.”,
+                                    3,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    17,
+                                    "The gitinit command does not result in the creation of a new master branch.”,
+                                    3,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    18,
+                                    "The gitinit command will always have the same effect.”,
+                                    3,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    19,
+                                    "In creating a repository, staging is necessary.",
+                                    3,
+                                    1);
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    20,
+                                    "A new repository will contain metadata.”,
+                                    3,
+                                    1);
+
                                     
 
 
@@ -326,6 +445,10 @@ INSERT INTO question (id, question , lecture_id, module_id) VALUES (
                                     "What is the function of ‘git checkout’ in git?",
                                     5,
                                     1);
+                                    
+                                    
+                                    
+                                    
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     1,
                                     "What is the meaning of « HTML »?",

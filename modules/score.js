@@ -40,7 +40,7 @@ module.exports = class Score {
 			data=await this.db.get(`SELECT MAX(attempt_id) as last, score, fail FROM score WHERE user_id=${user} 
 																						   AND lecture_id=${lecture}
 																						   AND module_id=${moduleid};`)
-			
+
 			return data
 		} catch(err) {
 			throw err
