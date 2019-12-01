@@ -24,7 +24,7 @@ module.exports = class Score {
 	        const mm = String(today.getMonth() + 1).padStart(start, '0') //January is 0
 	        const yyyy = today.getFullYear()
 			const date = `${mm}/${dd}/${yyyy}`
-			await this.db.get(`INSERT INTO score(user_id, lecture_id,module_id, score, fail, date) 
+			await this.db.get(`INSERT INTO score(user_id, lecture_id, module_id, score, fail, date) 
 			                             VALUES (${user},${lecture},${moduleid},0,"","${date}");`)
 		} catch(err) {
 			throw err

@@ -291,14 +291,15 @@ router.post('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 		const body= ctx.request.body
 		const value={'zero': 0,'four': 4,'nine': 9, 'data2': 0}
 		const score= await new Score(dbName)
-		const data2=await score.getscore(ctx.session.id,ctx.params.id1)
+		const data2=await score.getscore(ctx.session.id,ctx.params.id1, ctx.params.id3)
 		if(ctx.params.id2!=0) { // double equal goesinto if
-			if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id1)
+			if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id1,ctx.params.id3)
 			ctx.session.quiz++
 			const quiz = await new Quiz(dbName)
-			const data = await quiz.getanswer(ctx.params.id2,ctx.params.id1)
-			score.updatescore(ctx.session.id,ctx.params.id1, ctx.params.id3, value.data2.score, value.data2.last)
-		}
+			const data = await quiz.getanswer(ctx.params.id2,ctx.params.id1, ctx.params.id3)
+			console.log(data.answer)
+				score.updatescore(ctx.session.id, ctx.params.id1, ctx.params.id3, value.data2.score, value.data2.last)
+			}
 		 if(ctx.session.quiz===value.nine) {
 			if(value.data2.score<value.four) {
 				score.updatefail(ctx.session.id,ctx.params.id1, ctx.params.id3,'failed',value.data2.last)

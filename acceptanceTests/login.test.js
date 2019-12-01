@@ -57,7 +57,7 @@ describe('Registering', () => {
 		//check that the user is taken to the homepage after attempting to login as the new user:
 		await page.waitForSelector('h1')
 		expect( await page.evaluate( () => document.querySelector('h1').innerText ) )
-			.toBe('Home')
+			.toBe('Learning')
 
 		// grab a screenshot
 		const image = await page.screenshot()
