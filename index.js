@@ -59,8 +59,8 @@ router.get('/Home', async ctx => {
 		const data = {}
 		if(ctx.query.msg) data.msg = ctx.query.msg
 		const db=await sqlite.open(dbName)
-		const data2= await db.all('SELECT id, name FROM module')
-		const data3= await db.all('SELECT id, title, module_id FROM lecture')
+		const data2= await db.all(`SELECT id, name FROM module;`)
+		const data3= await db.all(`SELECT id, title, module_id FROM lecture;`)
 		await ctx.render('Home', {module: data2 ,lecture: data3 })
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
@@ -73,8 +73,8 @@ router.get('/menu/:id', async ctx => {
 		const data = {}
 		if(ctx.query.msg) data.msg = ctx.query.msg
 		const db=await sqlite.open(dbName)
-		const data3= await db.all('SELECT id, name FROM module')
-		const data2= await db.all(`SELECT id, title, module_id FROM lecture WHERE module_id=${ctx.params.id}`)
+		const data3= await db.all(`SELECT id, name FROM module;`)
+		const data2= await db.all(`SELECT id, title, module_id FROM lecture WHERE module_id=${ctx.params.id};`)
 		await ctx.render('Menu', {lecture: data2, module: data3})
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
@@ -236,11 +236,11 @@ router.post('/logout', async ctx => {
 router.get('/lecture/:id/module/:id3', async ctx => {
 	try{
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
-		const db=await sqlite.open(dbName)
+		const db = await sqlite.open(dbName)
 		const lecture = await new Lecture(dbName)
 		const data = await lecture.getlecture(ctx.params.id, ctx.params.id3)
-		const data3= await db.all('SELECT id, name FROM module')
-		const data4=await db.all(`SELECT id, title FROM lecture WHERE module_id=${ctx.params.id3}`)
+		const data3= await db.all(`SELECT id, name FROM module;`)
+		const data4=await db.all(`SELECT id, title FROM lecture WHERE module_id=${ctx.params.id3};`)
 		const sql2=`SELECT MAX(score) as best, date FROM score WHERE user_id=${ctx.session.id}
 															   AND lecture_id=${ctx.params.id}
 															   AND module_id=${ctx.params.id3};`// can be reduced
@@ -257,11 +257,11 @@ router.get('/lecture/:id/module/:id3', async ctx => {
 router.get('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 	try{
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
-		const db=sqlite.open(dbName)
+		const db = await sqlite.open(dbName)
 		const lecture = await new Lecture(dbName)
 		const dataLecture = await lecture.getlecture(ctx.params.id1, ctx.params.id3)
 		const quiz = await new Quiz(dbName)
-		const data3= await db.all('SELECT id, name FROM module')
+		const data3= await db.all(`SELECT id, name FROM module;`)
 		const dataQuiz = await quiz.getquestion(ctx.params.id2,ctx.params.id1, ctx.params.id3)
 		const dataOption = await quiz.getoption(ctx.params.id2,ctx.params.id1, ctx.params.id3)
 		if(dataQuiz !== undefined || dataLecture !== undefined || dataOption !== undefined ) {
@@ -274,7 +274,7 @@ router.get('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 
 router.get('/result/:id1', async ctx => {
 	try {
-		const db=await sqlite.open(dbName)
+		const db = await sqlite.open(dbName)
 		const data = await db.get(`SELECT MAX(attempt_id) as last, score, fail FROM score 
 														WHERE user_id=${ctx.session.id}
 														AND module_id=${ctx.params.id1};`)
@@ -291,13 +291,15 @@ router.post('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 		const body= ctx.request.body
 		const value={'zero': 0,'four': 4,'nine': 9, 'data2': 0}
 		const score= await new Score(dbName)
-		const data2=await score.getscore(ctx.session.id,ctx.params.id1, ctx.params.id3)
+		let data2 = await score.getscore(ctx.session.id,ctx.params.id1, ctx.params.id3)
 		if(ctx.params.id2!=0) { // double equal goesinto if
 			if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id1,ctx.params.id3)
 			ctx.session.quiz++
 			const quiz = await new Quiz(dbName)
 			const data = await quiz.getanswer(ctx.params.id2,ctx.params.id1, ctx.params.id3)
 			console.log(data.answer)
+			console.log(value.data2.score)
+				value.data2 = await score.getscore(ctx.session.id,ctx.params.id1, ctx.params.id3)
 				score.updatescore(ctx.session.id, ctx.params.id1, ctx.params.id3, value.data2.score, value.data2.last)
 			}
 		 if(ctx.session.quiz===value.nine) {
