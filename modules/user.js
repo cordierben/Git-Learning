@@ -19,7 +19,7 @@ module.exports = class User {
 		})()
 	}
 
-	async register(user, pass,email) {
+	async register(user, pass, email) {
 		try {
 			if(user.length === 0) throw new Error('missing username')
 			if(pass.length === 0) throw new Error('missing password')
@@ -80,6 +80,7 @@ module.exports = class User {
 
 	async getuser(user) {
 		try {
+			if(user.length === 0) throw new Error('missing username')
 			const record=await this.db.get(`SELECT id FROM user WHERE user = "${user}";`)
 			return record
 		} catch(err) {
