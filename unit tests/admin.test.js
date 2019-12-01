@@ -2,6 +2,7 @@
 
 
 const Admin = require('../modules/admin.js')
+const Lecture=require('../modules/lecture.js')
 
 describe('login()', () => {
 

@@ -1,4 +1,4 @@
-
+/*eslint-disable complexity*/
 'use strict'
 
 const sqlite = require('sqlite-async')
@@ -26,6 +26,7 @@ module.exports = class Quiz {
 			if(id.toString().length === 0) throw new Error('missing question id')
 			if(question.length === 0) throw new Error('missing question')
 			if(lecture.toString().length === 0) throw new Error('missing lecture id')
+			if(moduleid.toString().length === 0) throw new Error('missing module id')
 			const data=await this.db.get(`INSERT INTO question (id,question,lecture_id, module_id)
                                                 VALUES (${id},"${question}",${lecture},${moduleid});`)
 			return data

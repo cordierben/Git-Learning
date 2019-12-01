@@ -71,4 +71,36 @@ describe('login()', () => {
 
 })
 
+describe('selectUser()', () => {
 
+	test('user selected', async done => {
+		expect.assertions(1)
+		const account = await new Accounts()
+		await account.register('user', 'f', 'f')
+		const valid = await account.selectUser('user')
+		expect(valid).toBe(false)
+		done()
+	})
+
+	test('missing user', async done => {
+		expect.assertions(1)
+		const account = await new Accounts()
+		await account.register('f', 'password', 'undefined')
+		await expect(account.selectUser(''))
+			.rejects.toEqual( Error('missing username') )
+		done()
+	})
+
+})
+
+describe('getuser()', () => {
+
+	test('missing user', async done => {
+		expect.assertions(1)
+		const account = await new Accounts()
+		await account.register('f', 'password', 'undefined')
+		await expect(account.getuser(''))
+			.rejects.toEqual( Error('missing username') )
+		done()
+	})
+})

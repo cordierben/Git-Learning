@@ -17,16 +17,24 @@
                 <p><input type="submit" value="Log Out" class="header3"></p>
                 </form>
             </header>
-            <nav>
+           <nav>
                 <ul class="nav4">
-                    <li><a class="nav1" href="/menu/1">Home</a></li>
+                    <li><a class="nav1" href="/">Home</a></li>
                     <li>Module List
                         <ul>
-                            <li><a href="/menu/1">GIT</a></li>
-                            <li><a href="/menu/2">HTML5</a></li>
+                            {{#each module}}
+                             <li><a class="lessons" href="/menu/{{this.id}}">{{{this.name}}}</a></li>
+                             {{/each}}   
                         </ul>
                     </li> 
-                    <li><a class="nav2" href="/menu/1">Lectures list</a></li>
+                    <li>Lectures List
+                        <ul>
+                             {{#each lecture}}
+                                <li><a class="lessons" href="/lecture/{{this.id}}/module/{{this.module_id}}">{{{this.title}}}</a></li>
+                             {{/each}}
+                        </ul>
+                    </li> 
+                    
                     <li><a class="nav3" href="/Profile">Profile</a></li>
                 </ul>
             </nav>
