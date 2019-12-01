@@ -239,12 +239,13 @@ router.get('/lecture/:id/module/:id3', async ctx => {
 		const db=await sqlite.open(dbName)
 		const lecture = await new Lecture(dbName)
 		const data = await lecture.getlecture(ctx.params.id, ctx.params.id3)
-        const data3= await db.all('SELECT id, name FROM module')
+		const data3= await db.all('SELECT id, name FROM module')
+		const data4=await db.all(`SELECT id, title FROM lecture WHERE module_id=${ctx.params.id3}`)
 		const sql2=`SELECT MAX(score) as best, date FROM score WHERE user_id=${ctx.session.id}
 															   AND lecture_id=${ctx.params.id}
 															   AND module_id=${ctx.params.id3};`// can be reduced
 		const data2=await db.get(sql2)
-		await ctx.render('lecture', {lecture: data, score: data2, module: data3})
+		await ctx.render('lecture', {lecture: data, lectures: data4, score: data2, module: data3})
 	} catch(err) {
 		ctx.body = err.message
 	}

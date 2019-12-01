@@ -19,7 +19,7 @@
             </header>
            <nav>
                 <ul class="nav4">
-                    <li><a class="nav1" href="/">Home</a></li>
+                    <li><a class="nav1" href="/Home">Home</a></li>
                     <li>Module List
                         <ul>
                             {{#each module}}
@@ -29,7 +29,7 @@
                     </li> 
                     <li>Lectures List
                         <ul>
-                             {{#each lecture}}
+                             {{#each lectures}}
                                 <li><a class="lessons" href="/lecture/{{this.id}}/module/{{this.module_id}}">{{{this.title}}}</a></li>
                              {{/each}}
                         </ul>
