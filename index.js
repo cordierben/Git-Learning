@@ -297,9 +297,7 @@ router.post('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 			ctx.session.quiz++
 			const quiz = await new Quiz(dbName)
 			const data = await quiz.getanswer(ctx.params.id2,ctx.params.id1, ctx.params.id3)
-			console.log(data.answer)
-			console.log(value.data2.score)
-				value.data2 = await score.getscore(ctx.session.id,ctx.params.id1, ctx.params.id3)
+				value.data2 = await score.getscore(ctx.session.id, ctx.params.id1, ctx.params.id3)
 				score.updatescore(ctx.session.id, ctx.params.id1, ctx.params.id3, value.data2.score, value.data2.last)
 			}
 		 if(ctx.session.quiz===value.nine) {
