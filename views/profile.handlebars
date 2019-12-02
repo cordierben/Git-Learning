@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <title>Git-Learning</title>
+        <title>Profile</title>
         <link href="http://localhost:8080/css/Layout.css" type="text/css" rel="stylesheet"  />
     </head>
     <body>
@@ -15,7 +15,7 @@
                 <p><input type="submit" value="Log Out" class="header3"></p>
                 </form>
         </header>
-       <nav>
+        <nav>
                 <ul class="nav4">
                     <li><a class="nav1" href="/Home">Home</a></li>
                     <li>Module List
@@ -36,14 +36,27 @@
                     <li><a class="nav3" href="/profile">Profile</a></li>
                 </ul>
             </nav>
+          <!-- <ul>
+                {{#each module}}
+                 <li>{{{this.name}}}</li>
+                {{/each}}   
+             </ul>
+              <ul>
+                {{#each lecture}}
+                 <li>{{{this.title}}}</li>
+                {{/each}}   
+             </ul>-->
+             <h1>Your past scores are:</h1>
+             <br>
+            <ul>
+                {{#each score}}
+                 <li><h2>Your score for module {{{this.module_id}}} lecture {{{this.lecture_id}}} is {{{this.score}}}/10 on {{{this.date}}} </h2></li>
+                {{/each}}   
+             </ul>
+             <br>
+             <br>
 
-           <h2> This is the end of the quiz. Your score is :<br><br>
-           {{score.score}}/10
-           <br>
-           You {{score.fail}} the test
-          </h2>
-          <br>
-          <p><a href="/Home">Go back to Menu<br></a></p>
+          <a href="/menu/1">Go back to Menu<br></a>
             
 
         <footer>
