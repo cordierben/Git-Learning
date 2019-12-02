@@ -53,6 +53,20 @@ router.get('/', async ctx => {
 		await ctx.render('error', {message: err.message})
 	}
 })
+router.get('/profile', async ctx => {
+	try {
+		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
+		const data = {}
+		if(ctx.query.msg) data.msg = ctx.query.msg
+		const db=await sqlite.open(dbName)
+		const data4 = await db.all(`SELECT date, score, fail, lecture_id, module_id FROM score 
+																WHERE user_id=${ctx.session.id}
+																AND score IS NOT NULL;`)
+		await ctx.render('profile', {score: data4 })
+	} catch(err) {
+		await ctx.render('error', {message: err.message})
+	}
+})
 router.get('/Home', async ctx => {
 	try {
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')

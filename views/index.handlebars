@@ -7,11 +7,42 @@
 		<title>Home Page</title>
 		<meta name="description" content="form to add new books">
 		<meta name="author" content="Mark Tyers">
-		<link href="style.css" type="text/css" rel="stylesheet" />
+		<link href="http://localhost:8080/css/Layout.css" type="text/css" rel="stylesheet" />
 	</head>
 	<body>
+		<img class="logo" src='http://localhost:8080/images/logo3.png' alt="logo">
+            
+        <header>
+                <a class="header2" href="/profile">Profile</a>
+                <form action="/logout" method="post">
+                <p><input type="submit" value="Log Out" class="header3"></p>
+                </form>
+        </header>
+        <nav>
+                <ul class="nav4">
+                    <li><a class="nav1" href="/Home">Home</a></li>
+                    <li>Module List
+                        <ul>
+                            {{#each module}}
+                             <li><a class="lessons" href="/menu/{{this.id}}">{{{this.name}}}</a></li>
+                             {{/each}}   
+                        </ul>
+                    </li> 
+                    <li>Lectures List
+                        <ul>
+                             {{#each lectures}}
+                                <li><a class="lessons" href="/lecture/{{this.id}}/module/{{this.module_id}}">{{{this.title}}}</a></li>
+                             {{/each}}
+                        </ul>
+                    </li> 
+                    
+                    <li><a class="nav3" href="/profile">Profile</a></li>
+                </ul>
+            </nav>
 		<h1>Learning</h1>
 		<p>This is a secure page. Users need to have a valid account and be logged in to see it.</p>
 		<p><a href="/logout">log out</a></p>
-		<p><a href="/home">Home</a></p>
+		<p><a href="/Home">Home</a></p>
+            
+        
 </html>
