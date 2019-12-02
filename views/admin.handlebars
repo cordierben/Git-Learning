@@ -1,0 +1,43 @@
+
+<!doctype html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Home Page</title>
+		<meta name="description" content="form to add new books">
+		<meta name="author" content="Mark Tyers">
+		<link href="css/admin.css" type="text/css" rel="stylesheet" />
+	</head>
+	<body>
+		{{#if msg}}
+ 			<p class="msg"></p>{{msg}}</p>
+		{{/if}}
+		<div class="admin">
+		<form action="/editLecture" method="post">
+			<p>Editing Lecture</p>
+			<input type="text" name="showLecture" placeholder="Enter the LectureID you want to view" size="50">
+			<input type="text" name="showModuleID" placeholder="Enter the ModuleID you want to view" size="50">
+			<input type="submit" value="Display">
+		</form>
+		<form action="/updateLecture" method="post">
+			<input type="text" name="updateLectureID" value="{{lecture.id}}" placeholder="ID" size="50">
+			<input type="text" name="updateLectureModuleID" value="{{lecture.module_id}}" placeholder="Module ID" size="50">
+			<input type="text" name="updateLectureTitle" value="{{lecture.title}}" placeholder="Module Title" size="50">
+			<textarea name="updateLectureText" rows="4" cols="60">
+			{{lecture.text}}
+			</textarea>
+			<input type="submit" value="Update">
+		</form>
+		<form action="/uploadLecture" method="post">
+			<p>Creating Lecture</p>
+			<input type="text" name="IDLecture" placeholder="Enter ID here..." size="50">
+			<input type="text" name="ModuleIDLecture" placeholder="Enter Module ID here..." size="50">
+			<input type="text" name="titleLecture" placeholder="Enter title here..." size="50">
+			<textarea name="textLecture" rows="4" cols="60" placeholder="Enter text here...">
+			</textarea>
+			<input type="submit" value="Create">
+		</form>
+		</div>
+		<p><a href="/logout">log out</a></p>
+</html>

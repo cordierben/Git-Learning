@@ -15,7 +15,7 @@
  			<p class="msg"></p>{{msg}}</p>
 		{{/if}}
 		</div>
-		<form action="/login" method="post">
+		<form action="/adminlogin" method="post">
 		<div class="inputBox">
 			 <input type="text" name="user" value="{{user}}" required="" />
                     <label>username</label>
@@ -26,8 +26,6 @@
 			</div>
 			<input type="submit" value="Log in">
 			<input type="button" onclick="window.location.href = 'http://localhost:8080/register';" value="Register"/>
-			<input type="button" onclick="window.location.href = 'http://localhost:8080/adminlogin';" value="Admin Login"/>
-
 
 		</form>
 		</div>

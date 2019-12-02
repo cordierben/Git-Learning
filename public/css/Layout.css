@@ -1,15 +1,17 @@
 
 /*header*/
-
+body {
+    margin: 0;
+    overflow: auto;
+  }
 header{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 180%;
     background-image: linear-gradient(to right, rgb(52,250,22),rgb(49,190,31));
     color : white;
-    Padding : 2%;
+    padding : 2%;
     height:8%;
-    border-top-left-radius : 3%; 
-    border-top-right-radius : 3%; 
+    overflow: hidden;
 }
 
 img.logo{
@@ -62,10 +64,14 @@ ul.nav4 li {
 }
 
 nav ul.nav4 li ul {
+    
     visibility: hidden;
     position: absolute;
     background-color : rgb(20,20,20) ;
     text-align: start;
+}
+nav ul.nav4 li ul li {
+    display: block;
 }
 nav ul.nav4 li:hover > ul {
     visibility:visible;
@@ -103,6 +109,7 @@ a.lessons{
 
 article.side{
     float:left;
+    position: relative;
     margin-top: -15px;
     width:70%;
     border-right: 1px solid black;
@@ -131,7 +138,7 @@ a.Test:hover{
 
 article.links{
     float:right;
-    width:30%;
+    width:20%;
 }
 
 

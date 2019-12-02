@@ -1,5 +1,5 @@
 
-INSERT INTO lecture (id, title, text, module_id) VALUES(1, "<h1>Why using GIT?</h1>","<img class='gitlogo' src='../images/gitlogo.jpg'>
+INSERT INTO lecture (id, title, text, module_id) VALUES(1, "Why using GIT?","<img class='gitlogo' src='/images/gitlogo.jpg'>
 
                     <p>If you have already worked on a programming project in group, you probably have encountered problems such as modifications by someone,
                     but you don’t know who, or the impossibility to work on the same code at the same time. All these problems can be solved 
@@ -84,7 +84,7 @@ INSERT INTO lecture (id, title, text, module_id) VALUES(1, "<h1>Why using GIT?</
                     to participate in projects and ask for help.</p>", 
                     1);
                     
-INSERT INTO lecture (id, title, text, module_id) VALUES(6,'<h1>Merging</h1>',
+INSERT INTO lecture (id, title, text, module_id) VALUES(6,"Merging",
 '<p>When working on a project in Git, it is good practice to separate the code into different branches as it is developed. Branching allows different versions of the project to exist simultaneously without the risk of code being overwritten or modified unwantedly. Therefore each developer is able to work freely on different versions of the same project. Eventually however, the project will reach a point where we will want to compile all the code accordingly &ndash; for this, we use the git merge command.</p>
 <h2>Preparing to Merge</h2>
 <p>There are several steps that are necessary before we may eventually begin to merge. It is necessary to verify that the repository is up-to-date with all recent versions first before commencing. We start by using the git fetch command, followed by typing git branch &ndash;va. The output should contain a line of code reading [Behind 1] which confirms that the master branch has received the new changes. This should then be followed by typing git checkout master, a command which will effectively &lsquo;master&rsquo; the branch that is currently active. After this, we just need to use the git pull command which will bring us to the point where we can now start merging.</p>
@@ -104,11 +104,11 @@ INSERT INTO lecture (id, title, text, module_id) VALUES(6,'<h1>Merging</h1>',
 INSERT INTO lecture (id, title, text, module_id)
     VALUES(
          5, 
-        "<h1>Branches</h1>", 
+        "Branches", 
         "
         <figure>
 
-            <img src='../images/branches1.png' alt='Branching example figure'/>
+            <img src='/images/branches1.png' alt='Branching example figure'/>
             <figcaption>Figure 1: Branch pointing into the commit’s data history
             </figcaption>    
         </figure> 
@@ -124,7 +124,7 @@ INSERT INTO lecture (id, title, text, module_id)
                 <p>How does Git know what branch you’re currently on? It keeps a special pointer called HEAD. Note that this is a lot different than the concept of HEAD in other VCSs you may be used to, such as Subversion or CVS. </p>
                 <figure>
 
-                        <img src='../images/branches2.png' alt='Branching example figure'/>
+                        <img src='/images/branches2.png' alt='Branching example figure'/>
                        <figcaption>Figure 2: HEAD file pointing to the branch you’re on.
                        </figcaption>
                        </figure> 
@@ -142,14 +142,14 @@ INSERT INTO lecture (id, title, text, module_id)
                    <p>That command did two things. It moved the HEAD pointer back to point to the <code>master</code> branch, and it reverted the files in your working directory back to the snapshot that <code>master</code> points to. This also means the changes you make from this point forward will diverge from an older version of the project. It essentially rewinds the work you’ve done in your testing branch temporarily so you can go in a different direction.</p>
                    <figure>
 
-                        <img src='../images/branches3.png' alt='Branching example figure'/>
+                        <img src='/images/branches3.png' alt='Branching example figure'/>
                        <figcaption>Figure 3: The branch histories have diverged.
                        </figcaption>
                        </figure>
                    <p>You created and switched to a branch, did some work on it, and then switched back to your main branch and did other work. Both of those changes are isolated in separate branches: you can switch back and forth between the branches and merge (explained in the next lesson) them together when you’re ready. And you did all that with simple <code>branch</code> and <code>checkout</code> commands.</p>",
                    1);
     
-INSERT INTO lecture (id, title, text, module_id) VALUES(3, '<h1>How Do We Create A Repository?</h1>',"<p>A git repository is a directory that is hidden within the project directory &ndash; it tracks and logs all modifications (commits) that are made to files in the directory by any user that has access to it. Because it creates a history of the versions of the files that have been worked on, it allows us to easily access the files as they were in the different stages in their development when needed. It can be easily identified in the directory folder through its <code>.git/</code> file name.</p>
+INSERT INTO lecture (id, title, text, module_id) VALUES(3, "How Do We Create A Repository?","<p>A git repository is a directory that is hidden within the project directory &ndash; it tracks and logs all modifications (commits) that are made to files in the directory by any user that has access to it. Because it creates a history of the versions of the files that have been worked on, it allows us to easily access the files as they were in the different stages in their development when needed. It can be easily identified in the directory folder through its <code>.git/</code> file name.</p>
 <p><iframe src='https://www.youtube.com/embed/A-4WltCTVms' width='560' height='315' frameborder='0' allowfullscreen='allowfullscreen'></iframe></p>
 <h2>Initialisation of a New Repository</h2>
 <p>Before we may create our new repository, we must first navigate to our desired project folder that will both store the repository and provide the files for which version histories will be created. For this, we must us the <code>cd</code> command followed by the directory name/location.</p>
@@ -170,7 +170,7 @@ INSERT INTO lecture (id, title, text, module_id) VALUES(3, '<h1>How Do We Create
 <li>It is recommended to create a repository at the start of a project</li>
 </ul>",1);
 
-INSERT INTO lecture (id, title, text, module_id) VALUES(2,  "<h1>How to install git?</h1>","
+INSERT INTO lecture (id, title, text, module_id) VALUES(2,  "How to install git?","
 <h3>Installing Git</h3> 
 
 <p>Before you start using Git, you have to make it available on your computer. Even if it’s already installed, it’s probably a good idea to update to the latest version.</p>
@@ -256,7 +256,7 @@ You can also install it as part of the GitHub for macOS install. Their GUI Git t
 <p style='background-color:lightgray'>$ git clone git://git.kernel.org/pub/scm/git/git.git</p></p>
 ",1);
 
-INSERT INTO lecture (id, title, text, module_id) VALUES(1,'<h1>Introduction to HTML</h1>',
+INSERT INTO lecture (id, title, text, module_id) VALUES(1,"Introduction to HTML",
 '<p>HTML (Hypertext Markup Language) is the standard language that is used to build webpages. HTML essentially provides instructions that are interpreted by the web browser to construct almost every item, visible and unseen, on a webpage. The HTML document not only tells the browser what to display but also how to display it, by controlling the way in which it is presented. Obviously as the world wide web has developed, the language of HTML has also evolved - the version of HTML that is being used currently is HTML5, the fifth iteration of HTML.</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dD2EISBDjWM" ></iframe>
 <h2>Creating a HTML5 Document</h2>

@@ -9,9 +9,9 @@ describe('get lecture()', () => {
 	test('get lecture', async done => {
 		try{
 			const lecture= await new Lecture()
-			const add =await lecture.addlecture(1,'html','html rules',0)
+			await lecture.addlecture(1,'html','html rules',0)
 			const data= await lecture.getlecture(1,0)
-			expect(data.lecture).toEqual(add)
+			expect(data.id).toEqual(1)
 		} catch(err) {
 			done.fail('test failed')
 		} finally {
@@ -76,7 +76,7 @@ describe('add lecture()', () => {
 	})
 	test('error if blank title ', async done => {
 		const lecture= await new Lecture()
-		await expect( lecture.addlecture(1,'','html rules',0) )
+		await expect(lecture.addlecture(1,'','html rules',0))
 			.rejects.toEqual( Error('missing lecture title'))
 		done()
 

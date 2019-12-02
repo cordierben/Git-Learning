@@ -5,7 +5,6 @@
 'use strict'
 
 /* MODULE IMPORTS */
-const bcrypt = require('bcrypt-promise')
 const Koa = require('koa')
 const Router = require('koa-router')
 const views = require('koa-views')
@@ -14,16 +13,13 @@ const bodyParser = require('koa-bodyparser')
 const koaBody = require('koa-body')({multipart: true, uploadDir: '.'})
 const session = require('koa-session')
 const sqlite = require('sqlite-async')
-const fs = require('fs-extra')
-const mime = require('mime-types')
-//const jimp = require('jimp')
-
 
 /* IMPORT CUSTOM MODULES */
-require('./modules/user')
+const User=require('./modules/user')
 const Score=require('./modules/score')
 const Lecture=require('./modules/lecture')
 const Quiz=require('./modules/quiz')
+const Admin=require('./modules/admin')
 
 const app = new Koa()
 const router = new Router()
@@ -38,7 +34,6 @@ app.use(views(`${__dirname}/views`, { extension: 'handlebars' }, {map: { handleb
 const defaultPort = 8080
 const port = process.env.PORT || defaultPort
 const dbName = 'website.db'
-const saltRounds = 10
 
 /**
  * The secure home page.
@@ -47,16 +42,108 @@ const saltRounds = 10
  * @route {GET} /
  * @authentication This route requires cookie-based authentication.
  */
+
+router.get('/', async ctx => {
+	try {
+		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
+		const data = {}
+		if(ctx.query.msg) data.msg = ctx.query.msg
+		await ctx.render('index')
+	} catch (err) {
+		await ctx.render('error', {message: err.message})
+	}
+})
+router.get('/Home', async ctx => {
+	try {
+		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
+		const data = {}
+		if(ctx.query.msg) data.msg = ctx.query.msg
+		const db=await sqlite.open(dbName)
+		const data2= await db.all(`SELECT id, name FROM module;`)
+		const data3= await db.all(`SELECT id, title, module_id FROM lecture;`)
+		await ctx.render('Home', {module: data2 ,lecture: data3 })
+	} catch(err) {
+		await ctx.render('error', {message: err.message})
+	}
+})
+
 router.get('/menu/:id', async ctx => {
 	try {
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
 		const data = {}
 		if(ctx.query.msg) data.msg = ctx.query.msg
 		const db=await sqlite.open(dbName)
-		const data2= await db.all(`SELECT id, title FROM lecture WHERE module_id=${ctx.params.id}`)
-		console.log(data2)
-		await ctx.render('Menu', {lecture: data2})
+		const data3= await db.all(`SELECT id, name FROM module;`)
+		const data2= await db.all(`SELECT id, title, module_id FROM lecture WHERE module_id=${ctx.params.id};`)
+		await ctx.render('Menu', {lecture: data2, module: data3})
 	} catch(err) {
+		await ctx.render('error', {message: err.message})
+	}
+})
+router.get('/editLecture', async ctx => {
+	const data = {}
+	if(ctx.query.msg) data.msg = ctx.query.msg
+})
+router.get('/admin', async ctx => {
+	const data = {}
+	if(ctx.query.msg) data.msg = ctx.query.msg
+})
+router.get('/uploadLecture', async ctx => {
+	const data = {}
+	if(ctx.query.msg) data.msg = ctx.query.msg
+} )
+router.get('/adminlogin', async ctx => {
+	const data = {}
+	if(ctx.query.msg) data.msg = ctx.query.msg
+	if(ctx.query.user) data.user = ctx.query.user
+	await ctx.render('adminlogin', data)
+})
+
+router.post('/adminlogin', async ctx => {
+	try {
+		const body = ctx.request.body
+		const db = await sqlite.open(dbName)
+		const account = await new Admin(dbName)
+		const login = await account.login(body.user, body.pass)
+		await db.close()
+		return ctx.render('admin')
+	} catch (err) {
+		await ctx.render('error', {message: err.message})
+	}
+})
+router.post('/uploadLecture', async ctx => {
+	try {
+		const body = ctx.request.body
+		const db = await sqlite.open(dbName)
+		const uploading = await new Lecture(dbName)
+		const dbUpload = await uploading.addlecture(body.IDLecture, body.titleLecture, body.textLecture, body.ModuleIDLecture)
+		await db.close()
+		return ctx.render('admin')
+	} catch (err) {
+		await ctx.render('error', {message: err.message})
+	}
+})
+router.post('/editLecture', async ctx => {
+	try {
+		const body = ctx.request.body
+		const db = await sqlite.open(dbName)
+		const searchLecture = await new Lecture(dbName)
+		const finder = await searchLecture.getlecture(body.showLecture, body.showModuleID)
+		await db.close()
+		return ctx.render('admin', {lecture: finder})
+	} catch (err) {
+		await ctx.render('error', {message: err.message})
+	}
+})
+router.post('/updateLecture', async ctx => {
+	try {
+		const body = ctx.request.body
+		const db = await sqlite.open(dbName)
+		const updateLecture = await new Lecture(dbName)
+		const updated = await updateLecture.updatelecture(body.updateLectureID, body.updateLectureTitle, body.updateLectureText, body.updateLectureModuleID)
+		await db.close()
+		return ctx.render('admin')
+	} catch (err) {
 		await ctx.render('error', {message: err.message})
 	}
 })
@@ -79,44 +166,25 @@ router.get('/register', async ctx => {
 * @name Register Script
 * @route {POST} /register
 */
-/*eslint max-lines-per-function: ["error", 200]*/
+
 router.post('/register', koaBody, async ctx => {
 	try {
 		const body = ctx.request.body
-		console.log(body)
-		// PROCESSING FILE
-		const {path, type} = ctx.request.files.avatar
-		const fileExtension = mime.extension(type)
-		console.log(`path: ${path}`)
-		console.log(`type: ${type}`)
-		console.log(`fileExtension: ${fileExtension}`)
-		await fs.copy(path, 'public/avatars/avatar11.png')
-		// USERNAME AND PASSWORD BLANK CHECKER
-		const x = body.user
-		const y = body.pass
 		const letters = /^[A-Za-z]+$/
 		// CHECKS IF USERNAME AND PASSWORD BOX CONTAINS ONLY LETTERS
+		//if (ctx.request.body.user.match(letters) && ctx.request.body.pass.match(letters))
+		const x = body.user
+		const y = body.pass
 		if (x.match(letters) && y.match(letters)) {
-			// DOES THE USERNAME EXIST IN DATABASE
-			const db = await sqlite.open('./website.db')
-			const userChecker = await db.get(`SELECT user FROM user WHERE user="${body.user}";`)
-			if (!userChecker) {
-				// ENCRYPTING PASSWORD AND BUILDING SQL
-				body.pass = await bcrypt.hash(body.pass, saltRounds)
-				/*Adds username, password and email into the database */
-				const sql = `INSERT INTO user(user, pass, email) VALUES("${body.user}", "${body.pass}","${body.mail}")`
-				console.log(sql)
-				// DATABASE COMMANDS
-				await db.run(sql)
-				await db.close()
+			await sqlite.open(dbName)
+			const register = await new User(dbName)
+			const newUserChecker = await register.selectUser(body.user)
+			if (newUserChecker === true) {
+				await register.register(body.user, body.pass, body.email)
 				// REDIRECTING USER TO HOME PAGE
 				ctx.redirect('/login')
-			} else {
-				return ctx.redirect('/register?msg=The username has been taken.')
-			}
-		} else {
-			return ctx.redirect('/register?msg=The username and password box has to contain a value.')
-		}
+			} else return ctx.redirect('/register?msg=The username has been taken.')
+		} else return ctx.redirect('/register?msg=The username and password box has to contain a value.')
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
 	}
@@ -129,34 +197,29 @@ router.get('/login', async ctx => {
 	await ctx.render('login', data)
 })
 
-/*eslint max-statements: [2, 100]*/
 router.post('/login', async ctx => {
 	try {
 		const body = ctx.request.body
-		const db = await sqlite.open('./website.db')
-		// DOES THE USERNAME EXIST?
-		const records = await db.get(`SELECT user FROM user WHERE user="${body.user}";`)
-		if(!records) return ctx.redirect('/login?msg=invalid%20username')
-		const record = await db.get(`SELECT pass FROM user WHERE user = "${body.user}";`)
-		const user = await db.get(`SELECT id FROM user WHERE user = "${body.user}";`)
+		const db = await sqlite.open(dbName)
+		const account = await new User(dbName)
+		const user = await account.getuser(body.user)
+		const login = await account.login(body.user, body.pass)
 		await db.close()
-		// DOES THE PASSWORD MATCH?
-		const valid = await bcrypt.compare(body.pass, record.pass)
-		if(valid === false) return ctx.redirect(`/login?user=${body.user}&msg=invalid%20password`)
-		// WE HAVE A VALID USERNAME AND PASSWORD
+		console.log(login)
 		ctx.session.authorised = true
-		ctx.session.id=user.id
-		//VAR FOR THE QUIZ, TO KNOW HOW MANY QUESTIONS THE USER HAS DONE
+		ctx.session.id=login
+		console.log(ctx.session.id)
 		ctx.session.quiz=0
-		return ctx.redirect('/menu/1')
+		return ctx.redirect('/')
 	} catch(err) {
 		await ctx.render('error', {message: err.message})
 	}
 })
 
+
 router.get('/logout', async ctx => {
 	ctx.session.authorised = null
-	ctx.redirect('/menu/1?msg=you have logged out successfully')
+	ctx.redirect('/?msg=you have logged out successfully')
 })
 
 router.post('/logout', async ctx => {
@@ -170,46 +233,51 @@ router.post('/logout', async ctx => {
 
 /* Lecture */
 
-router.get('/lecture/:id', async ctx => {
+router.get('/lecture/:id/module/:id3', async ctx => {
 	try{
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
-		console.log(ctx.params.id)
-		const db=await sqlite.open(dbName)
+		const db = await sqlite.open(dbName)
 		const lecture = await new Lecture(dbName)
-		const data = await lecture.getlecture(ctx.params.id)
-		//console.log(data)
+		const data = await lecture.getlecture(ctx.params.id, ctx.params.id3)
+		const data3= await db.all(`SELECT id, name FROM module;`)
+		const data4=await db.all(`SELECT id, title FROM lecture WHERE module_id=${ctx.params.id3};`)
 		const sql2=`SELECT MAX(score) as best, date FROM score WHERE user_id=${ctx.session.id}
-											                   AND lecture_id=${ctx.params.id};`
+															   AND lecture_id=${ctx.params.id}
+															   AND module_id=${ctx.params.id3};`// can be reduced
 		const data2=await db.get(sql2)
-		await ctx.render('lecture', {lecture: data, score: data2})
+		await ctx.render('lecture', {lecture: data, lectures: data4, score: data2, module: data3})
 	} catch(err) {
 		ctx.body = err.message
 	}
 })
 
+/*QUIZ*/
+
 /*eslint complexity: ["error", 10]*/
-router.get('/lecture/:id1/quiz/:id2', async ctx => {
+router.get('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 	try{
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
+		const db = await sqlite.open(dbName)
 		const lecture = await new Lecture(dbName)
-		const dataLecture = await lecture.getlecture(ctx.params.id1)
+		const dataLecture = await lecture.getlecture(ctx.params.id1, ctx.params.id3)
 		const quiz = await new Quiz(dbName)
-		const dataQuiz = await quiz.getquestion(ctx.params.id2,ctx.params.id1)
-		const dataOption = await quiz.getoption(ctx.params.id2,ctx.params.id1)
+		const data3= await db.all(`SELECT id, name FROM module;`)
+		const dataQuiz = await quiz.getquestion(ctx.params.id2,ctx.params.id1, ctx.params.id3)
+		const dataOption = await quiz.getoption(ctx.params.id2,ctx.params.id1, ctx.params.id3)
 		if(dataQuiz !== undefined || dataLecture !== undefined || dataOption !== undefined ) {
-			await ctx.render('quiz', {question: dataQuiz, lecture: dataLecture, option: dataOption} )
+			await ctx.render('quiz', {question: dataQuiz, lecture: dataLecture, option: dataOption, module: data3 } )
 		}
 	} catch(err) {
 		ctx.body = err.message
 	}
 })
 
-router.get('/result', async ctx => {
+router.get('/result/:id1', async ctx => {
 	try {
-		const db=await sqlite.open(dbName)
+		const db = await sqlite.open(dbName)
 		const data = await db.get(`SELECT MAX(attempt_id) as last, score, fail FROM score 
-		                                                WHERE user_id=${ctx.session.id};`)
-		console.log(data)
+														WHERE user_id=${ctx.session.id}
+														AND module_id=${ctx.params.id1};`)
 		await ctx.render('result', { score: data} )
 	} catch(err) {
 		ctx.body = err.message
@@ -218,48 +286,46 @@ router.get('/result', async ctx => {
 
 /* Score */
 /*eslint-disable eqeqeq*/
-router.post('/lecture/:id1/quiz/:id2', async ctx => {
+router.post('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 	try{
-
-		const db=await sqlite.open(dbName)
 		const body= ctx.request.body
-		let data2
+		const value={'zero': 0,'four': 4,'nine': 9, 'data2': 0}
 		const score= await new Score(dbName)
+		let data2 = await score.getscore(ctx.session.id,ctx.params.id1, ctx.params.id3)
 		if(ctx.params.id2!=0) { // double equal goesinto if
-			if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id1)
+			if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id1,ctx.params.id3)
 			ctx.session.quiz++
 			const quiz = await new Quiz(dbName)
-			const data = await quiz.getanswer(ctx.params.id2,ctx.params.id1)
-			console.log(data.answer)
-			data2=await score.getscore(ctx.session.id,ctx.params.id1)
-			if(body.option===data.answer) {
-				data2.score++
-				score.updatescore(ctx.session.id,ctx.params.id1,data2.score,data2.last)
+			const data = await quiz.getanswer(ctx.params.id2,ctx.params.id1, ctx.params.id3)
+				value.data2 = await score.getscore(ctx.session.id, ctx.params.id1, ctx.params.id3)
+				score.updatescore(ctx.session.id, ctx.params.id1, ctx.params.id3, value.data2.score, value.data2.last)
 			}
-		}
-		const end=9
-		console.log(ctx.session.quiz)
-		if(ctx.session.quiz===end) { //IF END OF THE QUIZ? GOES TO RESULT PAGE AND MARKED FAILED OR PASSED IN DB
-			const minimum=4
-			if(data2.score<minimum) score.updatefail(ctx.session.id,ctx.params.id1,'failed',data2.last)
-			else score.updatefail(ctx.session.id,ctx.params.id1,'passed',data2.last)
+		 if(ctx.session.quiz===value.nine) {
+			if(value.data2.score<value.four) {
+				score.updatefail(ctx.session.id,ctx.params.id1, ctx.params.id3,'failed',value.data2.last)
+			} else score.updatefail(ctx.session.id,ctx.params.id1, ctx.params.id3, 'passed',value.data2.last)
 			ctx.session.quiz=0
-			await db.close()
-			return ctx.redirect('/result')
+			return ctx.redirect(`/result/${ctx.params.id3}`)
 		} else {//Else go to next question randomly
-			let x=0
-			const max =10
-			while(x<=max) {
-				const random=Math.floor(Math.random() * 20 + 1)
-				ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${random}`)
-				x++
-			}
-
+			const random= await gen()
+			ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${random}/module/${ctx.params.id3}`)
 		}
 	} catch(err) {
 		ctx.body = err.message
 	}
 })
+
+//Random Generator
+
+const gen= async function() {
+	try {
+		const mult=20
+	    const random=Math.floor(Math.random() * mult + 1)
+	    return random
+	} catch(err) {
+		throw err
+	}
+}
 
 app.use(router.routes())
 module.exports = app.listen(port, async() => console.log(`listening on port ${port}`))

@@ -17,27 +17,35 @@
         </header>
         <nav>
                 <ul class="nav4">
-                    <li><a class="nav1" href="/">Home</a></li>
+                    <li><a class="nav1" href="/Home">Home</a></li>
                     <li>Module List
                         <ul>
-                            <li><a href="/menu/1">GIT</a></li>
-                            <li><a href="/menu/2">HTML5</a></li>
+                            {{#each module}}
+                             <li><a class="lessons" href="/menu/{{this.id}}">{{{this.name}}}</a></li>
+                             {{/each}}   
                         </ul>
                     </li> 
-                    <li><a class="nav2" href="/">Lectures list</a></li>
+                    <li>Lectures List
+                        <ul>
+                             {{#each lecture}}
+                                <li><a class="lessons" href="/lecture/{{this.id}}/module/{{this.module_id}}">{{{this.title}}}</a></li>
+                             {{/each}}
+                        </ul>
+                    </li> 
+                    
                     <li><a class="nav3" href="/Profile">Profile</a></li>
                 </ul>
-        </nav>
+            </nav>
 
             <article class="side">
                     <br>
                     <h1>{{{lecture.title}}}</h1>
                     
-                    <h3>{{{question.question}}}</h3>
+                    <h3>{{question.question}}</h3>
                     
-                    <form action="/lecture/{{question.lecture_id}}/quiz/{{question.id}}" method="post">
-                        <input type="radio" name="option" value="{{option.option1}}" > {{{option.option1}}}<br>
-                        <input type="radio" name="option" value="{{option.option2}}" > {{{option.option2}}}<br>
+                    <form action="/lecture/{{question.lecture_id}}/quiz/{{question.id}}/module/{{question.module_id}}" method="post">
+                        <input type="radio" name="option" value="{{option.option1}}" > {{option.option1}}<br>
+                        <input type="radio" name="option" value="{{option.option2}}" > {{option.option2}}<br>
                         <p><input type="submit" value="Submit"></p>
                     </form>
         
@@ -48,7 +56,7 @@
         <footer>
             <a class="f1" href="/ContactUs">Contact Us<br><br></a>
             <a class="f2" href="/Copyright">Copyright<br><br></a>
-            <a class="f3" href="/Menu">Home<br></a>
+            <a class="f3" href="/menu/1">Home<br></a>
             <p class="cr"> © Copyright E-learner 2019</p>
         </footer>
     </body>
