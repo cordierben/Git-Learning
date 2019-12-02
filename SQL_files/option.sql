@@ -529,7 +529,7 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id
                                      2,
                                      1),
 
-INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
                                     "git config",
                                     "git Chocolatey",
                                     "git config",
@@ -537,7 +537,7 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                      2,
                                      1);
 
-INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
                                     "The Xcode Command Line Tools",
                                     "The Chocolatey package",
                                     "The Xcode Command Line Tools",
@@ -545,7 +545,7 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                      2,
                                      1);
 
-INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
                                     "A binary installer",
                                     "A package",
                                     "A binary installer",
@@ -553,7 +553,7 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                      2,
                                      1);
 
-INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
                                     "Yes",
                                     "No",
                                     "Yes",
@@ -561,7 +561,7 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                      2,
                                      1);
 
-INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
                                     "Yes",
                                     "No",
                                     "Yes",
@@ -569,7 +569,7 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                      2,
                                      1);
 
-INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
                                     "Yes",
                                     "No",
                                     "Yes",
@@ -577,7 +577,7 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                      2,
                                      1);
 
-INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
                                     "Yes",
                                     "No",
                                     "Yes",
@@ -585,7 +585,7 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                      2,
                                      1);
 
-INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
                                     "getopt package",
                                     "install-info package",
                                     "getopt package",
