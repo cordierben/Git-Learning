@@ -636,51 +636,54 @@ INSERT INTO question (id, question , lecture_id, module_id) VALUES (
                                    
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     12,
-<<<<<<< HEAD
-                                    "12) What is Git?",
-                                    2);
-
-INSERT INTO question (id, question , lecture_id) VALUES ( 
-                                    13,
-                                    "13) Git comes with a tool called .... that lets you get and set configuration variables that control all aspects of how Git looks and operates. What is the name of the tool?",
-                                    2);
-
-INSERT INTO question (id, question , lecture_id) VALUES ( 
-                                    14,
-                                    "14) The easiest way to install Git on a Mac is probably to install the... ",
-                                    2);
-
-INSERT INTO question (id, question , lecture_id) VALUES ( 
-                                    15,
-                                    "15) If you want a more up to date version on Mac, you can also install it via ",
-                                    2);
-
-INSERT INTO question (id, question , lecture_id) VALUES ( 
-                                    16,
-                                    "16) If you want to install git on windows and go to https://git-scm.com/download/win the download start automatically? ",
-                                    2);
-
-INSERT INTO question (id, question , lecture_id) VALUES ( 
-                                    17,
-                                    "17) Installing git on windows, can we get git installed by installing Github Desktop? ",
-                                    2);
-
-INSERT INTO question (id, question , lecture_id) VALUES ( 
-                                    18,
-                                    "18) When you installing git from source you get the most recent version? ",
-                                    2);
-
-INSERT INTO question (id, question , lecture_id) VALUES ( 
-                                    19,
-                                    "19) When intalling from source and if you’re using a Debian-based distribution (Debian/Ubuntu/Ubuntu-derivatives), you also need the install-info package? ",
-                                    2);
-
-INSERT INTO question (id, question , lecture_id) VALUES ( 
-                                    20,
-                                    "20) When installing from source and if you’re using a RPM-based distribution (Fedora/RHEL/RHEL-derivatives), what package you will need? ",
-                                    2);
-=======
                                     "What is Git?",
                                     2,
                                     1);
->>>>>>> 4ca86f40760b1a80aceaf5979836336fae933fa9
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    13,
+                                    "Git comes with a tool called .... that lets you get and set configuration variables that control all aspects of how Git looks and operates. What is the name of the tool?",
+                                    2,
+                                    1);
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    14,
+                                    "The easiest way to install Git on a Mac is probably to install the... ",
+                                    2,
+                                    1);
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    15,
+                                    "If you want a more up to date version on Mac, you can also install it via ",
+                                    2,
+                                    1);
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    16,
+                                    "If you want to install git on windows and go to https://git-scm.com/download/win the download start automatically? ",
+                                    2,
+                                    1);
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    17,
+                                    "Installing git on windows, can we get git installed by installing Github Desktop? ",
+                                    2,
+                                    1);
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    18,
+                                    "When you installing git from source you get the most recent version? ",
+                                    2,
+                                    1);
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    19,
+                                    "When intalling from source and if you’re using a Debian-based distribution (Debian/Ubuntu/Ubuntu-derivatives), you also need the install-info package? ",
+                                    2,
+                                    1);
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    20,
+                                    "When installing from source and if you’re using a RPM-based distribution (Fedora/RHEL/RHEL-derivatives), what package you will need? ",
+                                    2,
+                                    1);
