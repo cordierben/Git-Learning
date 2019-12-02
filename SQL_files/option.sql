@@ -527,9 +527,72 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id
                                     "Distributed revision control system",
                                      12,
                                      2,
+                                     1),
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "git config",
+                                    "git Chocolatey",
+                                    "git config",
+                                     13,
+                                     2,
                                      1);
-                                     
-                                     
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "The Xcode Command Line Tools",
+                                    "The Chocolatey package",
+                                    "The Xcode Command Line Tools",
+                                     14,
+                                     2,
+                                     1);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "A binary installer",
+                                    "A package",
+                                    "A binary installer",
+                                     15,
+                                     2,
+                                     1);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Yes",
+                                    "No",
+                                    "Yes",
+                                     16,
+                                     2,
+                                     1);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Yes",
+                                    "No",
+                                    "Yes",
+                                     17,
+                                     2,
+                                     1);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Yes",
+                                    "No",
+                                    "Yes",
+                                     18,
+                                     2,
+                                     1);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "Yes",
+                                    "No",
+                                    "Yes",
+                                     19,
+                                     2,
+                                     1);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES ( 
+                                    "getopt package",
+                                    "install-info package",
+                                    "getopt package",
+                                     20,
+                                     2,
+                                     1);
+                                      
 INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
                                     "True",
                                     "False",
