@@ -583,12 +583,7 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id) VALUES (
                                     "install-info package",
                                     "getopt package",
                                      20,
-                                     2);
-=======
-                                     2,
-                                     1);
->>>>>>> 4ca86f40760b1a80aceaf5979836336fae933fa9
-                                     
+                                     2);                             
                                      
 INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
                                     "True",
