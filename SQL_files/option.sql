@@ -303,7 +303,8 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id
                                     "git add",
                                     "git add",
                                      3,
-                                     3);
+                                     3,
+                                     1);
 INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
                                     "git commit -am 'Commit message'",
                                     "git commit 'Commit message'",
@@ -352,7 +353,7 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id
                                     "An error will occur",
                                     "The pre-existing repository will be re-initialised",
                                      10,
-                                     3
+                                     3,
                                      1);
 INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
                                     "True",
@@ -527,7 +528,7 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id
                                     "Distributed revision control system",
                                      12,
                                      2,
-                                     1),
+                                     1);
 
 INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
                                     "git config",

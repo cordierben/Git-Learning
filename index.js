@@ -254,7 +254,7 @@ router.get('/lecture/:id/module/:id3', async ctx => {
 		const lecture = await new Lecture(dbName)
 		const data = await lecture.getlecture(ctx.params.id, ctx.params.id3)
 		const data3= await db.all('SELECT id, name FROM module;')
-		const data4=await db.all(`SELECT id, title FROM lecture WHERE module_id=${ctx.params.id3};`)
+		const data4=await db.all(`SELECT id, title, module_id FROM lecture WHERE module_id=${ctx.params.id3};`)
 		const sql2=`SELECT MAX(score) as best, date FROM score WHERE user_id=${ctx.session.id}
 															   AND lecture_id=${ctx.params.id}
 															   AND module_id=${ctx.params.id3};`// can be reduced
@@ -303,7 +303,7 @@ router.get('/result/:id1', async ctx => {
 router.post('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 	try{
 		const body= ctx.request.body
-		const value={'zero': 0,'four': 4,'nine': 9, 'data2': 0}
+		const value={'zero': 0,'four': 4,'ten': 10, 'data2': 0}
 		const score= await new Score(dbName)
 		const data2 = await score.getscore(ctx.session.id,ctx.params.id1, ctx.params.id3)
 		if(ctx.params.id2!=0) { // double equal goesinto if
@@ -316,7 +316,7 @@ router.post('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 				score.updatescore(ctx.session.id, ctx.params.id1, ctx.params.id3, value.data2.score, value.data2.last)
 			}
 		}
-		 if(ctx.session.quiz===value.nine) {
+		if(ctx.session.quiz===value.ten) {
 			if(value.data2.score<value.four) score.updatefail(ctx.session.id,ctx.params.id1, ctx.params.id3,'failed',value.data2.last)
 		    else score.updatefail(ctx.session.id,ctx.params.id1, ctx.params.id3, 'passed',value.data2.last)
 			ctx.session.quiz=0
