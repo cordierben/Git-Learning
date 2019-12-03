@@ -15,8 +15,8 @@ module.exports = class User {
 						user TEXT, pass TEXT, email TEXT, admin INTEGER, user_module INTEGER, 
 						FOREIGN KEY(user_module) REFERENCES module (id));`
 			const sql2 = `CREATE TABLE IF NOT EXISTS score (user_id INTEGER, 
-						lecture_id INTERGER, module_id INTERGER, attempt_id INTEGER PRIMARY KEY AUTOINCREMENT, score INTEGER, date TEXT, 
-						fail TEXT);`
+						lecture_id INTERGER, module_id INTERGER, attempt_id INTEGER PRIMARY KEY AUTOINCREMENT, 
+						score INTEGER, date TEXT, fail TEXT);`
 
 			await this.db.run(sql)
 			await this.db.run(sql2)

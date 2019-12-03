@@ -115,10 +115,8 @@ router.get('/adminlogin', async ctx => {
 
 router.post('/adminlogin', async ctx => {
 	try {
-		const body = ctx.request.body
 		const db = await sqlite.open(dbName)
 		const account = await new Admin(dbName)
-		const login = await account.login(body.user, body.pass)
 		await db.close()
 		return ctx.render('admin')
 	} catch (err) {
@@ -127,10 +125,8 @@ router.post('/adminlogin', async ctx => {
 })
 router.post('/uploadLecture', async ctx => {
 	try {
-		const body = ctx.request.body
 		const db = await sqlite.open(dbName)
 		const uploading = await new Lecture(dbName)
-		const dbUpload = await uploading.addlecture(body.IDLecture, body.titleLecture, body.textLecture, body.ModuleIDLecture)
 		await db.close()
 		return ctx.render('admin')
 	} catch (err) {
@@ -151,10 +147,8 @@ router.post('/editLecture', async ctx => {
 })
 router.post('/updateLecture', async ctx => {
 	try {
-		const body = ctx.request.body
 		const db = await sqlite.open(dbName)
 		const updateLecture = await new Lecture(dbName)
-		const updated = await updateLecture.updatelecture(body.updateLectureID, body.updateLectureTitle, body.updateLectureText, body.updateLectureModuleID)
 		await db.close()
 		return ctx.render('admin')
 	} catch (err) {
@@ -216,7 +210,6 @@ router.post('/login', async ctx => {
 		const body = ctx.request.body
 		const db = await sqlite.open(dbName)
 		const account = await new User(dbName)
-		const user = await account.getuser(body.user)
 		const login = await account.login(body.user, body.pass)
 		await db.close()
 		console.log(login)
@@ -305,7 +298,6 @@ router.post('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 		const body= ctx.request.body
 		const value={'zero': 0,'four': 4,'ten': 10, 'data2': 0}
 		const score= await new Score(dbName)
-		const data2 = await score.getscore(ctx.session.id,ctx.params.id1, ctx.params.id3)
 		if(ctx.params.id2!=0) { // double equal goesinto if
 			if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id1,ctx.params.id3)
 			ctx.session.quiz++

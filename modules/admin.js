@@ -1,8 +1,6 @@
 'use strict'
 /*eslint-disable complexity*/
 const bcrypt = require('bcrypt-promise')
-const fs = require('fs-extra')
-const mime = require('mime-types')
 const sqlite = require('sqlite-async')
 const saltRounds = 10
 
@@ -12,7 +10,9 @@ module.exports = class Admin {
 		return (async() => {
 			this.db = await sqlite.open(dbName)
 			// we need this table to store the user accounts
-			const sql = 'CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, user TEXT, pass TEXT, email TEXT, admin TEXT, user_module INTEGER, FOREIGN KEY(user_module) REFERENCES module (id));'
+			const sql = `CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, 
+						user TEXT, pass TEXT, email TEXT, admin TEXT, user_module INTEGER, 
+						FOREIGN KEY(user_module) REFERENCES module (id));`
 			await this.db.run(sql)
 			return this
 		})()
@@ -61,7 +61,8 @@ module.exports = class Admin {
 	async editLecture(lectureNum, moduleid) {
 		try {
 			if(lectureNum.toString().length === 0) throw new Error('Lecture ID not specified')
-			const sql = `SELECT id, title, text, module_id FROM lecture WHERE id =${lectureNum} AND module_id='${moduleid}'`
+			const sql = `SELECT id, title, text, module_id FROM lecture
+			WHERE id =${lectureNum} AND module_id='${moduleid}'`
 			const search = await this.db.get(sql)
 			if(!search.id) throw new Error('Lecture does not exist')
 			return search
@@ -76,7 +77,8 @@ module.exports = class Admin {
 			if(title.length === 0) throw new Error('Title not specified')
 			if(text.length === 0) throw new Error('Text not specified')
 			if(ModuleID.toString().length === 0) throw new Error('Module ID not specified')
-			const sql = `INSERT INTO lecture(id, title, text, module_id) VALUES(${ID}, "${title}", "${text}", ${ModuleID})`
+			const sql = `INSERT INTO lecture(id, title, text, module_id)
+			VALUES(${ID}, "${title}", "${text}", ${ModuleID})`
 			const upload = await this.db.get(sql)
 			return upload
 		} catch (err) {
@@ -85,7 +87,8 @@ module.exports = class Admin {
 	}
 	async updateLecture(ID, title, text, ModuleID) {
 		try {
-			const sql = `UPDATE lecture SET module_id =${ModuleID}, title ="${title}", text ="${text}", id =${ID} WHERE id ="${ID}";`
+			const sql = `UPDATE lecture SET module_id =${ModuleID}, title ="${title}",
+			text ="${text}", id =${ID} WHERE id ="${ID}";`
 			const upload = await this.db.get(sql)
 			return upload
 		} catch (err) {
