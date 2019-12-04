@@ -19,7 +19,6 @@ const User=require('./modules/user')
 const Score=require('./modules/score')
 const Lecture=require('./modules/lecture')
 const Quiz=require('./modules/quiz')
-const Admin=require('./modules/admin')
 
 const app = new Koa()
 const router = new Router()
@@ -116,7 +115,6 @@ router.get('/adminlogin', async ctx => {
 router.post('/adminlogin', async ctx => {
 	try {
 		const db = await sqlite.open(dbName)
-		const account = await new Admin(dbName)
 		await db.close()
 		return ctx.render('admin')
 	} catch (err) {
@@ -126,7 +124,6 @@ router.post('/adminlogin', async ctx => {
 router.post('/uploadLecture', async ctx => {
 	try {
 		const db = await sqlite.open(dbName)
-		const uploading = await new Lecture(dbName)
 		await db.close()
 		return ctx.render('admin')
 	} catch (err) {
@@ -148,7 +145,6 @@ router.post('/editLecture', async ctx => {
 router.post('/updateLecture', async ctx => {
 	try {
 		const db = await sqlite.open(dbName)
-		const updateLecture = await new Lecture(dbName)
 		await db.close()
 		return ctx.render('admin')
 	} catch (err) {
@@ -260,7 +256,6 @@ router.get('/lecture/:id/module/:id3', async ctx => {
 
 /*QUIZ*/
 
-/*eslint complexity: ["error", 10]*/
 router.get('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 	try{
 		if(ctx.session.authorised !== true) return ctx.redirect('/login?msg=you need to log in')
@@ -271,7 +266,7 @@ router.get('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 		const data3= await db.all('SELECT id, name FROM module;')
 		const dataQuiz = await quiz.getquestion(ctx.params.id2,ctx.params.id1, ctx.params.id3)
 		const dataOption = await quiz.getoption(ctx.params.id2,ctx.params.id1, ctx.params.id3)
-		if(dataQuiz !== undefined || dataLecture !== undefined || dataOption !== undefined ) {
+		if(dataQuiz !== undefined || dataLecture !== undefined ) {
 			await ctx.render('quiz', {question: dataQuiz, lecture: dataLecture, option: dataOption, module: data3 } )
 		}
 	} catch(err) {
@@ -292,25 +287,17 @@ router.get('/result/:id1', async ctx => {
 })
 
 /* Score */
-/*eslint-disable eqeqeq*/
+
 router.post('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 	try{
-		const body= ctx.request.body
 		const value={'zero': 0,'four': 4,'ten': 10, 'data2': 0}
+		const params={'lecture': ctx.params.id1, 'quiz': ctx.params.id2, 'module': ctx.params.id3}
 		const score= await new Score(dbName)
-		if(ctx.params.id2!=0) { // double equal goesinto if
-			if(ctx.session.quiz===0) score.newscore(ctx.session.id, ctx.params.id1,ctx.params.id3)
-			ctx.session.quiz++
-			const quiz = await new Quiz(dbName)
-			const data = await quiz.getanswer(ctx.params.id2,ctx.params.id1, ctx.params.id3)
-			value.data2 = await score.getscore(ctx.session.id, ctx.params.id1, ctx.params.id3)
-			if(body.option===data.answer) {
-				score.updatescore(ctx.session.id, ctx.params.id1, ctx.params.id3, value.data2.score, value.data2.last)
-			}
-		}
+		if(ctx.session.quiz===0) score.newscore(ctx.session.id, params.lecture, params.module)
+		if(params.quiz>0) await question(ctx.request.body, value, params, ctx.session.id)
+		ctx.session.quiz++
 		if(ctx.session.quiz===value.ten) {
-			if(value.data2.score<value.four) score.updatefail(ctx.session.id,ctx.params.id1, ctx.params.id3,'failed',value.data2.last)
-		    else score.updatefail(ctx.session.id,ctx.params.id1, ctx.params.id3, 'passed',value.data2.last)
+			fail(value, params, ctx.session.id)
 			ctx.session.quiz=0
 			return ctx.redirect(`/result/${ctx.params.id3}`)
 		} else {//Else go to next question randomly
@@ -334,5 +321,30 @@ const gen= async function() {
 	}
 }
 
+const question= async function(body, value, params, user ) {
+	try {
+		console.log('quest')
+		const quiz = await new Quiz(dbName)
+		const score = await new Score(dbName)
+		const data = await quiz.getanswer(params.quiz,params.lecture, params.module)
+		value.data2 = await score.getscore(user, params.lecture, params.module)
+		if(body.option===data.answer) {
+			score.updatescore(user, params.lecture, params.module, value.data2.score, value.data2.last)
+		}
+	} catch(err) {
+		throw err
+	}
+}
+
+const fail= async function(value, params, user) {
+	try {
+		const score= await new Score(dbName)
+		value.data2 = await score.getscore(user, params.lecture, params.module)
+		if(value.data2.score<value.four) score.updatefail(user,params.lecture, params.module,'failed',value.data2.last)
+		else score.updatefail(user,params.lecture, params.module, 'passed',value.data2.last)
+	} catch(err) {
+		throw err
+	}
+}
 app.use(router.routes())
 module.exports = app.listen(port, async() => console.log(`listening on port ${port}`))

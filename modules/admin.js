@@ -1,5 +1,4 @@
 'use strict'
-/*eslint-disable complexity*/
 const bcrypt = require('bcrypt-promise')
 const sqlite = require('sqlite-async')
 const saltRounds = 10
@@ -20,10 +19,6 @@ module.exports = class Admin {
 
 	async login(user, pass) {
 		try {
-			if(user.length === 0) throw new Error('Username not specified')
-			if(pass.length === 0) throw new Error('Password not specified')
-			const adminUser = 'test'
-			if(user !== adminUser) throw new Error('Account not admin')
 			const sql = `SELECT count(*) AS count FROM user WHERE user="${user}";`
 			const records = await this.db.get(sql)
 			if(!records.count) throw new Error(`username "${user}" not found`)

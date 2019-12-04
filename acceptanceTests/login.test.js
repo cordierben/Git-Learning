@@ -28,15 +28,6 @@ beforeAll( async() => {
 	await shell.exec('acceptanceTests/scripts/beforeAll.sh')
 })
 
-afterAll( async() => {
-	browser.close()
-	await shell.exec('acceptanceTests/scripts/afterAll.sh')
-})
-
-beforeEach(async() => {
-	await shell.exec('acceptanceTests/scripts/beforeEach.sh')
-})
-
 describe('Registering', () => {
 	test('Register a user', async done => {
 		//start generating a trace file.

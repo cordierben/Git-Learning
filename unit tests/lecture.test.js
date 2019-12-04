@@ -77,28 +77,28 @@ describe('add lecture()', () => {
 	test('error if blank title ', async done => {
 		const lecture= await new Lecture()
 		await expect(lecture.addlecture(1,'','html rules',0))
-			.rejects.toEqual( Error('missing lecture title'))
+			.rejects.toEqual( Error('A parameter is missing'))
 		done()
 
 	})
 	test('error if blank lecture id ', async done => {
 		const lecture= await new Lecture()
 		await expect( lecture.addlecture('','html','html rules',0) )
-			.rejects.toEqual( Error('missing lecture id'))
+			.rejects.toEqual( Error('A parameter is missing'))
 		done()
 
 	})
 	test('error if blank lecture text ', async done => {
 		const lecture= await new Lecture()
 		await expect( lecture.addlecture(1,'html','',0) )
-			.rejects.toEqual( Error('missing lecture text'))
+			.rejects.toEqual( Error('A parameter is missing'))
 		done()
 
 	})
 	test('error if blank module id when adding a new lecture ', async done => {
 		const lecture= await new Lecture()
 		await expect( lecture.addlecture(1,'html','html rules','') )
-			.rejects.toEqual( Error('missing module id'))
+			.rejects.toEqual( Error('A parameter is missing'))
 		done()
 
 	})
