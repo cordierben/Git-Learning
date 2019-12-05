@@ -35,6 +35,39 @@ describe('get lecture()', () => {
 		done()
 
 	})
+	test('get each lecture', async done => {
+		try{
+			const lecture= await new Lecture()
+			await lecture.addlecture(1,'html','html rules',0)
+			const data= await lecture.eachLecture()
+			expect(data.id).toEqual(1)
+		} catch(err) {
+			done.fail('test failed')
+		} finally {
+			done()
+		}
+	})
+	test('error if blank lecture id when getting a  lecture ', async done => {
+		const lecture= await new Lecture()
+		await lecture.addlecture(1,'html','html rules',0)
+		await expect( lecture.allLectureModule('') )
+			.rejects.toEqual( Error('did not specify which module id'))
+		done()
+
+	})
+	test('get all lectures in a module', async done => {
+		try{
+			const lecture= await new Lecture()
+			await lecture.addlecture(1,'html','html rules',0)
+			const data= await lecture.allLectureModule(0)
+			console.log(data)
+			expect(data.id).toEqual(1)
+		} catch(err) {
+			done.fail('test failed')
+		} finally {
+			done()
+		}
+	})
 
 })
 
