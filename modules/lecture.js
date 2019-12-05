@@ -17,12 +17,8 @@ module.exports = class Lecture {
 	}
 
 	async missingparameters(id, text) {
-		try {
-			if(id.toString().length === 0 || text.length===0) return true
-			else return false
-		} catch(err) {
-			throw err
-		}
+		if(id.toString().length === 0 || text.length===0) return true
+		else return false
 	}
 
 	 // Insert a lecture with its ID,title, text and module ID into the databse
