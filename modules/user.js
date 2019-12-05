@@ -57,7 +57,7 @@ module.exports = class User {
 				await this.db.run(sql)
 				return true
 			}
-		} catch(err) {
+		} catch(err)  {
 			throw err
 		}
 	}
@@ -89,7 +89,7 @@ module.exports = class User {
 		try {
 			if(user.length === 0) throw new Error('missing username')
 			const record=await this.db.get(`SELECT id FROM user WHERE user = "${user}";`)
-			return record
+			return record.id
 		} catch(err) {
 			throw err
 		}
