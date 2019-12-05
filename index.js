@@ -300,8 +300,8 @@ router.get('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 router.get('/result/:id1/:id2', async ctx => {
 	try {
 		//const db = await sqlite.open(dbName)
-		const lecture = await new Lecture(dbName)
-		const data = await lecture.getscore(ctx.session.id,ctx.params.id2, ctx.params.id1)
+		const score = await new Score(dbName)
+		const data = await score.getscore(ctx.session.id,ctx.params.id2, ctx.params.id1)
 		//const data = await db.get(`SELECT MAX(attempt_id) as last, score, fail FROM score 
 														//WHERE user_id=${ctx.session.id}
 														//AND module_id=${ctx.params.id1};`)
@@ -332,7 +332,7 @@ router.post('/lecture/:id1/quiz/:id2/module/:id3', async ctx => {
 			if(value.data2.score<value.four) score.updatefail(ctx.session.id,ctx.params.id1, ctx.params.id3,'failed',value.data2.last)
 		    else score.updatefail(ctx.session.id,ctx.params.id1, ctx.params.id3, 'passed',value.data2.last)
 			ctx.session.quiz=0
-			return ctx.redirect(`/result/${ctx.params.id3}`)
+			return ctx.redirect(`/result/${ctx.params.id3}/${ctx.params.id1}`)
 		} else {//Else go to next question randomly
 			const random= await gen()
 			ctx.redirect(`/lecture/${ctx.params.id1}/quiz/${random}/module/${ctx.params.id3}`)
