@@ -38,7 +38,25 @@ module.exports = class Lecture {
 		}
 	}
 
-	// get the chosen lecture of a specific module
+	// get the chosen lecture
+	async eachLecture() {
+		const data=await this.db.all('SELECT id, title, module_id FROM lecture;')
+		return data
+
+	}
+
+	async allLectureModule(moduleId) {
+		try {
+			if(moduleId.toString().length === 0) throw new Error('did not specify which module id')
+			const data=await this.db.all(`SELECT id, title, module_id FROM lecture WHERE module_id=${moduleId};`)
+			return data
+		} catch(err) {
+			throw err
+		}
+
+	}
+
+
 	async getlecture(id,moduleId) {
 		try {
 			if(moduleId.toString().length === 0) throw new Error('did not specify which module id')

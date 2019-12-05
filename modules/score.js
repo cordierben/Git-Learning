@@ -45,6 +45,31 @@ module.exports = class Score {
 			throw err
 		}
 	}
+	async getHighestScore(user, lecture, moduleid) {
+		try {
+			if(moduleid.toString().length === 0) throw new Error('missing module id')
+			const data=await this.db.get(`SELECT MAX(score) as best, date FROM score WHERE user_id=${user} 
+																AND lecture_id=${lecture}
+																AND module_id=${moduleid};`)
+			return data
+		} catch(err) {
+			throw err
+		}
+	}
+	async allscores(user) {
+		try {
+			if(user.toString().length === 0) throw new Error('missing user id')
+			const sql = `SELECT COUNT(*) as count FROM score WHERE user_id=${user};`
+			const data = await this.db.get(sql)
+			if(!data.count) throw new Error(`user ID "${user}" does not have a previous score`)
+			const data1=await this.db.all(`SELECT date, score, fail, lecture_id, module_id FROM score 
+														WHERE user_id=${user}
+														AND score IS NOT NULL;`)
+			return data1
+		} catch(err) {
+			throw err
+		}
+	}
 
 	async updatescore(user, lecture, moduleid, score, attempt) {
 		try {

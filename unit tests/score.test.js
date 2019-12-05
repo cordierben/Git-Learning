@@ -95,3 +95,52 @@ describe('score()', () => {
 })
 
 
+describe('all scores()', () => {
+	test('error if no user id ', async done => {
+		const score= await new Score()
+		await expect( score.allscores('') )
+			.rejects.toEqual( Error('missing user id'))
+		done()
+
+	})
+	test('No previous scores', async done => {
+		const score = await new Score()
+		await score.newscore(1,2,3)
+		await expect( score.allscores(0) )
+			.rejects.toEqual( Error('user ID "0" does not have a previous score') )
+		done()
+	})
+
+	test('get all scores', async done => {
+		try{
+			const scores= await new Score()
+			await scores.newscore(0,1,2)
+			const result= await scores.allscores(0)
+			expect(result[0].score).toEqual(0)
+		} catch(err) {
+			done.fail('test failed')
+		} finally {
+			done()
+		}
+	})
+	test('error if no module id ', async done => {
+		const score= await new Score()
+		await expect( score.getHighestScore(1,2,'') )
+			.rejects.toEqual( Error('missing module id'))
+		done()
+
+	})
+
+	test('get max scores', async done => {
+		try{
+			const scores= await new Score()
+			await scores.newscore(0,1,2)
+			const result= await scores.getHighestScore(0,1,2)
+			expect(result.best).toEqual(0)
+		} catch(err) {
+			done.fail('test failed')
+		} finally {
+			done()
+		}
+	})
+})
