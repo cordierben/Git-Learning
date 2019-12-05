@@ -111,7 +111,7 @@ describe('all scores()', () => {
 		done()
 	})
 
-    test('get all scores', async done => {
+	test('get all scores', async done => {
 		try{
 			const scores= await new Score()
 			await scores.newscore(0,1,2)
@@ -131,7 +131,7 @@ describe('all scores()', () => {
 
 	})
 
-    test('get max scores', async done => {
+	test('get max scores', async done => {
 		try{
 			const scores= await new Score()
 			await scores.newscore(0,1,2)
