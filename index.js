@@ -19,7 +19,7 @@ const User=require('./modules/user')
 const Score=require('./modules/score')
 const Lecture=require('./modules/lecture')
 const Quiz=require('./modules/quiz')
-const Admin=require('./modules/admin')
+//const Admin=require('./modules/admin')
 const Module=require('./modules/module')
 
 const app = new Koa()

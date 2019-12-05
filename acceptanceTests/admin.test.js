@@ -49,7 +49,7 @@ describe('Admin Login', () => {
 		const image3 = await page.screenshot()
 		// compare to the screenshot from the previous test run
 		expect(image3).toMatchImageSnapshot()
-		
+
 		//ASSERT
 		//check that the user is taken to the homepage after attempting to login as the new user:
 		await page.waitForSelector('p')

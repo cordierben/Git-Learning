@@ -39,7 +39,7 @@ describe('Edit Lectures', () => {
 		await page.goto('http://localhost:8080/adminlogin', { timeout: 30000, waitUntil: 'load' })
 		await page.type('input[name=user]', 'test')
 		await page.type('input[name=pass]', 'test')
-		await page.click('input[type=submit]')	
+		await page.click('input[type=submit]')
 		await page.type('input[name=showLecture]', '1')
 		await page.type('input[name=showModuleID]', '1')
 		const imagenum = await page.screenshot()

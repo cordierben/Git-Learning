@@ -57,7 +57,7 @@ module.exports = class User {
 				await this.db.run(sql)
 				return true
 			}
-		} catch(err)  {
+		} catch(err) {
 			throw err
 		}
 	}
