@@ -40,7 +40,7 @@ describe('get lecture()', () => {
 			const lecture= await new Lecture()
 			await lecture.addlecture(1,'html','html rules',0)
 			const data= await lecture.eachLecture()
-			expect(data.id).toEqual(1)
+			expect(data[0].id).toEqual(1)
 		} catch(err) {
 			done.fail('test failed')
 		} finally {
@@ -60,7 +60,7 @@ describe('get lecture()', () => {
 			const lecture= await new Lecture()
 			await lecture.addlecture(1,'html','html rules',0)
 			const data= await lecture.allLectureModule(0)
-			expect(data.id).toEqual(1)
+			expect(data[0].id).toEqual(1)
 		} catch(err) {
 			done.fail('test failed')
 		} finally {
