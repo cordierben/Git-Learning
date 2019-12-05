@@ -15,14 +15,21 @@ module.exports = class Lecture {
 			return this
 		})()
 	}
+
+	async missingparameters(id, text) {
+		try {
+			if(id.toString().length === 0 || text.length===0) return true
+			else return false
+		} catch(err) {
+			throw err
+		}
+	}
+
 	 // Insert a lecture with its ID,title, text and module ID into the databse
-	 /*eslint-disable complexity*/
 	async addlecture(id, title, text, moduleId) {
 		try {
-			if(id.toString().length === 0) throw new Error('missing lecture id')
-			if(text.length === 0) throw new Error('missing lecture text')
-			if(title.length === 0) throw new Error('missing lecture title')
-			if(moduleId.toString().length === 0) throw new Error('missing module id')
+			if(await this.missingparameters(id, text)===true) throw new Error('A parameter is missing')
+			if(title.length === 0 || moduleId.toString().length ===0) throw new Error('A parameter is missing')
 			const data=await this.db.get(`INSERT INTO lecture (id, title, text,module_id)
                                                 VALUES (${id},"${title}","${text}",${moduleId});`)
 			return data
@@ -30,6 +37,7 @@ module.exports = class Lecture {
 			throw err
 		}
 	}
+
 	// get the chosen lecture of a specific module
 	async getlecture(id,moduleId) {
 		try {

@@ -35,13 +35,12 @@ module.exports = class Quiz {
 		}
 	}
 
-	/*eslint-disable max-params*/
-	async addoption(option1, option2,answer,questionId, lectureId, moduleid) {
+	async addoption(option1, option2,answer,questionId, lectureId) {
 		try {
 			if(option1.length === 0) throw new Error('missing option 1')
 			const data=await this.db.get(`INSERT INTO option (option1, option2,answer,question_id,lecture_id, module_id)
 												VALUES ("${option1}","${option2}","${answer}",
-												${questionId},${lectureId}, ${moduleid});`)
+												${questionId},${lectureId},0);`)
 			return data
 		} catch(err) {
 			throw err

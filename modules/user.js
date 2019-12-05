@@ -1,4 +1,3 @@
-
 'use strict'
 
 const bcrypt = require('bcrypt-promise')
@@ -15,8 +14,8 @@ module.exports = class User {
 						user TEXT, pass TEXT, email TEXT, admin INTEGER, user_module INTEGER, 
 						FOREIGN KEY(user_module) REFERENCES module (id));`
 			const sql2 = `CREATE TABLE IF NOT EXISTS score (user_id INTEGER, 
-						lecture_id INTERGER, module_id INTERGER, attempt_id INTEGER PRIMARY KEY AUTOINCREMENT, score INTEGER, date TEXT, 
-						fail TEXT);`
+						lecture_id INTERGER, module_id INTERGER, attempt_id INTEGER PRIMARY KEY AUTOINCREMENT, 
+						score INTEGER, date TEXT, fail TEXT);`
 
 			await this.db.run(sql)
 			await this.db.run(sql2)
@@ -33,13 +32,10 @@ module.exports = class User {
 			if(data.records !== 0) throw new Error(`username "${user}" already in use`)
 			// ENCRYPTING PASSWORD AND BUILDING SQL
 			pass = await bcrypt.hash(pass, saltRounds)
-			//Adds username, password and email into the database
 			sql = `INSERT INTO user(user, pass, email) VALUES("${user}", "${pass}","${email}")`
 			await this.db.run(sql)
 			let sql2 = `SELECT id FROM user WHERE user="${user}";`
-			console.log(sql2)
 			const data2 = await this.db.get(sql2)
-			console.log(data2)
 			sql2 = `INSERT INTO score(user_id) VALUES("${data2.id}")`
 			// DATABASE COMMANDS
 			await this.db.run(sql2)

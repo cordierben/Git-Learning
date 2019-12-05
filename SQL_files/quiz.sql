@@ -2,7 +2,6 @@ INSERT INTO question (id, question , lecture_id, module_id) VALUES (
                                     1,
                                     "What kind of software is GIT?",
                                     1,
-                                    "What kind of software is GIT?",
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     2,
@@ -146,17 +145,17 @@ INSERT INTO question (id, question , lecture_id, module_id) VALUES (
                                     1);    
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     6,
-                                    "It is good practice to separate the code into branches as it is developed.”,
+                                    "It is good practice to separate the code into branches as it is developed.",
                                     6,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     7,
-                                    "Branches allows different versions of the same file to exist simultaneously.”,
+                                    "Branches allows different versions of the same file to exist simultaneously.",
                                     6,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     8,
-                                    "Branching does not allow users to work on different versions of the same project.”,
+                                    "Branching does not allow users to work on different versions of the same project.",
                                     6,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
@@ -171,22 +170,22 @@ INSERT INTO question (id, question , lecture_id, module_id) VALUES (
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     11,
-                                    "The git pull command should be used after git checkout.”,
+                                    "The git pull command should be used after git checkout.",
                                     6,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     12,
-                                    "The checkout command used is ‘git checkout master’.”,
+                                    "The checkout command used is ‘git checkout master’.",
                                     6,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     13,
-                                    "The version name is needed after the git merge command.”,
+                                    "The version name is needed after the git merge command.",
                                     6,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     14,
-                                    "Merge conflicts do not occur.”,
+                                    "Merge conflicts do not occur.",
                                     6,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
@@ -196,7 +195,7 @@ INSERT INTO question (id, question , lecture_id, module_id) VALUES (
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     16,
-                                    "The branch command to use is ‘git branch -av‘.
+                                    "The branch command to use is ‘git branch -av‘",
                                     6,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
@@ -282,7 +281,7 @@ INSERT INTO question (id, question , lecture_id, module_id) VALUES (
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     12,
-                                    "Repositories track and log all file modifications”,
+                                    "Repositories track and log all file modifications",
                                     3,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
@@ -302,17 +301,17 @@ INSERT INTO question (id, question , lecture_id, module_id) VALUES (
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     16,
-                                    "The gitinit command crates a new subdirectory.”,
+                                    "The gitinit command crates a new subdirectory.",
                                     3,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     17,
-                                    "The gitinit command does not result in the creation of a new master branch.”,
+                                    "The gitinit command does not result in the creation of a new master branch.",
                                     3,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     18,
-                                    "The gitinit command will always have the same effect.”,
+                                    "The gitinit command will always have the same effect.",
                                     3,
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
@@ -322,7 +321,7 @@ INSERT INTO question (id, question , lecture_id, module_id) VALUES (
                                     1);
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     20,
-                                    "A new repository will contain metadata.”,
+                                    "A new repository will contain metadata.",
                                     3,
                                     1);
 
@@ -610,11 +609,11 @@ INSERT INTO question (id, question , lecture_id, module_id) VALUES (
                                     2,
                                     1);    
 
-INSERT INTO question (id, question , lecture_id) VALUES ( 
+INSERT INTO question (id, question, lecture_id, module_id) VALUES ( 
                                     8,
                                     "Is Git Chocolatey package community maintained?",
                                     2,
-                                    1);   
+                                    1);
 
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     9,
@@ -637,5 +636,53 @@ INSERT INTO question (id, question , lecture_id, module_id) VALUES (
 INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
                                     12,
                                     "What is Git?",
+                                    2,
+                                    1);
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    13,
+                                    "Git comes with a tool called .... that lets you get and set configuration variables that control all aspects of how Git looks and operates. What is the name of the tool?",
+                                    2,
+                                    1);
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    14,
+                                    "The easiest way to install Git on a Mac is probably to install the... ",
+                                    2,
+                                    1);
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    15,
+                                    "If you want a more up to date version on Mac, you can also install it via ",
+                                    2,
+                                    1);
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    16,
+                                    "If you want to install git on windows and go to https://git-scm.com/download/win the download start automatically? ",
+                                    2,
+                                    1);
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    17,
+                                    "Installing git on windows, can we get git installed by installing Github Desktop? ",
+                                    2,
+                                    1);
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    18,
+                                    "When you installing git from source you get the most recent version? ",
+                                    2,
+                                    1);
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    19,
+                                    "When intalling from source and if you’re using a Debian-based distribution (Debian/Ubuntu/Ubuntu-derivatives), you also need the install-info package? ",
+                                    2,
+                                    1);
+
+INSERT INTO question (id, question , lecture_id, module_id) VALUES ( 
+                                    20,
+                                    "When installing from source and if you’re using a RPM-based distribution (Fedora/RHEL/RHEL-derivatives), what package you will need? ",
                                     2,
                                     1);

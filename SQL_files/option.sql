@@ -303,7 +303,8 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id
                                     "git add",
                                     "git add",
                                      3,
-                                     3);
+                                     3,
+                                     1);
 INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
                                     "git commit -am 'Commit message'",
                                     "git commit 'Commit message'",
@@ -352,9 +353,79 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id
                                     "An error will occur",
                                     "The pre-existing repository will be re-initialised",
                                      10,
-                                     3);   
-
-
+                                     3,
+                                     1);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     11,
+                                     3,
+                                     1);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     12,
+                                     3,
+                                     1);                                     
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     13,
+                                     3,
+                                     1);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     14,
+                                     3,
+                                     1);
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     15,
+                                     3,
+                                     1);                                     
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     16,
+                                     3,
+                                     1);                                     
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     17,
+                                     3,
+                                     1);                                    
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     18,
+                                     3,
+                                     1);                                   
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     19,
+                                     3,
+                                     1);                                     
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     20,
+                                     3,
+                                     1);                                     
+                                     
 
 
 INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
@@ -458,8 +529,71 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id
                                      12,
                                      2,
                                      1);
-                                     
-                                     
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "git config",
+                                    "git Chocolatey",
+                                    "git config",
+                                     13,
+                                     2,
+                                     1);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "The Xcode Command Line Tools",
+                                    "The Chocolatey package",
+                                    "The Xcode Command Line Tools",
+                                     14,
+                                     2,
+                                     1);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "A binary installer",
+                                    "A package",
+                                    "A binary installer",
+                                     15,
+                                     2,
+                                     1);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "Yes",
+                                    "No",
+                                    "Yes",
+                                     16,
+                                     2,
+                                     1);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "Yes",
+                                    "No",
+                                    "Yes",
+                                     17,
+                                     2,
+                                     1);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "Yes",
+                                    "No",
+                                    "Yes",
+                                     18,
+                                     2,
+                                     1);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "Yes",
+                                    "No",
+                                    "Yes",
+                                     19,
+                                     2,
+                                     1);
+
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "getopt package",
+                                    "install-info package",
+                                    "getopt package",
+                                     20,
+                                     2,
+                                     1);
+                                      
 INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
                                     "True",
                                     "False",
@@ -638,3 +772,159 @@ INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id
                                      20,
                                      1,
                                      2);
+                                     
+                                     
+                                     
+                                     
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     1,
+                                     6,
+                                     1);  
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "git fetch, git branch",
+                                    "git branch, git fetch",
+                                    "git fetch, git branch",
+                                     2,
+                                     6,
+                                     1);                                      
+                                     
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "[Behind 0]",
+                                    "[Behind 1]",
+                                    "[Behind 1]",
+                                     3,
+                                     6,
+                                     1); 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     4,
+                                     6,
+                                     1); 
+                                     
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     5,
+                                     6,
+                                     1); 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     6,
+                                     6,
+                                     1);                                      
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     7,
+                                     6,
+                                     1); 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     8,
+                                     6,
+                                     1);                                     
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     9,
+                                     6,
+                                     1);                                      
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     10,
+                                     6,
+                                     1);                                      
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     11,
+                                     6,
+                                     1);                                     
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     12,
+                                     6,
+                                     1); 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     13,
+                                     6,
+                                     1); 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     14,
+                                     6,
+                                     1); 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     15,
+                                     6,
+                                     1); 
+                                     
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     16,
+                                     6,
+                                     1); 
+                                    
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     17,
+                                     6,
+                                     1); 
+                                           
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     18,
+                                     6,
+                                     1); 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "True",
+                                     19,
+                                     6,
+                                     1); 
+INSERT INTO option (option1,option2, answer , question_id, lecture_id, module_id) VALUES ( 
+                                    "True",
+                                    "False",
+                                    "False",
+                                     20,
+                                     6,
+                                     1);                                      
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     
+                                     

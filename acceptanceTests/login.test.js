@@ -25,6 +25,7 @@ beforeAll( async() => {
 	page = await browser.newPage()
 	har = new PuppeteerHar(page)
 	await page.setViewport({ width, height })
+
 })
 
 describe('Registering', () => {
