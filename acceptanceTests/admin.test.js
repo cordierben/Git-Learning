@@ -3,8 +3,8 @@
 const puppeteer = require('puppeteer')
 const { configureToMatchImageSnapshot } = require('jest-image-snapshot')
 const PuppeteerHar = require('puppeteer-har')
-const shell = require('shelljs')
-const sqlite = require('sqlite-async')
+//const shell = require('shelljs')
+//const sqlite = require('sqlite-async')
 
 
 const width = 1920

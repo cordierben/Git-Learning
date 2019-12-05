@@ -3,7 +3,7 @@
 const puppeteer = require('puppeteer')
 const { configureToMatchImageSnapshot } = require('jest-image-snapshot')
 const PuppeteerHar = require('puppeteer-har')
-const shell = require('shelljs')
+//const shell = require('shelljs')
 
 const width = 1920
 const height = 1080
