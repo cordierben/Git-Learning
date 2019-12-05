@@ -28,7 +28,6 @@ describe('module()', () => {
             const module= await new Module()
             await module.addmodule(0,'javascript')
             const result= await module.allmodule()
-            console.log(result)
             expect(result[0].id).toEqual(0)
         } catch(err) {
              done.fail('test failed')
