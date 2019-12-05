@@ -67,7 +67,7 @@ describe('option()', () => {
 	test('add options', async done => {
 		try {
 			const quiz= await new Quiz()
-			await quiz.addoption('1','2','2',0,0,0)
+			await quiz.addoption('1','2','2',0,0)
 			const data=await quiz.getoption(0,0,0)
 			expect(data.option1).toEqual('1')
 		} catch(err) {

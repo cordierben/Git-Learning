@@ -2,7 +2,6 @@
 
 
 const Admin = require('../modules/admin.js')
-const Lecture=require('../modules/lecture.js')
 
 describe('login()', () => {
 
@@ -14,23 +13,6 @@ describe('login()', () => {
 		expect(valid).toBe(true)
 		done()
 	})
-
-	test('error if username not specified', async done => {
-		const admin = await new Admin()
-		await expect(admin.login('', 'ff')).rejects.toEqual(Error('Username not specified'))
-		done()
-	})
-	test('error if password not specified', async done => {
-		const admin = await new Admin()
-		await expect(admin.login('fff', '')).rejects.toEqual(Error('Password not specified'))
-		done()
-	})
-	test('error if admin not specified', async done => {
-		const admin = await new Admin()
-		await expect(admin.login('fff', 'f')).rejects.toEqual(Error('Account not admin'))
-		done()
-	})
-
 	test('error if account not found', async done => {
 		const admin = await new Admin()
 		await admin.register('tesst', 'fw', 'test@gmail.com')

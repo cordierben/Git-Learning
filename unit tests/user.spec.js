@@ -91,6 +91,15 @@ describe('selectUser()', () => {
 		done()
 	})
 
+	test('user found', async done => {
+		expect.assertions(1)
+		const account = await new Accounts()
+		//await account.register('user', 'f', 'f')
+		const valid = await account.selectUser('user')
+		expect(valid).toBe(true)
+		done()
+	})
+
 })
 
 describe('getuser()', () => {
@@ -103,4 +112,13 @@ describe('getuser()', () => {
 			.rejects.toEqual( Error('missing username') )
 		done()
 	})
+	test('get user ', async done => {
+		expect.assertions(1)
+		const account = await new Accounts()
+		await account.register('user', 'f', 'f')
+		const valid = await account.getuser('user')
+		expect(valid).toBe(1)
+		done()
+	})
+
 })
